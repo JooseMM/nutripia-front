@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --primary-ft-color: #1e293b;
+  --secondary-ft-color: #64748b;
+  --primary-color: #8b7ca8;
+  --soft-gray: #e2e8f0;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  border: none;
+  outline: none;
+  background: none;
+}
+
+*,
+* > * {
+  font-family: 'Lexend', sans-serif;
+  font-style: normal;
+  box-sizing: border-box;
+}
+
+b {
+  color: var(--primary-color);
+}
+
+a,
+a:visited,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
