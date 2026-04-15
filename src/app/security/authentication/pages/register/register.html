@@ -1,8 +1,14 @@
 <main>
   <div class="image_container">
-    <a routerLink="/home" class="logo_container"><app-logo></app-logo></a>
+    <a routerLink="/home" class="logo_container"><app-logo [light]="true"></app-logo></a>
     <div class="image__title">
       <h3>NutriPia</h3>
+      <ul>
+        <li><lucide-icon [img]="FORKS" size="30"></lucide-icon></li>
+        <li><lucide-icon [img]="DUMBBELL" size="30"></lucide-icon></li>
+        <li><lucide-icon [img]="LEAF" size="30"></lucide-icon></li>
+        <li><lucide-icon [img]="APPLE" size="30"></lucide-icon></li>
+      </ul>
       <p>Tu camino hacia una vida más saludable comienza aquí.</p>
     </div>
   </div>
@@ -10,35 +16,62 @@
     <a routerLink="/authentication/login" class="option_container"
       >¿Ya tienes cuenta? <b>Inicia sesión</b></a
     >
-    <div class="content__title">
-      <h1>Crea tu cuenta</h1>
-      <p>Únete a nuestra comunidad y empieza tu transformación.</p>
-    </div>
-    <form [formGroup]="form">
-      <app-custom-input label="Primer nombre" placeholder="ejem: Juan"></app-custom-input>
-      <app-custom-input label="Primer apellido" placeholder="ejem: Perez"></app-custom-input>
-      <app-custom-input
-        label="Correo Electrónico"
-        placeholder="ejem: cesar.andrade@correo.com"
-      ></app-custom-input>
-      <app-custom-input
-        label="Fecha de nacimiento"
-        type="date"
-        placeholder="ejem: 2000-01-01"
-      ></app-custom-input>
-      <app-custom-input label="RUT" placeholder="ejem: 22.222.222-2"></app-custom-input>
-      <app-custom-input label="Contraseña" placeholder="●●●●●●●●●●●●●●●●●●●●"></app-custom-input>
-      <app-custom-input
-        label="Confirmar contraseña"
-        placeholder="●●●●●●●●●●●●●●●●●●●●"
-      ></app-custom-input>
-    </form>
+    @if (!isLoading()) {
+      <div class="content__title">
+        <h1>Crea tu cuenta</h1>
+        <p>
+          Sé parte de la revolución nutricional y transforma la vida de tus pacientes con NutriPia.
+        </p>
+      </div>
+      <form [formGroup]="form">
+        <app-custom-input
+          formControlName="firstname"
+          label="Primer nombre"
+          placeholder="ejem: Juan"
+        ></app-custom-input>
+        <app-custom-input
+          formControlName="lastname"
+          label="Primer apellido"
+          placeholder="ejem: Perez"
+        ></app-custom-input>
+        <app-custom-input
+          formControlName="email"
+          label="Correo Electrónico"
+          placeholder="ejem: cesar.andrade@correo.com"
+        ></app-custom-input>
+        <app-custom-input
+          formControlName="birthDate"
+          label="Fecha de nacimiento"
+          type="date"
+          placeholder="ejem: 2000-01-01"
+        ></app-custom-input>
+        <app-custom-input
+          formControlName="rut"
+          label="RUT"
+          placeholder="ejem: 22.222.222-2"
+        ></app-custom-input>
+        <app-custom-input
+          formControlName="password"
+          type="password"
+          label="Contraseña"
+          placeholder="●●●●●●●●●●●●●●●●●●●●"
+        ></app-custom-input>
+        <app-custom-input
+          formControlName="confirmPassword"
+          label="Confirmar contraseña"
+          type="password"
+          placeholder="●●●●●●●●●●●●●●●●●●●●"
+          placeholder="●●●●●●●●●●●●●●●●●●●●"
+        ></app-custom-input>
+        <app-custom-checkbox
+          formControlName="acceptTerm"
+          label="Acepto los Términos y Condiciones así como la Política de Privacidad."
+        ></app-custom-checkbox>
+      </form>
 
-    <div class="actions">
-      <app-custom-checkbox
-        label="Acepto los Términos y Condiciones así como la Política de Privacidad."
-      ></app-custom-checkbox>
-      <app-button>Crear Cuenta</app-button>
-    </div>
+      <app-button [disable]="!form.valid" (click)="submit()">Crear Cuenta</app-button>
+    } @else {
+      <app-loading-spinner></app-loading-spinner>
+    }
   </div>
 </main>

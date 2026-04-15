@@ -18,3 +18,10 @@ button:hover {
   color: var(--primary-color);
   cursor: pointer;
 }
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+  background-color: var(--primary-color);
+  color: white;
+}

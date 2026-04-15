@@ -25,6 +25,10 @@ input::placeholder {
   color: #94a3b8;
 }
 
+.invalid {
+  border-color: #cd5c5c;
+}
+
 small {
   padding-left: 1rem;
   color: #cd5c5c;

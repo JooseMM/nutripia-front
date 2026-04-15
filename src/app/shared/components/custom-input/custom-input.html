@@ -4,13 +4,15 @@
     [id]="id()"
     [type]="type()"
     class="field__input"
+    [class.invalid]="isInvalid()"
     [placeholder]="placeholder()"
     [value]="value"
     (input)="onInput($event)"
     (blur)="onBlur()"
+    (focus)="onFocus()"
     [value]="value"
   />
-  @if (isInvalid()) {
+  @if (isInvalid() && !focus()) {
     <small>{{ errorMessage() }}</small>
   }
 </div>

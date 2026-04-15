@@ -1,27 +1,21 @@
-import { Component, computed, forwardRef, input, Optional, Self } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { Component, computed, input, Optional, Self, signal } from '@angular/core';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
   selector: 'app-custom-input',
   imports: [],
   templateUrl: './custom-input.html',
   styleUrl: './custom-input.css',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CustomInput),
-      multi: true,
-    },
-  ],
 })
 export class CustomInput implements ControlValueAccessor {
   label = input.required<string>();
-  type = input<string>("text");
+  type = input<string>('text');
   placeholder = input('Ingresa la informacion del campo');
   protected readonly id = computed(() => this.label() + new Date().getTime());
 
   value: string = '';
   disabled = false;
+  focus = signal(false);
 
   onChange = (_: string) => {};
   onTouched = () => {};
@@ -40,8 +34,13 @@ export class CustomInput implements ControlValueAccessor {
     this.onChange(val);
   }
 
+  onFocus() {
+    this.focus.set(true);
+  }
+
   // Called when input loses focus
   onBlur() {
+    this.focus.set(false);
     this.onTouched();
   }
 
@@ -51,13 +50,19 @@ export class CustomInput implements ControlValueAccessor {
     return control ? control.invalid && control.touched : false;
   }
 
-  errorMessage() {
+  protected errorMessage(): string | undefined {
     const errors = this.controlDir?.control?.errors;
-    if (errors?.['required']) return `El campo ${this.label} es requerido.`;
-    if (errors?.['minlength'])
-      return `El campo debe de ser mayor de ${errors['minlength'].requiredLength} caracteres.`;
 
-    throw new Error('Unhandle validation');
+    if (errors?.['required']) return `Campo requerido`;
+    if (errors?.['minlength'])
+      return `El campo debe tener minimo ${errors['minlength'].requiredLength} caracteres`;
+    if (errors?.['maxlength'])
+      return `El campo debe tener maximo ${errors['maxlength'].requiredLength} caracteres`;
+    if (errors?.['email']) return `Formato de email invalido`;
+    if (errors?.['passwordMismatch']) return `Las contraseñas no coinciden`;
+    if (errors?.['emailAlreadyPresent']) return `El correo electrónico ya se encuentra registrado`;
+
+    return undefined;
   }
 
   // Angular calls this to set the value

@@ -3,11 +3,11 @@ import {
   AuthenticatedUser,
   LoginRequestDto,
   RegisterNutritionist,
-  RegistrationState,
+  RegistrationResponseState,
   RegistrationStateType,
   UserRoles,
 } from '../';
-import { Observable, of } from 'rxjs';
+import { delay, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +21,7 @@ export class AuthenticationService {
   readonly sessionToken = this._sessionToken.asReadonly();
   readonly isAuthenticated = computed(() => !!this.sessionToken);
 
-  protected NutritionistLogin(_: LoginRequestDto): void {
+  NutritionistLogin(_: LoginRequestDto): void {
     this._authenticationInfo.set({
       userId: 'user-1',
       firstname: 'juanete',
@@ -31,10 +31,14 @@ export class AuthenticationService {
     this._sessionToken.set('super-secure-session-token-key');
   }
 
-  protected NutritionistRegister(payload: RegisterNutritionist): Observable<RegistrationStateType> {
-    if (payload.emailAddress === 'example@example.com')
-      return of(RegistrationState.EmailAlreadyPresent);
+  NutritionistRegister(payload: RegisterNutritionist): Observable<RegistrationStateType> {
+    let response: RegistrationStateType = RegistrationResponseState.Ok;
+    if (payload.emailAddress === 'conflict@example.com')
+      response = RegistrationResponseState.EmailAlreadyPresent;
 
-    return of(RegistrationState.Ok);
+    if (payload.emailAddress === 'unexpected@example.com')
+      response = RegistrationResponseState.UnexpectedError;
+
+    return of(response).pipe(delay(1000));
   }
 }
