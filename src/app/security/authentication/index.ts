@@ -11,4 +11,7 @@ export { UserRoles } from './models/role.models';
 export { AuthenticationService } from './services/authentication-service';
 
 /* Pages */
-export { Login } from './pages/login/login';
+export { AuthenticationLayout } from './pages/authentication-layout/authentication-layout';
+
+/* Constants */
+export { AUTHENTICATION_LOADING_KEY } from './constants/constants'

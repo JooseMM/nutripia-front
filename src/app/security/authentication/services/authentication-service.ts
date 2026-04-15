@@ -33,7 +33,7 @@ export class AuthenticationService {
 
   NutritionistRegister(payload: RegisterNutritionist): Observable<RegistrationStateType> {
     let response: RegistrationStateType = RegistrationResponseState.Ok;
-    if (payload.emailAddress === 'conflict@example.com')
+    if (payload.emailAddress === 'conflict@example')
       response = RegistrationResponseState.EmailAlreadyPresent;
 
     if (payload.emailAddress === 'unexpected@example.com')

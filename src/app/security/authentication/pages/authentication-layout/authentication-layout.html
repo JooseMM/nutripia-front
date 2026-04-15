@@ -1,0 +1,25 @@
+<main>
+  <div class="image_container">
+    <a routerLink="/home" class="logo_container"><app-logo [light]="true"></app-logo></a>
+    <div class="image__title">
+      <h3>NutriPia</h3>
+      <ul>
+        <li><lucide-icon [img]="FORKS" size="30"></lucide-icon></li>
+        <li><lucide-icon [img]="DUMBBELL" size="30"></lucide-icon></li>
+        <li><lucide-icon [img]="LEAF" size="30"></lucide-icon></li>
+        <li><lucide-icon [img]="APPLE" size="30"></lucide-icon></li>
+      </ul>
+      <p>Tu camino hacia una vida más saludable comienza aquí.</p>
+    </div>
+  </div>
+  <div class="content_container">
+    <div class="option_container">
+      <a routerLink="/home" class="logo_container--mobile"><app-logo [light]="false"></app-logo></a>
+      <a routerLink="/authentication/login">¿Ya tienes cuenta? <b>Inicia sesión</b></a>
+    </div>
+    <app-loading-spinner [key]="LOADING_KEY"></app-loading-spinner>
+    <div [style.display]="isLoading() ? 'none' : 'block'">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</main>
