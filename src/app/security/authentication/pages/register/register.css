@@ -20,12 +20,14 @@ main {
   justify-content: space-between;
   padding-block: 2rem;
   color: var(--secondary-ft-color);
-  opacity: 0.8;
-  transition: 300ms;
   font-size: 1rem;
   text-align: center;
 }
 
+.option_container > a {
+  transition: 300ms;
+  opacity: 0.8;
+}
 .option_container > a:hover {
   opacity: 1 !important;
 }
@@ -152,8 +154,12 @@ form {
   border-radius: 0.5rem;
 }
 
-.completed__resend button {
-  font-weight: bold;
+.completed__resend a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  gap: 0.5rem;
   color: var(--primary-color);
 }
 
@@ -162,6 +168,15 @@ form {
   margin: 0rem;
   font-size: 0.9rem;
 }
+
+.completed__description {
+  color: var(--secondary-ft-color);
+}
+
+.completed__description b {
+  color: var(--primary-ft-color);
+}
+
 .completed__resend__description {
   margin: 0rem;
   color: #94a3b8;

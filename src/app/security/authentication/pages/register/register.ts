@@ -26,8 +26,9 @@ import {
   RegistrationResponseState,
   RegistrationStateType,
 } from '../..';
-import { LoadingSpinner } from '../../../../shared/components/loading-spinner/loading-spinner';
+import { LoadingSpinner } from '../../../../shared/overlay/loader/components/loading-spinner/loading-spinner';
 import { finalize } from 'rxjs';
+import { LoadingManager } from '../../../../shared/overlay/loader/services/loading-manager';
 
 @Component({
   selector: 'app-register',
@@ -51,14 +52,17 @@ export class Register {
   protected readonly FORKS = Utensils;
   protected readonly MESSAGE = Mail;
   protected readonly RETRY = RotateCcw;
+  protected readonly LOADING_KEY = 'registering-user';
 
   private readonly fb = inject(NonNullableFormBuilder);
+  private readonly loadingManager = inject(LoadingManager);
   private readonly authenticationService = inject(AuthenticationService);
 
   private readonly state: WritableSignal<RegistrationStateType | undefined> = signal(undefined);
   protected readonly isComplete = computed(() => this.state() === RegistrationResponseState.Ok);
 
-  protected readonly isLoading = signal(false);
+  protected readonly isLoading = computed(() => this.loadingManager.isLoading(this.LOADING_KEY));
+
   protected readonly form = this.fb.group(
     {
       firstname: ['', [Validators.required, Validators.minLength(3)]],
@@ -103,10 +107,10 @@ export class Register {
       rut: value.rut.trim().toLowerCase(),
     };
 
-    this.isLoading.set(true);
+    this.loadingManager.showSpinner(this.LOADING_KEY);
     this.authenticationService
       .NutritionistRegister(payload)
-      .pipe(finalize(() => this.isLoading.set(false)))
+      .pipe(finalize(() => this.loadingManager.hideSpinner(this.LOADING_KEY)))
       .subscribe((status) => {
         this.state.set(status);
       });
