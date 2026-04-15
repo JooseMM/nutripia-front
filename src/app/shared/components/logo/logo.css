@@ -1,4 +1,6 @@
 p {
+  padding: 0;
+  line-height: 1;
   color: var(--primary-ft-color);
   font-weight: bold;
   margin: 0;

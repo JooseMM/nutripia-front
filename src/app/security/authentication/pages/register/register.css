@@ -15,20 +15,28 @@ main {
 }
 
 .option_container {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding-block: 2rem;
-  text-align: end;
   color: var(--secondary-ft-color);
   opacity: 0.8;
-  font-size: 1rem;
   transition: 300ms;
+  font-size: 1rem;
+  text-align: center;
 }
 
-.option_container:hover {
+.option_container > a:hover {
   opacity: 1 !important;
 }
 
+.option_container .logo_container--mobile {
+  font-size: 1.5rem;
+  opacity: 1;
+}
+
 .image_container {
+  display: none;
   flex: 1;
   /* background-image: url('/images/bg.jpg'); */
   background-size: cover;
@@ -69,17 +77,16 @@ main {
 }
 
 .content_container {
-  flex-grow: 0;
-  flex-shrink: 0;
+  flex-grow: 1;
   flex-basis: 40rem;
-  padding-inline: 4rem;
+  padding-inline: 2rem;
   overflow-y: auto;
   padding-bottom: 2rem;
   position: relative;
 }
 
 .content__title {
-  margin-block: 3rem 2.5rem;
+  margin-block: 1.5rem;
 }
 
 .content__title h1 {
@@ -94,7 +101,7 @@ form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .actions {
@@ -105,15 +112,11 @@ form {
 }
 
 .completed {
-  position: absolute;
-  top: 50%;
-  left: 4rem;
-  right: 4rem;
-  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  height: 100%;
 }
 
 .completed h3 {
@@ -128,7 +131,8 @@ form {
   width: fit-content;
   border-radius: 10rem;
   padding: 1rem 1.2rem;
-  margin: 0rem auto 1rem auto;
+  margin: 0 auto 1rem auto;
+  overflow: hidden;
 }
 
 .completed > p {
@@ -163,4 +167,41 @@ form {
   color: #94a3b8;
   font-size: 0.8rem;
   margin-block: 0.8rem 1.2rem;
+}
+
+.completed button {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.completed lucide-icon {
+  transform: translateY(0.2rem);
+}
+
+@media (min-width: 1000px) {
+  .option_container {
+    justify-content: flex-end;
+  }
+
+  .image_container {
+    display: block;
+  }
+
+  .content__title {
+    margin-block: 3rem 2.5rem;
+  }
+  .content_container {
+    flex-grow: 0;
+    padding-inline: 4rem;
+  }
+
+  .logo_container--mobile {
+    display: none;
+  }
+
+  form {
+    margin-bottom: 1.5rem;
+  }
 }

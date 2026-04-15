@@ -16,7 +16,7 @@ div {
 
 small {
   position: absolute;
-  bottom: -1.2rem;
+  bottom: -2.5rem;
   padding-left: 2rem;
   font-size: 0.8rem;
   color: var(--error-color);
@@ -39,6 +39,7 @@ small {
   border-radius: 50%;
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   justify-content: center;
   transition: all 0.2s ease-in-out;
   position: relative;
@@ -67,4 +68,10 @@ small {
 /* 5. Hover effect */
 .round-check:hover .round-check__circle {
   border-color: var(--secondary-ft-color);
+}
+
+@media (min-width: 500px) {
+  small {
+    bottom: -1.5rem;
+  }
 }

@@ -13,9 +13,10 @@
     </div>
   </div>
   <div class="content_container">
-    <a routerLink="/authentication/login" class="option_container"
-      >¿Ya tienes cuenta? <b>Inicia sesión</b></a
-    >
+    <div class="option_container">
+      <a routerLink="/home" class="logo_container--mobile"><app-logo [light]="false"></app-logo></a>
+      <a routerLink="/authentication/login">¿Ya tienes cuenta? <b>Inicia sesión</b></a>
+    </div>
     @if (!isLoading()) {
       @if (isComplete()) {
         <div class="completed">
@@ -30,8 +31,13 @@
           <app-button>Verificar Código</app-button>
           <div class="completed__resend">
             <p class="completed__resend__title">¿No has recibido el correo electrónico?</p>
-            <p class="completed__resend__description">Revisa tu carpeta de spam o correo no deseado.</p>
-            <button>Reenviar correo de verificación</button>
+            <p class="completed__resend__description">
+              Revisa tu carpeta de spam o correo no deseado.
+            </p>
+            <button>
+              <lucide-icon [img]="RETRY" size="15"></lucide-icon>
+              Reenviar correo de verificación
+            </button>
           </div>
         </div>
       } @else {

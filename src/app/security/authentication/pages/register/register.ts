@@ -17,6 +17,7 @@ import {
   Apple,
   Utensils,
   Mail,
+  RotateCcw,
 } from 'lucide-angular';
 import { passwordMatchValidator } from './register.utils';
 import {
@@ -49,13 +50,12 @@ export class Register {
   protected readonly APPLE = Apple;
   protected readonly FORKS = Utensils;
   protected readonly MESSAGE = Mail;
+  protected readonly RETRY = RotateCcw;
 
   private readonly fb = inject(NonNullableFormBuilder);
   private readonly authenticationService = inject(AuthenticationService);
 
-  private readonly state: WritableSignal<RegistrationStateType | undefined> = signal(
-    RegistrationResponseState.Ok,
-  );
+  private readonly state: WritableSignal<RegistrationStateType | undefined> = signal(undefined);
   protected readonly isComplete = computed(() => this.state() === RegistrationResponseState.Ok);
 
   protected readonly isLoading = signal(false);

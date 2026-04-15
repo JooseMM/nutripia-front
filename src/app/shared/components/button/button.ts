@@ -7,5 +7,5 @@ import { Component, input } from '@angular/core';
   styleUrl: './button.css',
 })
 export class Button {
-  disable = input(true)
+  disable = input(false)
 }
