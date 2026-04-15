@@ -23,7 +23,21 @@ export class CustomCheckbox {
   onToggle(event: Event) {
     const checked = (event.target as HTMLInputElement).checked;
     this.value = checked;
+    this.onTouched();
     this.onChange(checked);
+  }
+
+  isInvalid() {
+    const control = this.controlDir?.control;
+    return control ? control.invalid && control.touched : false;
+  }
+
+  protected errorMessage(): string | undefined {
+    const errors = this.controlDir?.control?.errors;
+
+    if (errors?.['required']) return 'Debes aceptar los términos y condiciones para registrarte.';
+
+    return undefined;
   }
 
   writeValue(val: boolean): void {

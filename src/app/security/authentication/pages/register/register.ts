@@ -1,11 +1,23 @@
-import { ChangeDetectorRef, Component, inject, signal, WritableSignal } from '@angular/core';
+import { Component, computed, inject, signal, WritableSignal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Logo } from '../../../../shared/components/logo/logo';
 import { CustomInput } from '../../../../shared/components/custom-input/custom-input';
-import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Button } from '../../../../shared/components/button/button';
 import { CustomCheckbox } from '../../../../shared/components/custom-checkbox/custom-checkbox';
-import { LucideAngularModule, Dumbbell, Leaf, Apple, Utensils } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  Dumbbell,
+  Leaf,
+  Apple,
+  Utensils,
+  Mail,
+} from 'lucide-angular';
 import { passwordMatchValidator } from './register.utils';
 import {
   AuthenticationService,
@@ -36,11 +48,15 @@ export class Register {
   protected readonly LEAF = Leaf;
   protected readonly APPLE = Apple;
   protected readonly FORKS = Utensils;
+  protected readonly MESSAGE = Mail;
 
   private readonly fb = inject(NonNullableFormBuilder);
-  private readonly cdr = inject(ChangeDetectorRef);
   private readonly authenticationService = inject(AuthenticationService);
-  protected readonly state: WritableSignal<RegistrationStateType | undefined> = signal(undefined);
+
+  private readonly state: WritableSignal<RegistrationStateType | undefined> = signal(
+    RegistrationResponseState.Ok,
+  );
+  protected readonly isComplete = computed(() => this.state() === RegistrationResponseState.Ok);
 
   protected readonly isLoading = signal(false);
   protected readonly form = this.fb.group(
@@ -49,7 +65,17 @@ export class Register {
       lastname: ['', [Validators.required, Validators.minLength(3)]],
       rut: ['', Validators.required],
       birthDate: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          (_: AbstractControl) =>
+            this.state() === RegistrationResponseState.EmailAlreadyPresent
+              ? { emailAlreadyPresent: true }
+              : null,
+        ],
+      ],
       password: [
         '',
         [
@@ -83,14 +109,6 @@ export class Register {
       .pipe(finalize(() => this.isLoading.set(false)))
       .subscribe((status) => {
         this.state.set(status);
-
-        if (status === RegistrationResponseState.EmailAlreadyPresent) {
-          const control = this.form.get('email');
-          control?.setErrors({ emailAlreadyPresent: true });
-          control?.markAsTouched();
-          this.cdr.markForCheck();
-          console.log(control?.errors)
-        }
       });
   }
 }

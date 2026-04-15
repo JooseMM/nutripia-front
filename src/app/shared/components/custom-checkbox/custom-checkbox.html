@@ -1,12 +1,18 @@
-<label class="round-check">
-  <input
-    type="checkbox"
-    class="round-check__input"
-    [checked]="value"
-    [disabled]="disabled"
-    (change)="onToggle($event)"
-    (blur)="onTouched()"
-  />
-  <span class="round-check__circle"></span>
-  <span class="round-check__label">{{ label() }}</span>
-</label>
+<div>
+  <label class="round-check">
+    <input
+      type="checkbox"
+      class="round-check__input"
+      [class.input--invalid]="isInvalid()"
+      [checked]="value"
+      [disabled]="disabled"
+      (change)="onToggle($event)"
+      (blur)="onTouched()"
+    />
+    <span class="round-check__circle"></span>
+    <span class="round-check__label">{{ label() }}</span>
+  </label>
+  @if(isInvalid()) {
+    <small>{{ errorMessage() }}</small>
+  }
+</div>

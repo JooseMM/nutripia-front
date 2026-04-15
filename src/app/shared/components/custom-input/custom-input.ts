@@ -21,10 +21,7 @@ export class CustomInput implements ControlValueAccessor {
   onTouched = () => {};
 
   constructor(@Optional() @Self() public controlDir: NgControl) {
-    if (this.controlDir) {
-      // Link the form control to this class instance
-      this.controlDir.valueAccessor = this;
-    }
+    if (this.controlDir) this.controlDir.valueAccessor = this;
   }
 
   // Called when the user types

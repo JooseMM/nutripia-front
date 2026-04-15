@@ -2,6 +2,7 @@ div {
   display: flex;
   flex-direction: column;
   color: var(--primary-ft-color);
+  position: relative;
 }
 
 label {
@@ -30,6 +31,8 @@ input::placeholder {
 }
 
 small {
+  position: absolute;
+  bottom: -0.8rem;
   padding-left: 1rem;
   color: #cd5c5c;
 }
