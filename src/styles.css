@@ -2,7 +2,7 @@
 
 :root {
   --primary-ft-color: #1e293b;
-  --secondary-ft-color: #64748b;
+  --secondary-ft-color: #5b6063;
   --primary-color: #8b7ca8;
   --soft-gray: #e2e8f0;
 
@@ -20,6 +20,10 @@ button {
   border: none;
   outline: none;
   background: none;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 *,

@@ -1,11 +1,10 @@
-import { Component, input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-button',
+  selector: 'button[app-button]',
   imports: [],
-  templateUrl: './button.html',
+  template: '<ng-content></ng-content>',
   styleUrl: './button.css',
 })
 export class Button {
-  disable = input(false)
 }

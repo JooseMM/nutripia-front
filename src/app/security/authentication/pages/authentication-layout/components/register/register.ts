@@ -1,21 +1,22 @@
 import { Component, inject, signal } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthenticationService } from '../../../../services/authentication-service';
+import { AuthenticationService } from '../../../..';
 import { passwordMatchValidator } from './register.utils';
 import {
   AUTHENTICATION_LOADING_KEY,
   RegisterNutritionist,
   RegistrationResponseState,
 } from '../../../..';
-import { CustomInput } from '../../../../../../shared/components/custom-input/custom-input';
-import { Button } from '../../../../../../shared/components/button/button';
+import { CustomInput } from '../../../../../../shared';
+import { Button } from '../../../../../../shared';
 import { LucideAngularModule, Mail, RotateCcw } from 'lucide-angular';
-import { CustomCheckbox } from '../../../../../../shared/components/custom-checkbox/custom-checkbox';
-import { LoadingManager } from '../../../../../../shared/overlay/loader/services/loading-manager';
+import { CustomCheckbox } from '../../../../../../shared';
+import { LoadingManager } from '../../../../../../shared';
 import { finalize } from 'rxjs';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { UnexpectedErrorModal } from '../../../../../../shared/overlay/unexpected-error-modal/unexpected-error-modal';
+import { UnexpectedErrorModal } from '../../../../../../shared';
+import { createBasicOverlay } from '../../../../../../shared';
 
 @Component({
   selector: 'app-register',
@@ -30,8 +31,8 @@ export class Register {
   private readonly authenticationService = inject(AuthenticationService);
   private readonly fb = inject(NonNullableFormBuilder);
   private readonly loadingManager = inject(LoadingManager);
-  private readonly overlay = inject(Overlay);
 
+  private readonly overlay = inject(Overlay);
   private overlayRef!: OverlayRef;
 
   protected readonly isCompleted = signal(false);
@@ -95,18 +96,7 @@ export class Register {
   }
 
   protected openUnexpectedErrorModal() {
-    const positionStrategy = this.overlay
-      .position()
-      .global()
-      .centerVertically()
-      .centerHorizontally();
-
-    this.overlayRef = this.overlay.create({
-      hasBackdrop: true,
-      backdropClass: 'modal-glass-backdrop',
-      positionStrategy,
-      scrollStrategy: this.overlay.scrollStrategies.block(),
-    });
+    this.overlayRef = createBasicOverlay(this.overlay);
 
     const portal = new ComponentPortal(UnexpectedErrorModal);
     const componentRef = this.overlayRef.attach(portal);

@@ -50,4 +50,8 @@ export class AuthenticationService {
 
     return of(isOkay).pipe(delay(1000));
   }
+
+  resendEmailVerification(_email: string):void {
+
+  }
 }

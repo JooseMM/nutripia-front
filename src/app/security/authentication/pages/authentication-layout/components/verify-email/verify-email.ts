@@ -18,6 +18,10 @@ import {
 import { distinctUntilChanged, finalize, map, Subscription, tap } from 'rxjs';
 import { AUTHENTICATION_LOADING_KEY, AuthenticationService, Token } from '../../../../';
 import { Router } from '@angular/router';
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { ResendEmailVerificationModal } from '../../../../../../shared';
+import { createBasicOverlay } from '../../../../../../shared';
 
 @Component({
   selector: 'app-verify-email',
@@ -31,6 +35,9 @@ export class VerifyEmail implements OnInit, OnDestroy {
   private readonly router = inject(Router);
   private readonly authenticationService = inject(AuthenticationService);
   private readonly loadingManager = inject(LoadingManager);
+
+  private readonly overlay = inject(Overlay);
+  private overlayRef!: OverlayRef;
 
   private readonly subscriptionRef = new Subscription();
 
@@ -46,6 +53,7 @@ export class VerifyEmail implements OnInit, OnDestroy {
   protected isCodeWrong = signal(false);
 
   ngOnInit(): void {
+    this.openResendVerificationEmail();
     const ref = this.form.valueChanges
       .pipe(
         distinctUntilChanged(),
@@ -102,5 +110,15 @@ export class VerifyEmail implements OnInit, OnDestroy {
 
         this.router.navigate(['/home']);
       });
+  }
+
+  protected openResendVerificationEmail() {
+    this.overlayRef = createBasicOverlay(this.overlay);
+
+    const portal = new ComponentPortal(ResendEmailVerificationModal);
+    const componentRef = this.overlayRef.attach(portal);
+    this.overlayRef.backdropClick().subscribe(() => this.overlayRef.detach());
+
+    componentRef.instance.overlayRef = this.overlayRef;
   }
 }

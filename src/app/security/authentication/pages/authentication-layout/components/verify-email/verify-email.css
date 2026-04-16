@@ -54,10 +54,17 @@ input:focus {
   outline-color: var(--primary-color);
 }
 
-a {
+.resend-button {
   color: var(--secondary-ft-color);
   margin-top: 2.5rem;
   text-align: center;
+  transition: 300ms;
+  opacity: 0.85;
+  font-size: 0.9rem;
+}
+
+.resend-button:hover {
+  opacity: 1;
 }
 
 @media (min-width: 1000px) {

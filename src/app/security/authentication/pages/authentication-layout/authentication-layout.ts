@@ -28,9 +28,8 @@ export class AuthenticationLayout {
   protected readonly LOADING_KEY = AUTHENTICATION_LOADING_KEY
 
   private readonly loadingManager = inject(LoadingManager);
-
   private readonly state: WritableSignal<RegistrationStateType | undefined> = signal(undefined);
-  protected readonly isComplete = computed(() => this.state() === RegistrationResponseState.Ok);
 
+  protected readonly isComplete = computed(() => this.state() === RegistrationResponseState.Ok);
   protected readonly isLoading = computed(() => this.loadingManager.isLoading(this.LOADING_KEY));
 }

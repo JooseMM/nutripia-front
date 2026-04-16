@@ -12,8 +12,8 @@
       <small>Código de verificación incorrecto.</small>
     }
   </div>
-  <app-button [disable]="isCodeWrong() || form.invalid" (click)="submit()"
-    >Verificar Código</app-button
-  >
-  <a>¿No recibiste el código? <b>Reenviar</b></a>
+  <button app-button [disabled]="isCodeWrong() || form.invalid" (click)="submit()">
+    Verificar Código
+  </button>
+  <button (click)="openResendVerificationEmail()" class="resend-button">¿No recibiste el código? <b>Reenviar</b></button>
 </form>

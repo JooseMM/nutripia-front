@@ -1,0 +1,45 @@
+@if (isSended()) {
+  <div class="container">
+    <div class="content" [class.container--success]="isSended()">
+      <div class="icon">
+        <lucide-angular [img]="OKAY_ICON" size="40"></lucide-angular>
+      </div>
+      <p class="title">¡Código Enviado!</p>
+      <p class="description">
+        Hemos enviado un nuevo código a tu correo electrónico. Por favor, revísalo para continuar.
+      </p>
+    </div>
+  </div>
+} @else {
+  <div class="container">
+    <div class="content">
+      <p class="title">Confirmar Correo</p>
+      <p class="description">
+        Asegúrese de que su dirección de correo electrónico sea correcta antes de solicitar un nuevo
+        código de verificación.
+      </p>
+      <form>
+        <label>DIRECCIÓN DE CORREO</label>
+        <div [class.focus]="isFocus()" [class.invalid]="hasErrors" class="email-input">
+          <lucide-angular [img]="EMAIL_ICON" size="20"></lucide-angular>
+          <input
+            [formControl]="emailControl"
+            placeholder="ejem: cesar.andrade@correo.com"
+            (focus)="setFocus(true)"
+            (blur)="setFocus(false)"
+          />
+        </div>
+
+        @if (hasErrors) {
+          <small>{{ error() }}</small>
+        }
+      </form>
+    </div>
+    <div class="actions">
+      <button class="close" (click)="close()">Cerrar</button>
+      <button app-button [disabled]="!emailControl.valid" [style.padding-inline]="'1.5rem'" (click)="submit()">
+        Enviar codigo
+      </button>
+    </div>
+  </div>
+}
