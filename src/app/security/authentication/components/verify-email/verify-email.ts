@@ -8,7 +8,7 @@ import {
   signal,
   ViewChildren,
 } from '@angular/core';
-import { Button, LoadingManager } from '../../../../../../shared';
+import { Button, LoadingManager } from '../../../../shared';
 import {
   FormControl,
   NonNullableFormBuilder,
@@ -16,12 +16,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { distinctUntilChanged, finalize, map, Subscription, tap } from 'rxjs';
-import { AUTHENTICATION_LOADING_KEY, AuthenticationService, Token } from '../../../../';
+import { AUTHENTICATION_LOADING_KEY, AuthenticationService, Token } from '../..';
 import { Router } from '@angular/router';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { ResendEmailVerificationModal } from '../../../../../../shared';
-import { createBasicOverlay } from '../../../../../../shared';
+import { ResendEmailVerificationModal } from '../../../../shared';
+import { createBasicOverlay } from '../../../../shared';
 
 @Component({
   selector: 'app-verify-email',
@@ -53,7 +53,6 @@ export class VerifyEmail implements OnInit, OnDestroy {
   protected isCodeWrong = signal(false);
 
   ngOnInit(): void {
-    this.openResendVerificationEmail();
     const ref = this.form.valueChanges
       .pipe(
         distinctUntilChanged(),

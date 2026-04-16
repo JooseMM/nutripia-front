@@ -1,13 +1,17 @@
 import { Routes } from '@angular/router';
-import { AuthenticationLayout } from './security/authentication/pages/authentication-layout/authentication-layout';
-import { Register } from './security/authentication/pages/authentication-layout/components/register/register';
-import { VerifyEmail } from './security/authentication/pages/authentication-layout/components/verify-email/verify-email';
+import { AuthenticationLayout } from './security/authentication/layout/authentication-layout/authentication-layout';
+import { Home } from './dashboard/pages/home/home';
+import { Login, Register, VerifyEmail } from './security/authentication';
 
 export const routes: Routes = [
   {
     path: 'authentication',
     component: AuthenticationLayout,
     children: [
+      {
+        path: 'login',
+        component: Login,
+      },
       {
         path: 'register',
         component: Register,
@@ -17,6 +21,11 @@ export const routes: Routes = [
         component: VerifyEmail,
       },
     ],
+  },
+  {
+    path: 'dashboard',
+    component: Home,
+    children: [],
   },
   {
     path: '**',

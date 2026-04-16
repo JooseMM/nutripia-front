@@ -58,6 +58,7 @@ export class CustomInput implements ControlValueAccessor {
     if (errors?.['email']) return `Formato de email invalido`;
     if (errors?.['passwordMismatch']) return `Las contraseñas no coinciden`;
     if (errors?.['emailAlreadyPresent']) return `El correo electrónico ya se encuentra registrado`;
+    if (errors?.['wrongCredentials']) return `Credenciales incorrectas`;
 
     return undefined;
   }

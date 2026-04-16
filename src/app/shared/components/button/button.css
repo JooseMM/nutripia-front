@@ -7,8 +7,9 @@
   border: 0.1rem solid var(--primary-color);
   color: white;
   font-size: 1.1rem;
-  font-weight: 500;
+  font-weight: 400;
   transition: 300ms;
+  box-shadow: 0px 10px 30px 0px rgba(139, 124, 168, 0.5);
 }
 
 :host:hover {

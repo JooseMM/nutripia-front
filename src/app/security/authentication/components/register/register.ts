@@ -1,22 +1,22 @@
 import { Component, inject, signal } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthenticationService } from '../../../..';
+import { AuthenticationService, MIN_PASSWORD_LENGTH, PASSWORD_PATTERN } from '../../';
 import { passwordMatchValidator } from './register.utils';
 import {
   AUTHENTICATION_LOADING_KEY,
   RegisterNutritionist,
   RegistrationResponseState,
-} from '../../../..';
-import { CustomInput } from '../../../../../../shared';
-import { Button } from '../../../../../../shared';
+} from '../../';
+import { CustomInput } from '../../../../shared';
+import { Button } from '../../../../shared';
 import { LucideAngularModule, Mail, RotateCcw } from 'lucide-angular';
-import { CustomCheckbox } from '../../../../../../shared';
-import { LoadingManager } from '../../../../../../shared';
+import { CustomCheckbox } from '../../../../shared';
+import { LoadingManager } from '../../../../shared';
 import { finalize } from 'rxjs';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { UnexpectedErrorModal } from '../../../../../../shared';
-import { createBasicOverlay } from '../../../../../../shared';
+import { UnexpectedErrorModal } from '../../../../shared';
+import { createBasicOverlay } from '../../../../shared';
 
 @Component({
   selector: 'app-register',
@@ -48,8 +48,8 @@ export class Register {
         '',
         [
           Validators.required,
-          Validators.minLength(6),
-          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{6,})/),
+          Validators.minLength(MIN_PASSWORD_LENGTH),
+          Validators.pattern(PASSWORD_PATTERN),
         ],
       ],
       confirmPassword: ['', [Validators.required]],

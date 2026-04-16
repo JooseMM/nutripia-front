@@ -2,13 +2,15 @@ import { computed, Injectable, signal, WritableSignal } from '@angular/core';
 import {
   AuthenticatedUser,
   LoginRequestDto,
+  LoginResponseStateType,
   RegisterNutritionist,
   RegistrationResponseState,
   RegistrationStateType,
   Token,
   UserRoles,
 } from '../';
-import { delay, Observable, of } from 'rxjs';
+import { delay, Observable, of, tap } from 'rxjs';
+import { LoginResponseState } from '../models/loginResponseState.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -22,14 +24,22 @@ export class AuthenticationService {
   readonly sessionToken = this._sessionToken.asReadonly();
   readonly isAuthenticated = computed(() => !!this.sessionToken);
 
-  nutritionistLogin(_: LoginRequestDto): void {
+  nutritionistLogin(payload: LoginRequestDto): Observable<LoginResponseStateType> {
+    if (payload.emailAddress === 'wrong@example.com')
+      return of(LoginResponseState.WrongCredentials).pipe(delay(1000));
+    if (payload.emailAddress === 'unexpected@example.com')
+      return of(LoginResponseState.UnexpectedError).pipe(delay(1000));
+
     this._authenticationInfo.set({
       userId: 'user-1',
       firstname: 'juanete',
       role: UserRoles.Nutritionist,
     });
 
-    this._sessionToken.set('super-secure-session-token-key');
+    return of(LoginResponseState.Ok).pipe(
+      tap(() => this._sessionToken.set('super-secure-session-token-key')),
+      delay(1000),
+    );
   }
 
   nutritionistRegister(payload: RegisterNutritionist): Observable<RegistrationStateType> {
@@ -51,7 +61,5 @@ export class AuthenticationService {
     return of(isOkay).pipe(delay(1000));
   }
 
-  resendEmailVerification(_email: string):void {
-
-  }
+  resendEmailVerification(_email: string): void {}
 }

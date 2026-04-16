@@ -68,5 +68,7 @@
       label="Acepto los Términos y Condiciones así como la Política de Privacidad."
     ></app-custom-checkbox>
   </form>
-  <button app-button [disabled]="!form.valid" (click)="submit()">Crear Cuenta</button>
+  <button app-button [style.width]="'100%'" [disabled]="!form.valid" (click)="submit()">
+    Crear Cuenta
+  </button>
 }

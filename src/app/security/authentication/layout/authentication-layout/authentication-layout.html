@@ -15,7 +15,18 @@
   <div class="content_container">
     <div class="option_container">
       <a routerLink="/home" class="logo_container--mobile"><app-logo [light]="false"></app-logo></a>
-      <a routerLink="/authentication/login" class="option">¿Ya tienes cuenta? <b>Inicia sesión</b></a>
+      @switch (currentChildrenRoute()) {
+        @case ('login') {
+          <a routerLink="/authentication/register" class="option"
+            >¿No tienes cuenta? <b>Registrate</b></a
+          >
+        }
+        @default {
+          <a routerLink="/authentication/login" class="option"
+            >¿Ya tienes cuenta? <b>Inicia sesión</b></a
+          >
+        }
+      }
     </div>
     <app-loading-spinner [key]="LOADING_KEY"></app-loading-spinner>
     <div class="content" [style.display]="isLoading() ? 'none' : 'flex'">
