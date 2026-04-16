@@ -15,7 +15,7 @@
   <div class="content_container">
     <div class="option_container">
       <a routerLink="/home" class="logo_container--mobile"><app-logo [light]="false"></app-logo></a>
-      <a routerLink="/authentication/login">¿Ya tienes cuenta? <b>Inicia sesión</b></a>
+      <a routerLink="/authentication/login" class="option">¿Ya tienes cuenta? <b>Inicia sesión</b></a>
     </div>
     <app-loading-spinner [key]="LOADING_KEY"></app-loading-spinner>
     <div [style.display]="isLoading() ? 'none' : 'block'">

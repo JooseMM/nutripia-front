@@ -3,7 +3,7 @@
 }
 
 .content__title h1 {
-  margin: 0;
+  margin-bottom: 1rem;
 }
 
 .content__title p {
@@ -29,13 +29,12 @@ form {
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  height: 100%;
 }
 
 .completed h3 {
   font-size: 2rem;
   font-weight: bold;
-  margin: 0;
+  margin-bottom: 0.5rem;
 }
 
 .completed__icon {
@@ -112,10 +111,10 @@ form {
 
 @media (min-width: 1000px) {
   .content__title {
-    margin-block: 3rem 2.5rem;
+    margin-block: 1rem 2.5rem;
   }
 
   form {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
   }
 }

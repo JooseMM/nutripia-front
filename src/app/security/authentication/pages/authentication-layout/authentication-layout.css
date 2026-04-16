@@ -37,6 +37,10 @@ main {
   opacity: 1;
 }
 
+.option {
+  max-width: 20ch;
+}
+
 .image_container {
   display: none;
   flex: 1;
@@ -69,10 +73,10 @@ main {
   color: white;
   font-weight: bold;
   font-size: 4rem;
-  margin-block: 0;
 }
 .image__title p {
   color: white;
+  margin-top: 1.5rem;
   font-size: 1.2rem;
   letter-spacing: 0.1rem;
   max-width: 40ch;
@@ -81,10 +85,20 @@ main {
 .content_container {
   flex-grow: 1;
   flex-basis: 40rem;
-  padding-inline: 2rem;
-  overflow-y: auto;
-  padding-bottom: 2rem;
+  padding-inline: 1.5rem;
   position: relative;
+  padding-bottom: 2rem;
+  overflow-y: auto;
+}
+
+@media (min-width: 450px) {
+  .option {
+    max-width: none;
+  }
+
+  .content_container {
+    padding-inline: 4rem;
+  }
 }
 
 @media (min-width: 1000px) {
@@ -98,7 +112,6 @@ main {
 
   .content_container {
     flex-grow: 0;
-    padding-inline: 4rem;
   }
 
   .logo_container--mobile {

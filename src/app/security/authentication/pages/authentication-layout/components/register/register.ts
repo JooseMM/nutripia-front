@@ -1,9 +1,5 @@
-import { Component, inject, signal } from '@angular/core';
-import {
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../../../services/authentication-service';
 import { passwordMatchValidator } from './register.utils';
 import {
@@ -17,17 +13,13 @@ import { LucideAngularModule, Mail, RotateCcw } from 'lucide-angular';
 import { CustomCheckbox } from '../../../../../../shared/components/custom-checkbox/custom-checkbox';
 import { LoadingManager } from '../../../../../../shared/overlay/loader/services/loading-manager';
 import { finalize } from 'rxjs';
-import { JsonPipe } from '@angular/common';
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { UnexpectedErrorModal } from '../../../../../../shared/overlay/unexpected-error-modal/unexpected-error-modal';
 
 @Component({
   selector: 'app-register',
-  imports: [
-    CustomInput,
-    CustomCheckbox,
-    ReactiveFormsModule,
-    Button,
-    LucideAngularModule,
-  ],
+  imports: [CustomInput, CustomCheckbox, ReactiveFormsModule, Button, LucideAngularModule],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
@@ -38,6 +30,9 @@ export class Register {
   private readonly authenticationService = inject(AuthenticationService);
   private readonly fb = inject(NonNullableFormBuilder);
   private readonly loadingManager = inject(LoadingManager);
+  private readonly overlay = inject(Overlay);
+
+  private overlayRef!: OverlayRef;
 
   protected readonly isCompleted = signal(false);
 
@@ -80,7 +75,6 @@ export class Register {
       .NutritionistRegister(payload)
       .pipe(finalize(() => this.loadingManager.hideSpinner(AUTHENTICATION_LOADING_KEY)))
       .subscribe((status) => {
-        console.log(status);
         switch (status) {
           case RegistrationResponseState.Ok:
             this.isCompleted.set(true);
@@ -92,10 +86,32 @@ export class Register {
           case RegistrationResponseState.UnexpectedError:
           case RegistrationResponseState.ValidationError:
             this.isCompleted.set(false);
+            this.openUnexpectedErrorModal();
             break;
           default:
             throw new Error('Unhandle registration result: ', status);
         }
       });
+  }
+
+  protected openUnexpectedErrorModal() {
+    const positionStrategy = this.overlay
+      .position()
+      .global()
+      .centerVertically()
+      .centerHorizontally();
+
+    this.overlayRef = this.overlay.create({
+      hasBackdrop: true,
+      backdropClass: 'modal-glass-backdrop',
+      positionStrategy,
+      scrollStrategy: this.overlay.scrollStrategies.block(),
+    });
+
+    const portal = new ComponentPortal(UnexpectedErrorModal);
+    const componentRef = this.overlayRef.attach(portal);
+    this.overlayRef.backdropClick().subscribe(() => this.overlayRef.detach());
+
+    componentRef.instance.overlayRef = this.overlayRef;
   }
 }
