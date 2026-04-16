@@ -53,6 +53,10 @@ a:active {
   color: inherit;
 }
 
+a:hover {
+  cursor: pointer;
+}
+
 /* The custom class you defined in TS */
 .modal-glass-backdrop {
   /* The darkness */

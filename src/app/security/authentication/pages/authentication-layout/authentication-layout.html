@@ -18,7 +18,7 @@
       <a routerLink="/authentication/login" class="option">¿Ya tienes cuenta? <b>Inicia sesión</b></a>
     </div>
     <app-loading-spinner [key]="LOADING_KEY"></app-loading-spinner>
-    <div [style.display]="isLoading() ? 'none' : 'block'">
+    <div class="content" [style.display]="isLoading() ? 'none' : 'flex'">
       <router-outlet></router-outlet>
     </div>
   </div>

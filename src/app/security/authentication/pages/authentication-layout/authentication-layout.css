@@ -82,13 +82,22 @@ main {
   max-width: 40ch;
 }
 
+.content {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
 .content_container {
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   flex-basis: 40rem;
-  padding-inline: 1.5rem;
+  padding-inline: 5dvw;
   position: relative;
   padding-bottom: 2rem;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 @media (min-width: 450px) {
@@ -96,9 +105,9 @@ main {
     max-width: none;
   }
 
-  .content_container {
-    padding-inline: 4rem;
-  }
+  /* .content_container { */
+  /*   padding-inline: 4rem; */
+  /* } */
 }
 
 @media (min-width: 1000px) {

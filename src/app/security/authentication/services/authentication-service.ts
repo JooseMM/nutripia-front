@@ -5,6 +5,7 @@ import {
   RegisterNutritionist,
   RegistrationResponseState,
   RegistrationStateType,
+  Token,
   UserRoles,
 } from '../';
 import { delay, Observable, of } from 'rxjs';
@@ -21,7 +22,7 @@ export class AuthenticationService {
   readonly sessionToken = this._sessionToken.asReadonly();
   readonly isAuthenticated = computed(() => !!this.sessionToken);
 
-  NutritionistLogin(_: LoginRequestDto): void {
+  nutritionistLogin(_: LoginRequestDto): void {
     this._authenticationInfo.set({
       userId: 'user-1',
       firstname: 'juanete',
@@ -31,7 +32,7 @@ export class AuthenticationService {
     this._sessionToken.set('super-secure-session-token-key');
   }
 
-  NutritionistRegister(payload: RegisterNutritionist): Observable<RegistrationStateType> {
+  nutritionistRegister(payload: RegisterNutritionist): Observable<RegistrationStateType> {
     let response: RegistrationStateType = RegistrationResponseState.Ok;
     if (payload.emailAddress === 'conflict@example')
       response = RegistrationResponseState.EmailAlreadyPresent;
@@ -40,5 +41,13 @@ export class AuthenticationService {
       response = RegistrationResponseState.UnexpectedError;
 
     return of(response).pipe(delay(1000));
+  }
+
+  verifyEmail(payload: Token): Observable<boolean> {
+    let isOkay = false;
+    console.log(payload.token);
+    if (payload.token === 'REPREP') isOkay = true;
+
+    return of(isOkay).pipe(delay(1000));
   }
 }

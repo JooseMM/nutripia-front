@@ -19,8 +19,24 @@ div {
 }
 
 p {
-  color: var(--primary-ft-color);
+  color: var(--secondary-ft-color);
   font-size: 1.1rem;
+  margin-top: 1rem;
+  font-weight: 550;
+  animation: glowing 2s linear infinite;
+}
+
+@keyframes glowing {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.4;
+  }
 }
 
 @keyframes spin {

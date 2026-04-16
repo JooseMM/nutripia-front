@@ -1,0 +1,19 @@
+<form [formArray]="form">
+  <label>Verifica tu correo</label>
+  <p>
+    Hemos enviado un código de 6 dígitos a tu correo electrónico. Ingrésalo a continuación para
+    activar tu cuenta.
+  </p>
+  <div [class.invalid]="isCodeWrong()">
+    @for (control of form.controls; track $index) {
+      <input [formControl]="control" #input (input)="takeLastCharacterOnly($event, $index)" />
+    }
+    @if (isCodeWrong()) {
+      <small>Código de verificación incorrecto.</small>
+    }
+  </div>
+  <app-button [disable]="isCodeWrong() || form.invalid" (click)="submit()"
+    >Verificar Código</app-button
+  >
+  <a>¿No recibiste el código? <b>Reenviar</b></a>
+</form>

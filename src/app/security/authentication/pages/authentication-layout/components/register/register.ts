@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../../../services/authentication-service';
 import { passwordMatchValidator } from './register.utils';
@@ -72,7 +72,7 @@ export class Register {
 
     this.loadingManager.showSpinner(AUTHENTICATION_LOADING_KEY);
     this.authenticationService
-      .NutritionistRegister(payload)
+      .nutritionistRegister(payload)
       .pipe(finalize(() => this.loadingManager.hideSpinner(AUTHENTICATION_LOADING_KEY)))
       .subscribe((status) => {
         switch (status) {
