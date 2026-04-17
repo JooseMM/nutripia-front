@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthenticationLayout } from './security/authentication/layout/authentication-layout/authentication-layout';
-import { Home } from './dashboard/pages/home/home';
 import { Login, Register, VerifyEmail } from './security/authentication';
+import { Appointments, Clients, DashboardLayout, Home } from './dashboard';
 
 export const routes: Routes = [
   {
@@ -24,8 +24,21 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: Home,
-    children: [],
+    component: DashboardLayout,
+    children: [
+      {
+        path: '',
+        component: Home,
+      },
+      {
+        path: 'clients',
+        component: Clients,
+      },
+      {
+        path: 'appointments',
+        component: Appointments,
+      },
+    ],
   },
   {
     path: '**',

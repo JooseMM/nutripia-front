@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, computed, inject, signal, WritableSignal } from '@angular/core';
 import { RouterLink, RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { Logo } from '../../../../shared/components/logo/logo';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -7,7 +7,7 @@ import { RegistrationResponseState, RegistrationStateType } from '../..';
 import { LoadingSpinner } from '../../../../shared/overlay/loader/components/loading-spinner/loading-spinner';
 import { LoadingManager } from '../../../../shared/overlay/loader/services/loading-manager';
 import { AUTHENTICATION_LOADING_KEY } from '../../';
-import { filter, map, Subscription } from 'rxjs';
+import { filter, map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({

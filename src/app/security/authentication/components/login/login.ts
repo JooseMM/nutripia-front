@@ -14,7 +14,8 @@ import { finalize } from 'rxjs';
 import { LoginResponseState } from '../..';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { LucideAngularModule } from "lucide-angular";
+import { LucideAngularModule } from 'lucide-angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -26,6 +27,7 @@ export class Login {
   private readonly fb = inject(NonNullableFormBuilder);
   private readonly authenticationService = inject(AuthenticationService);
   private readonly loadingManager = inject(LoadingManager);
+  private readonly router = inject(Router);
 
   private readonly overlay = inject(Overlay);
   private overlayRef!: OverlayRef;
@@ -53,9 +55,9 @@ export class Login {
   }
 
   protected submit(): void {
-    console.log("fire");
+    console.log('fire');
     if (this.form.invalid) return;
-    console.log("fire");
+    console.log('fire');
 
     const value = this.form.getRawValue();
     const payload: LoginRequestDto = {
@@ -68,17 +70,16 @@ export class Login {
       .nutritionistLogin(payload)
       .pipe(finalize(() => this.loadingManager.hideSpinner(AUTHENTICATION_LOADING_KEY)))
       .subscribe((status) => {
-        console.log("response: ", status);
+        console.log('response: ', status);
         switch (status) {
           case LoginResponseState.WrongCredentials:
             this.form.get('password')?.setErrors({ wrongCredentials: true });
             break;
           case LoginResponseState.UnexpectedError:
-            console.log("unexpected");
             this.openUnexpectedErrorModal();
             break;
           case LoginResponseState.Ok:
-            // redirect
+            this.router.navigate(['dashboard', 'home']);
             break;
         }
       });
