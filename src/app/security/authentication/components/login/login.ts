@@ -4,6 +4,7 @@ import {
   createBasicOverlay,
   CustomInput,
   LoadingManager,
+  SendEmailCodeModal,
   UnexpectedErrorModal,
 } from '../../../../shared';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -54,10 +55,18 @@ export class Login {
     componentRef.instance.overlayRef = this.overlayRef;
   }
 
+  protected openResetPasswordModal(): void {
+    this.overlayRef = createBasicOverlay(this.overlay);
+
+    const portal = new ComponentPortal(SendEmailCodeModal);
+    const componentRef = this.overlayRef.attach(portal);
+    this.overlayRef.backdropClick().subscribe(() => this.overlayRef.detach());
+
+    componentRef.instance.overlayRef = this.overlayRef;
+  }
+
   protected submit(): void {
-    console.log('fire');
     if (this.form.invalid) return;
-    console.log('fire');
 
     const value = this.form.getRawValue();
     const payload: LoginRequestDto = {
@@ -70,7 +79,6 @@ export class Login {
       .nutritionistLogin(payload)
       .pipe(finalize(() => this.loadingManager.hideSpinner(AUTHENTICATION_LOADING_KEY)))
       .subscribe((status) => {
-        console.log('response: ', status);
         switch (status) {
           case LoginResponseState.WrongCredentials:
             this.form.get('password')?.setErrors({ wrongCredentials: true });

@@ -1,21 +1,25 @@
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Component, inject, signal } from '@angular/core';
-import { CheckIcon, LucideAngularModule, Mail, MailCheck } from 'lucide-angular';
+import { LucideAngularModule, Mail, MailCheck } from 'lucide-angular';
 import { Button } from '../../components/button/button';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../../security/authentication';
+import { SendEmailVerificationUsage, SendEmailVerificationUsageType } from '../overlay.utils';
 
 @Component({
-  selector: 'app-resend-email-verification-modal',
+  selector: 'app-send-email-code-modal',
   imports: [LucideAngularModule, Button, ReactiveFormsModule],
-  templateUrl: './resend-email-verification-modal.html',
-  styleUrl: './resend-email-verification-modal.css',
+  templateUrl: './send-email-code-modal.html',
+  styleUrl: './send-email-code-modal.css',
 })
-export class ResendEmailVerificationModal {
+export class SendEmailCodeModal {
   private readonly authenticationService = inject(AuthenticationService);
   protected readonly isFocus = signal(false);
   protected readonly EMAIL_ICON = Mail;
   protected readonly OKAY_ICON = MailCheck;
+  protected readonly USAGE_TYPE = SendEmailVerificationUsage;
+
+  usage: SendEmailVerificationUsageType = this.USAGE_TYPE.VerifyEmail;
   overlayRef?: OverlayRef;
 
   protected readonly isSended = signal(false);
@@ -54,8 +58,17 @@ export class ResendEmailVerificationModal {
   protected submit(): void {
     if (this.emailControl.invalid) return;
 
-    this.authenticationService.resendEmailVerification(this.emailControl.value);
+    switch (this.usage) {
+      case this.USAGE_TYPE.ResetPassword:
+        this.authenticationService.sendPasswordChangeCode(this.emailControl.value);
+        break;
+      case this.USAGE_TYPE.VerifyEmail:
+        this.authenticationService.resendEmailVerification(this.emailControl.value);
+        break;
+      default:
+        throw new Error('Unhandle usage: ', this.usage);
+    }
+
     this.isSended.set(true);
-    setTimeout(() => this.close(), 5000);
   }
 }

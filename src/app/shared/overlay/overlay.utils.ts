@@ -11,3 +11,11 @@ export function createBasicOverlay(overlay: Overlay): OverlayRef {
     scrollStrategy: overlay.scrollStrategies.block(),
   });
 }
+
+export const SendEmailVerificationUsage = {
+  ResetPassword: 'reset-password',
+  VerifyEmail: 'verify-email',
+} as const;
+
+export type SendEmailVerificationUsageType =
+  (typeof SendEmailVerificationUsage)[keyof typeof SendEmailVerificationUsage];

@@ -20,7 +20,7 @@ import { AUTHENTICATION_LOADING_KEY, AuthenticationService, Token } from '../..'
 import { Router } from '@angular/router';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { ResendEmailVerificationModal } from '../../../../shared';
+import { SendEmailCodeModal } from '../../../../shared';
 import { createBasicOverlay } from '../../../../shared';
 
 @Component({
@@ -114,7 +114,7 @@ export class VerifyEmail implements OnInit, OnDestroy {
   protected openResendVerificationEmail() {
     this.overlayRef = createBasicOverlay(this.overlay);
 
-    const portal = new ComponentPortal(ResendEmailVerificationModal);
+    const portal = new ComponentPortal(SendEmailCodeModal);
     const componentRef = this.overlayRef.attach(portal);
     this.overlayRef.backdropClick().subscribe(() => this.overlayRef.detach());
 

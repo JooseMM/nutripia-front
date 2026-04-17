@@ -55,11 +55,12 @@ export class AuthenticationService {
 
   verifyEmail(payload: Token): Observable<boolean> {
     let isOkay = false;
-    console.log(payload.token);
     if (payload.token === 'REPREP') isOkay = true;
 
     return of(isOkay).pipe(delay(1000));
   }
 
   resendEmailVerification(_email: string): void {}
+
+  sendPasswordChangeCode(_email: string): void {}
 }
