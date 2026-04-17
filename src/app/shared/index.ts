@@ -1,6 +1,5 @@
 export { Logo } from './components/logo/logo';
 
-export { Sidebar } from './components/sidebar/sidebar';
 export { Button } from './components/button/button';
 export { CustomInput } from './components/custom-input/custom-input';
 export { CustomCheckbox } from './components/custom-checkbox/custom-checkbox';

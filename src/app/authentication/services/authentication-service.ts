@@ -22,7 +22,7 @@ export class AuthenticationService {
 
   private readonly _sessionToken: WritableSignal<string | undefined> = signal(undefined);
   readonly sessionToken = this._sessionToken.asReadonly();
-  readonly isAuthenticated = computed(() => !!this.sessionToken);
+  readonly isAuthenticated = computed(() => !!this.sessionToken());
 
   nutritionistLogin(payload: LoginRequestDto): Observable<LoginResponseStateType> {
     if (payload.emailAddress === 'wrong@example.com')

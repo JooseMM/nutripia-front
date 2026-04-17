@@ -8,7 +8,7 @@ import {
   signal,
   ViewChildren,
 } from '@angular/core';
-import { Button, LoadingManager } from '../../../../shared';
+import { Button, LoadingManager } from '../../../shared';
 import {
   FormControl,
   NonNullableFormBuilder,
@@ -20,8 +20,8 @@ import { AUTHENTICATION_LOADING_KEY, AuthenticationService, Token } from '../..'
 import { Router } from '@angular/router';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { SendEmailCodeModal } from '../../../../shared';
-import { createBasicOverlay } from '../../../../shared';
+import { SendEmailCodeModal } from '../../../shared';
+import { createBasicOverlay } from '../../../shared';
 
 @Component({
   selector: 'app-verify-email',

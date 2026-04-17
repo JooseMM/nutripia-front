@@ -3,7 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { LucideAngularModule, Mail, MailCheck } from 'lucide-angular';
 import { Button } from '../../components/button/button';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthenticationService } from '../../../security/authentication';
+import { AuthenticationService } from '../../../authentication';
 import { SendEmailVerificationUsage, SendEmailVerificationUsageType } from '../overlay.utils';
 
 @Component({

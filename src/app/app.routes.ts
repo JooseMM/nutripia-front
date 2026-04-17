@@ -1,7 +1,9 @@
 import { Routes } from '@angular/router';
-import { AuthenticationLayout } from './security/authentication/layout/authentication-layout/authentication-layout';
-import { Login, Register, VerifyEmail } from './security/authentication';
+import { AuthenticationLayout } from './authentication/layout/authentication-layout/authentication-layout';
+import { Login, Register, VerifyEmail } from './authentication';
 import { Appointments, Clients, DashboardLayout, Home } from './dashboard';
+import { authenticatedOnlyGuard } from './authorization';
+import { nutritionistOnlyGuard } from './authorization/guards/nutritionist-only-guard';
 
 export const routes: Routes = [
   {
@@ -25,6 +27,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardLayout,
+    canActivate: [authenticatedOnlyGuard],
     children: [
       {
         path: '',
@@ -33,6 +36,7 @@ export const routes: Routes = [
       {
         path: 'clients',
         component: Clients,
+        canActivate: [nutritionistOnlyGuard],
       },
       {
         path: 'appointments',

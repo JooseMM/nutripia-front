@@ -7,16 +7,16 @@ import {
   RegisterNutritionist,
   RegistrationResponseState,
 } from '../../';
-import { CustomInput } from '../../../../shared';
-import { Button } from '../../../../shared';
+import { CustomInput } from '../../../shared';
+import { Button } from '../../../shared';
 import { LucideAngularModule, Mail, RotateCcw } from 'lucide-angular';
-import { CustomCheckbox } from '../../../../shared';
-import { LoadingManager } from '../../../../shared';
+import { CustomCheckbox } from '../../../shared';
+import { LoadingManager } from '../../../shared';
 import { finalize } from 'rxjs';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { UnexpectedErrorModal } from '../../../../shared';
-import { createBasicOverlay } from '../../../../shared';
+import { UnexpectedErrorModal } from '../../../shared';
+import { createBasicOverlay } from '../../../shared';
 
 @Component({
   selector: 'app-register',

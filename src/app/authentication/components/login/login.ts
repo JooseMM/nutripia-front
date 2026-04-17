@@ -6,7 +6,7 @@ import {
   LoadingManager,
   SendEmailCodeModal,
   UnexpectedErrorModal,
-} from '../../../../shared';
+} from '../../../shared';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AUTHENTICATION_LOADING_KEY, MIN_PASSWORD_LENGTH, PASSWORD_PATTERN } from '../..';
 import { LoginRequestDto } from '../../models/login.dto';
