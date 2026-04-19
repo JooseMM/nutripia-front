@@ -1,13 +1,13 @@
 :host {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 3rem;
   flex-wrap: wrap;
 }
 
 header {
-  background-color: #C1AEE0;
-  color: #4B3C67;
+  background: #c1aee0;
+  color: #4b3c67;
   border-radius: 0.8rem;
   padding: 1.5rem;
   display: flex;
@@ -16,13 +16,16 @@ header {
   gap: 0.5rem;
 }
 
-header p, header h1 {
+header p {
+  max-width: 50ch;
+}
+header h1 {
   max-width: 35ch;
 }
 
 header > div {
   border-radius: 1rem;
-  background-color: #DACFED;
+  background-color: #dacfed;
   padding: 0.4rem 0.8rem;
   font-size: 0.8rem;
   font-weight: 600;
@@ -34,9 +37,46 @@ header > p {
   line-height: 1.5rem;
 }
 
+.cards {
+  gap: 2.5rem 1rem;
+}
+
+.cards,
 .metrics {
   display: flex;
   flex-wrap: wrap;
+}
+
+.appointments, .metrics {
+  flex-basis: 20rem;
+  flex-grow: 1;
+}
+
+.appointments {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.metrics {
+  position: relative;
   align-items: start;
   gap: 1rem;
+}
+
+.cards__title {
+  position: absolute;
+  top: 0;
+  left: 1rem;
+  font-size: 1rem;
+  transform: translateY(-130%);
+  color: #1e293b;
+  font-weight: 500;
+}
+
+@media (min-width: 800px) {
+  .appointments {
+    flex-basis: 25rem;
+    flex-grow: 0;
+  }
 }

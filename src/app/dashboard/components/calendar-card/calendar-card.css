@@ -1,0 +1,96 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.05);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header__icon {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.4rem 0.5rem;
+  border-radius: 0;
+  text-align: center;
+}
+
+.header__icon__month {
+  font-size: 0.7rem;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.header__icon__day {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.header__info__name {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.header__info__hour {
+  color: var(--secondary-ft-color);
+  font-weight: 400;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.actions__primary {
+  align-items: center;
+  flex-direction: row;
+  gap: 0.5rem;
+  justify-content: center;
+  font-size: 1rem;
+  padding-block: 0.5rem;
+  box-shadow: none;
+}
+
+.actions__secondary {
+  font-size: 1rem;
+  background-color: #f1f5f9;
+  color: #475569;
+  padding-block: 0.7rem;
+  border-radius: 0.5rem;
+  outline: 0.1rem solid #f1f5f9;
+  transition: 300ms;
+}
+
+.actions__secondary:hover {
+  outline: 0.1rem solid #e2e8f0;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding-block: 1rem;
+}
+
+.description__observation li {
+  color: #475569;
+  padding: 0.5rem 1rem;
+}
+
+.border-bottom {
+  border-bottom: 0.1rem solid #f1f5f9;
+}
+
+.description__title {
+  display: flex;
+  gap: 0.5rem;
+  color: var(--primary-ft-color);
+  font-weight: 500;
+}

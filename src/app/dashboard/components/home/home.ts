@@ -1,13 +1,19 @@
 import { Component, signal } from '@angular/core';
 import { MetricsCard } from '../metrics-card/metrics-card';
+import { DatePipe, TitleCasePipe } from '@angular/common';
+import { Calendar1, UsersRound } from 'lucide-angular';
+import { CalendarCard } from '../calendar-card/calendar-card';
+import { Appointment } from '../..';
 
 @Component({
   selector: 'app-home',
-  imports: [MetricsCard],
+  imports: [MetricsCard, DatePipe, TitleCasePipe, CalendarCard],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home {
+  protected readonly USERS = UsersRound;
+  protected readonly CALENDAR = Calendar1;
   /*
     private readonly authenticationService = inject(AuthenticationService);
     protected readonly firstname = computed(
@@ -15,8 +21,12 @@ export class Home {
     );
   */
   protected readonly firstname = signal('Pia');
-
-  protected getFormattedDate(): string {
-    return 'Lunes, Octubre 24';
-  }
+  protected date = new Date();
+  protected readonly appointmentList: Appointment[] = [
+    {
+      date: new Date(2026, 6, 20, 13),
+      isOnline: true,
+      observationList: ['Competencia dentro de un dia'],
+    },
+  ];
 }

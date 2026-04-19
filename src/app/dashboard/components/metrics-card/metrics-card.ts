@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { LucideAngularModule, UsersRound } from 'lucide-angular';
+import { LucideAngularModule, LucideIconData } from 'lucide-angular';
 import { SignPipe } from '../../../shared/pipes/sign-pipe';
 
 @Component({
@@ -9,14 +9,13 @@ import { SignPipe } from '../../../shared/pipes/sign-pipe';
   styleUrl: './metrics-card.css',
 })
 export class MetricsCard {
-  protected readonly ICON = UsersRound;
-  primaryColor = input.required<`#${string}`>();
-  secondaryColor = input.required<`#${string}`>();
+  icon = input.required<LucideIconData>();
+  iconBackground = input.required<`#${string}`>();
   improvementPercentage = input.required<number>();
   value = input.required<number>();
   title = input.required<string>();
 
   protected getProgressBar() {
-    return `linear-gradient(to right, ${this.primaryColor()} ${this.improvementPercentage()}%, ${this.secondaryColor()} ${this.improvementPercentage()}%)`;
+    return `linear-gradient(to right, #675784 ${this.improvementPercentage()}%,  #F2F4F6 ${this.improvementPercentage()}%)`;
   }
 }
