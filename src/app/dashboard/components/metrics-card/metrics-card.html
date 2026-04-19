@@ -1,0 +1,16 @@
+<div class="header">
+  <div class="header__icon" [style.background-color]="primaryColor()">
+    <lucide-angular [img]="ICON"></lucide-angular>
+  </div>
+  <div
+    class="improvement"
+    [class.improvement--ok]="improvementPercentage() >= 0"
+    >
+    <p>{{ improvementPercentage() | sign }}%</p>
+  </div>
+</div>
+<div class="chart">
+  <p class="chart__title">{{ title() }}</p>
+  <p class="chart__value">{{ value() }}</p>
+  <div class="chart__visual" [style.background]="getProgressBar()"></div>
+</div>

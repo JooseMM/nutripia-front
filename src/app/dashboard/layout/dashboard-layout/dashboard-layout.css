@@ -1,4 +1,4 @@
-main {
+:host {
   display: flex;
   background-color: #f9fafb;
   height: 100dvh;
@@ -96,15 +96,15 @@ lucide-angular {
   align-items: center;
   gap: 0.8rem;
   font-size: 1rem;
-  color: var(--error-color);
+  color: var(--error-ft-color);
   padding: 1rem;
   border-radius: 0.5rem;
   transition: 300ms;
 }
 
 .logout:hover {
-  background-color: #fef6f6;
-  outline: 0.1rem solid var(--error-color);
+  background-color: var(--error-bg-color);
+  outline: 0.1rem solid var(--error-ft-color);
 }
 
 .footer {
@@ -146,6 +146,12 @@ lucide-angular {
   font-weight: 600;
   color: var(--primary-ft-color);
   font-size: 1rem;
+}
+
+main {
+  width: 100%;
+  padding: 1rem;
+  overflow-y: auto;
 }
 
 @media (min-width: 1000px) {

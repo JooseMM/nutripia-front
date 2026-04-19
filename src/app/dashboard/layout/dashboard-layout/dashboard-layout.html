@@ -1,64 +1,62 @@
+<aside class="drawer">
+  <nav>
+    <a class="logo--desktop">
+      <app-logo></app-logo>
+    </a>
+    <a class="logo--mobile">
+      <span>N</span>
+      <span>P</span>
+    </a>
+    <p>GENERAL</p>
+    <ul>
+      <li>
+        <a
+          routerLink="/dashboard"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <lucide-angular [img]="HOME_ICON"></lucide-angular>
+          <p>Inicio</p>
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/dashboard/clients"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <lucide-angular [img]="CLIENT_ICON"></lucide-angular>
+          <p>Clientes</p>
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/dashboard/appointments"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <lucide-angular [img]="APPOINTMENTS_ICON"></lucide-angular>
+          <p>Agenda</p>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div class="footer">
+    <a class="user">
+      <div class="user__image">
+        <lucide-angular [img]="USER_ICON"></lucide-angular>
+      </div>
+      <div class="user__info">
+        <p class="user__firstname">Pia</p>
+        <p>Nutricionista</p>
+      </div>
+    </a>
+    <button class="logout">
+      <lucide-angular [img]="LOGOUT_ICON" size="20"></lucide-angular>
+      <p>Cerrar Sesión</p>
+    </button>
+  </div>
+</aside>
 <main>
-  <aside class="drawer">
-    <nav>
-      <a class="logo--desktop">
-        <app-logo></app-logo>
-      </a>
-      <a class="logo--mobile">
-        <span>N</span>
-        <span>P</span>
-      </a>
-      <p>GENERAL</p>
-      <ul>
-        <li>
-          <a
-            routerLink="/dashboard"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            <lucide-angular [img]="HOME_ICON"></lucide-angular>
-            <p>Inicio</p>
-          </a>
-        </li>
-        <li>
-          <a
-            routerLink="/dashboard/clients"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            <lucide-angular [img]="CLIENT_ICON"></lucide-angular>
-            <p>Clientes</p>
-          </a>
-        </li>
-        <li>
-          <a
-            routerLink="/dashboard/appointments"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            <lucide-angular [img]="APPOINTMENTS_ICON"></lucide-angular>
-            <p>Agenda</p>
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <div class="footer">
-      <a class="user">
-        <div class="user__image">
-          <lucide-angular [img]="USER_ICON"></lucide-angular>
-        </div>
-        <div class="user__info">
-          <p class="user__firstname">Pia</p>
-          <p>Nutricionista</p>
-        </div>
-      </a>
-      <button class="logout">
-        <lucide-angular [img]="LOGOUT_ICON" size="20"></lucide-angular>
-        <p>Cerrar Sesión</p>
-      </button>
-    </div>
-  </aside>
-  <section>
-    <router-outlet></router-outlet>
-  </section>
+  <router-outlet></router-outlet>
 </main>

@@ -1,1 +1,26 @@
-<p>home works!</p>
+<header>
+  <div>
+    <p>{{ getFormattedDate() }}</p>
+  </div>
+  <h1>¡Qué bueno verte de nuevo, {{ firstname() }}!</h1>
+  <p>
+    Tienes 8 consultas programadas para hoy. 3 pacientes han alcanzado sus metas de macros esta
+    semana.
+  </p>
+</header>
+<div class="metrics">
+  <app-metrics-card
+    primaryColor="#675784"
+    secondaryColor="#F2F4F6"
+    [improvementPercentage]="-12"
+    title="clientes totales"
+    [value]="148"
+  ></app-metrics-card>
+  <app-metrics-card
+    primaryColor="#675784"
+    secondaryColor="#F2F4F6"
+    [improvementPercentage]="+120"
+    title="citas nutricionales"
+    [value]="5"
+  ></app-metrics-card>
+</div>

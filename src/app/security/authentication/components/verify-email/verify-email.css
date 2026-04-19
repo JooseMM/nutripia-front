@@ -29,14 +29,14 @@ div {
 }
 
 .invalid input {
-  border-color: var(--error-color);
+  border-color: var(--error-ft-color);
 }
 
 small {
   position: absolute;
   bottom: -1.8rem;
   text-align: center;
-  color: var(--error-color);
+  color: var(--error-ft-color);
 }
 
 input {
