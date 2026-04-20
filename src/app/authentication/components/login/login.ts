@@ -87,7 +87,7 @@ export class Login {
             this.openUnexpectedErrorModal();
             break;
           case LoginResponseState.Ok:
-            this.router.navigate(['dashboard', 'home']);
+            this.router.navigate(['dashboard']);
             break;
         }
       });

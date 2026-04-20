@@ -3,7 +3,7 @@
     <h1>Bienvenido de nuevo</h1>
     <p>Ingresa tus credenciales para acceder a tu panel.</p>
   </div>
-  <form [formGroup]="form">
+  <form [formGroup]="form" (submit)="submit()">
     <app-custom-input
       formControlName="email"
       label="Correo Electrónico"
@@ -19,7 +19,7 @@
     <div class="reset-password">
       <button (click)="openResetPasswordModal()">¿Olvidaste tu contraseña?</button>
     </div>
-    <button app-button class="submit" (click)="submit()">Iniciar Sesión</button>
+    <button app-button class="submit" type="submit">Iniciar Sesión</button>
     <div class="oauth">
       <p>O CONTINÚA CON</p>
       <button>
