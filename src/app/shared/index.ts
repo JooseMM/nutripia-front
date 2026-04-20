@@ -10,6 +10,8 @@ export { LoadingManager } from './overlay/loader/services/loading-manager';
 export { UnexpectedErrorModal } from './overlay/unexpected-error-modal/unexpected-error-modal';
 export { SendEmailCodeModal } from './overlay/send-email-code-modal/send-email-code-modal';
 
+export { SignPipe } from './pipes/sign-pipe';
+
 export {
   createBasicOverlay,
   type SendEmailVerificationUsageType,

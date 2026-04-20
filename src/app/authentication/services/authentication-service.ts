@@ -8,9 +8,9 @@ import {
   RegistrationStateType,
   Token,
   UserRoles,
-} from '../';
+} from '..';
 import { delay, Observable, of, tap } from 'rxjs';
-import { LoginResponseState } from '../models/loginResponseState.enum';
+import { LoginResponseState } from '..';
 
 @Injectable({
   providedIn: 'root',

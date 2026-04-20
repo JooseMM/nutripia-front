@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { LucideAngularModule, LucideIconData } from 'lucide-angular';
-import { SignPipe } from '../../../shared/pipes/sign-pipe';
+import { SignPipe } from '../../../../shared';
 
 @Component({
   selector: 'app-metrics-card',

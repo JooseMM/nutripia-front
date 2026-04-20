@@ -1,6 +1,6 @@
 import { Component, computed, input } from '@angular/core';
-import { Appointment } from '../..';
-import { Button } from '../../../shared';
+import { Appointment } from '../../..';
+import { Button } from '../../../../shared';
 import { Info, LucideAngularModule, Video } from 'lucide-angular';
 
 @Component({

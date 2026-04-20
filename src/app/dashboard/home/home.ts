@@ -1,9 +1,9 @@
 import { Component, signal } from '@angular/core';
-import { MetricsCard } from '../metrics-card/metrics-card';
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { Calendar1, UsersRound } from 'lucide-angular';
-import { CalendarCard } from '../calendar-card/calendar-card';
-import { Appointment } from '../..';
+import { Appointment } from '..';
+import { CalendarCard } from './components/calendar-card/calendar-card';
+import { MetricsCard } from './components/metrics-card/metrics-card';
 
 @Component({
   selector: 'app-home',
