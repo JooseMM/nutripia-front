@@ -11,6 +11,7 @@ import { SignPipe } from '../../../shared/pipes/sign-pipe';
 export class MetricsCard {
   icon = input.required<LucideIconData>();
   iconBackground = input.required<`#${string}`>();
+  iconColor = input.required<`#${string}`>();
   improvementPercentage = input.required<number>();
   value = input.required<number>();
   title = input.required<string>();

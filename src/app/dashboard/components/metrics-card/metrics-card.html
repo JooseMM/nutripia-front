@@ -1,11 +1,8 @@
 <div class="header">
   <div class="header__icon" [style.background-color]="iconBackground()">
-    <lucide-angular [img]="icon()" size="25"></lucide-angular>
+    <lucide-angular [img]="icon()" size="25" [color]="iconColor()"></lucide-angular>
   </div>
-  <div
-    class="improvement"
-    [class.improvement--ok]="improvementPercentage() >= 0"
-    >
+  <div class="improvement" [class.improvement--ok]="improvementPercentage() >= 0">
     <p>{{ improvementPercentage() | sign }}%</p>
   </div>
 </div>

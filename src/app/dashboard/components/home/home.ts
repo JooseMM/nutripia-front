@@ -4,10 +4,11 @@ import { DatePipe, TitleCasePipe } from '@angular/common';
 import { Calendar1, UsersRound } from 'lucide-angular';
 import { CalendarCard } from '../calendar-card/calendar-card';
 import { Appointment } from '../..';
+import { TodoList } from "../todo-list/todo-list";
 
 @Component({
   selector: 'app-home',
-  imports: [MetricsCard, DatePipe, TitleCasePipe, CalendarCard],
+  imports: [MetricsCard, DatePipe, TitleCasePipe, CalendarCard, TodoList],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

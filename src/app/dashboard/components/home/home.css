@@ -6,7 +6,10 @@
 }
 
 header {
-  background: #c1aee0;
+  background: #c1aee0 url(/images/home-header-bg.jpg);
+  background-position: center right -3.5rem;
+  background-repeat: no-repeat;
+  background-size: 16rem;
   color: #4b3c67;
   border-radius: 0.8rem;
   padding: 1.5rem;
@@ -42,23 +45,25 @@ header > p {
 }
 
 .cards,
-.metrics {
+.column-one {
   display: flex;
   flex-wrap: wrap;
 }
 
-.appointments, .metrics {
+.column-two,
+.column-one {
+  flex-wrap: wrap;
   flex-basis: 20rem;
   flex-grow: 1;
 }
 
-.appointments {
+.column-two {
   position: relative;
   display: flex;
   flex-direction: column;
 }
 
-.metrics {
+.column-one {
   position: relative;
   align-items: start;
   gap: 1rem;
@@ -75,8 +80,14 @@ header > p {
 }
 
 @media (min-width: 800px) {
-  .appointments {
+  .column-two {
     flex-basis: 25rem;
     flex-grow: 0;
+  }
+
+  .column-one__todo {
+    position: relative;
+    flex-shrink: 0;
+    flex-basis: 100%;
   }
 }
