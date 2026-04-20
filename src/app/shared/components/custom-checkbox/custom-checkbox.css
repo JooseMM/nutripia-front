@@ -19,11 +19,11 @@ small {
   bottom: -2.5rem;
   padding-left: 2rem;
   font-size: 0.8rem;
-  color: var(--error-color);
+  color: var(--error-ft-color);
 }
 
 .input--invalid {
-  border: 0.1rem solid var(--error-color);
+  border: 0.1rem solid var(--error-ft-color);
 }
 
 /* 1. Hide the ugly default checkbox */

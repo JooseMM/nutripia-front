@@ -87,7 +87,7 @@ small {
   position: absolute;
   bottom: -1.5rem;
   left: 1rem;
-  color: var(--error-color);
+  color: var(--error-ft-color);
 }
 
 .email-input {
@@ -101,7 +101,7 @@ small {
 }
 
 .invalid {
-  outline: 0.1rem solid var(--error-color);
+  outline: 0.1rem solid var(--error-ft-color);
 }
 
 .focus {

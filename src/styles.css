@@ -6,8 +6,10 @@
   --primary-color: #8b7ca8;
   --soft-gray: #e2e8f0;
 
-  --error-color: #cd5c5c;
-
+  --error-ft-color: #cd5c5c;
+  --error-bg-color: #fef6f6;
+  --ok-bg-color: #dcfce7;
+  --ok-ft-color: #15803d;
 }
 
 html,
@@ -60,6 +62,10 @@ a:active {
 
 a:hover {
   cursor: pointer;
+}
+
+lucide-angular {
+  display: flex;
 }
 
 /* The custom class you defined in TS */
