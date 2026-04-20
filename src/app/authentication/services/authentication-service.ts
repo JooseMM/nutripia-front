@@ -63,4 +63,9 @@ export class AuthenticationService {
   resendEmailVerification(_email: string): void {}
 
   sendPasswordChangeCode(_email: string): void {}
+
+  logout(): void {
+    this._sessionToken.set(undefined);
+    this._authenticationInfo.set(undefined);
+  }
 }

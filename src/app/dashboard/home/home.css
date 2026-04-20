@@ -23,6 +23,10 @@ header h1 {
   max-width: 35ch;
 }
 
+header h1 span {
+  text-transform: capitalize;
+}
+
 header > div {
   border-radius: 1rem;
   background-color: #dacfed;

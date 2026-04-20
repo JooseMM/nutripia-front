@@ -1,9 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { Calendar1, UsersRound } from 'lucide-angular';
 import { Appointment } from '..';
 import { CalendarCard } from './components/calendar-card/calendar-card';
 import { MetricsCard } from './components/metrics-card/metrics-card';
+import { AuthenticationService } from '../../authentication';
 
 @Component({
   selector: 'app-home',
@@ -14,13 +15,10 @@ import { MetricsCard } from './components/metrics-card/metrics-card';
 export class Home {
   protected readonly USERS = UsersRound;
   protected readonly CALENDAR = Calendar1;
-  /*
-    private readonly authenticationService = inject(AuthenticationService);
-    protected readonly firstname = computed(
-      () => this.authenticationService.authenticationInfo()?.firstname,
-    );
-  */
-  protected readonly firstname = signal('Pia');
+  private readonly authenticationService = inject(AuthenticationService);
+  protected readonly firstname = computed(
+    () => this.authenticationService.authenticationInfo()?.firstname,
+  );
   protected date = new Date();
   protected readonly appointmentList: Appointment[] = [
     {

@@ -6,7 +6,7 @@ export const nutritionistOnlyGuard: CanActivateFn = (_route, _state) => {
   const authenticationService = inject(AuthenticationService);
   const router = inject(Router);
 
-  if (authenticationService.authenticationInfo()?.role !== UserRoles.Client) {
+  if (authenticationService.authenticationInfo()?.role !== UserRoles.Nutritionist) {
     router.navigate(['dashboard']);
     return false;
   }

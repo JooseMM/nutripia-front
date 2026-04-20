@@ -2,7 +2,7 @@
   <div class="date">
     <p>{{ date | date: 'EEEE, MMMM d' : '' : 'es-ES' | titlecase }}</p>
   </div>
-  <h1>¡Qué bueno verte de nuevo, {{ firstname() }}!</h1>
+  <h1>¡Qué bueno verte de nuevo, <span>{{ firstname() }}</span>!</h1>
   <p>
     Tienes 8 consultas programadas para hoy. 3 pacientes han alcanzado sus metas de macros esta
     semana.
