@@ -1,6 +1,5 @@
 export { Logo } from './components/logo/logo';
 
-export { Sidebar } from './components/sidebar/sidebar';
 export { Button } from './components/button/button';
 export { CustomInput } from './components/custom-input/custom-input';
 export { CustomCheckbox } from './components/custom-checkbox/custom-checkbox';
@@ -9,6 +8,12 @@ export { LoadingSpinner } from './overlay/loader/components/loading-spinner/load
 export { LoadingManager } from './overlay/loader/services/loading-manager';
 
 export { UnexpectedErrorModal } from './overlay/unexpected-error-modal/unexpected-error-modal';
-export { ResendEmailVerificationModal } from './overlay/resend-email-verification-modal/resend-email-verification-modal';
+export { SendEmailCodeModal } from './overlay/send-email-code-modal/send-email-code-modal';
 
-export { createBasicOverlay } from './overlay/overlay.utils';
+export { SignPipe } from './pipes/sign-pipe';
+
+export {
+  createBasicOverlay,
+  type SendEmailVerificationUsageType,
+  SendEmailVerificationUsage,
+} from './overlay/overlay.utils';

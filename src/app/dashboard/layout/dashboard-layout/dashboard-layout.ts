@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Logo } from '../../../shared';
 import { Calendar1, LayoutDashboard, LogOut, LucideAngularModule, UserRound } from 'lucide-angular';
+import { AuthenticationService } from '../../../authentication';
 
 @Component({
   selector: 'app-dashboard-layout',
@@ -15,4 +16,10 @@ export class DashboardLayout {
   protected readonly APPOINTMENTS_ICON = Calendar1;
   protected readonly LOGOUT_ICON = LogOut;
   protected readonly USER_ICON = UserRound;
+
+  private readonly authenticationService = inject(AuthenticationService);
+
+  protected logout(): void {
+    this.authenticationService.logout();
+  }
 }
