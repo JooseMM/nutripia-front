@@ -1,6 +1,6 @@
-import { Component, input } from '@angular/core';
+import { Component, input, linkedSignal } from '@angular/core';
 import { TaskItem } from '../../../models/task.model';
-import { Check, EllipsisVertical, LucideAngularModule } from "lucide-angular";
+import { Check, EllipsisVertical, LucideAngularModule, ClipboardCheck } from 'lucide-angular';
 
 @Component({
   selector: 'app-todo-list',
@@ -11,5 +11,16 @@ import { Check, EllipsisVertical, LucideAngularModule } from "lucide-angular";
 export class TodoList {
   protected readonly CHECK = Check;
   protected readonly OPTIONS = EllipsisVertical;
+  protected readonly EMPTY = ClipboardCheck;
   taskList = input.required<TaskItem[]>();
+  list = linkedSignal(() => this.taskList());
+
+  protected toggleCompletion(index: number): void {
+    this.list.update((prev) => {
+      prev[index].isCompleted = !prev[index].isCompleted;
+      return [...prev];
+    });
+
+    // send here
+  }
 }

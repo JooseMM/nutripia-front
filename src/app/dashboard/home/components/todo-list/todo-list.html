@@ -1,32 +1,27 @@
 <ul>
-  <li class="border-bottom" [class.completed]="true">
-    <div class="check__indicator" [class.completed]="false">
-      <lucide-angular class="check" [img]="CHECK" size="20"></lucide-angular>
-    </div>
-    <div class="content">
-      <p class="content__title">Revision de plan nutricional</p>
-      <p class="content__description">Terminar las recomendaciones de snacks</p>
-    </div>
-      <div class="check">
-        <lucide-angular [img]="CHECK" size="15"></lucide-angular>
+  @for (task of taskList(); track task.id) {
+    <li
+      [class.border-bottom]="!$last"
+      [class.completed]="task.isCompleted"
+      (click)="toggleCompletion($index)"
+    >
+      <div class="check__indicator">
+        <lucide-angular class="check" [img]="CHECK" size="20"></lucide-angular>
+      </div>
+      <div class="content">
+        <p class="content__title">Revision de plan nutricional</p>
+        <p class="content__description">Terminar las recomendaciones de snacks</p>
       </div>
       <div class="options">
         <lucide-angular [img]="OPTIONS"></lucide-angular>
       </div>
-  </li>
-  <li [class.completed]="true">
-    <div class="check__indicator" [class.completed]="false">
-      <lucide-angular class="check" [img]="CHECK" size="20"></lucide-angular>
-    </div>
-    <div class="content">
-      <p class="content__title">Revision de plan nutricional</p>
-      <p class="content__description">Terminar las recomendaciones de snacks</p>
-    </div>
-      <div class="check check--visual">
-        <lucide-angular [img]="CHECK" size="15"></lucide-angular>
+    </li>
+  } @empty {
+    <li class="empty">
+      <div>
+        <lucide-angular [img]="EMPTY" size="30"></lucide-angular>
       </div>
-      <div class="options">
-        <lucide-angular [img]="OPTIONS"></lucide-angular>
-      </div>
-  </li>
+      <p>No hay tareas pendientes</p>
+    </li>
+  }
 </ul>

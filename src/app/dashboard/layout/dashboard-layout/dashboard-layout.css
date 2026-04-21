@@ -150,6 +150,7 @@ lucide-angular {
 
 main {
   width: 100%;
+  height: 100dvh;
   padding: 1rem;
   overflow-y: auto;
 }
@@ -188,5 +189,9 @@ main {
 
   .logo--mobile {
     display: none;
+  }
+
+  main {
+    overflow-y: hidden;
   }
 }

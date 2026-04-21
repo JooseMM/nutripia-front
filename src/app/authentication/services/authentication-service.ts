@@ -11,6 +11,7 @@ import {
 } from '..';
 import { delay, Observable, of, tap } from 'rxjs';
 import { LoginResponseState } from '..';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,9 @@ export class AuthenticationService {
     signal(undefined);
   readonly authenticationInfo = this._authenticationInfo.asReadonly();
 
-  private readonly _sessionToken: WritableSignal<string | undefined> = signal(undefined);
+  private readonly _sessionToken: WritableSignal<string | undefined> = signal(
+    localStorage.getItem(environment.CACHE_SESSION) || undefined,
+  );
   readonly sessionToken = this._sessionToken.asReadonly();
   readonly isAuthenticated = computed(() => !!this.sessionToken());
 
@@ -37,7 +40,11 @@ export class AuthenticationService {
     });
 
     return of(LoginResponseState.Ok).pipe(
-      tap(() => this._sessionToken.set('super-secure-session-token-key')),
+      tap(() => {
+        const token = 'super-secure-session-token-key';
+        this._sessionToken.set(token);
+        localStorage.setItem(environment.CACHE_SESSION, token);
+      }),
       delay(1000),
     );
   }
@@ -63,6 +70,17 @@ export class AuthenticationService {
   resendEmailVerification(_email: string): void {}
 
   sendPasswordChangeCode(_email: string): void {}
+
+  verifySessionToken(): void {
+    if (this.isAuthenticated()) return;
+    if (!this.sessionToken()) throw new Error('Invalid session token');
+
+    this._authenticationInfo.set({
+      userId: 'user-1',
+      firstname: 'juanete',
+      role: UserRoles.Nutritionist,
+    });
+  }
 
   logout(): void {
     this._sessionToken.set(undefined);

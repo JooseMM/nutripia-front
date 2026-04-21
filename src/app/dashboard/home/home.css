@@ -82,16 +82,34 @@ header > p {
   color: #1e293b;
   font-weight: 500;
 }
+.column-one__todo {
+  position: relative;
+  margin-top: 1.5rem;
+}
 
 @media (min-width: 800px) {
+  :host {
+    height: 100%;
+    overflow-y: hidden;
+  }
   .column-two {
     flex-basis: 25rem;
     flex-grow: 0;
   }
 
+  .cards {
+    gap: 1.5rem;
+    flex: 1;
+  }
+
+  .column-one {
+    gap: 2.5rem 1.5rem;
+  }
+
   .column-one__todo {
-    position: relative;
     flex-shrink: 0;
     flex-basis: 100%;
+    margin: 0;
+    flex-grow: 1;
   }
 }

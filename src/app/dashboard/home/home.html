@@ -2,7 +2,10 @@
   <div class="date">
     <p>{{ date | date: 'EEEE, MMMM d' : '' : 'es-ES' | titlecase }}</p>
   </div>
-  <h1>¡Qué bueno verte de nuevo, <span>{{ firstname() }}</span>!</h1>
+  <h1>
+    ¡Qué bueno verte de nuevo, <span>{{ firstname() }}</span
+    >!
+  </h1>
   <p>
     Tienes 8 consultas programadas para hoy. 3 pacientes han alcanzado sus metas de macros esta
     semana.
@@ -29,12 +32,13 @@
     ></app-metrics-card>
     <div class="column-one__todo">
       <h3 class="cards__title">Tareas Prioritarias</h3>
-      <app-todo-list [taskList]="[]"></app-todo-list>
+      <app-todo-list [style.height]="'100%'" [taskList]="taskList()"></app-todo-list>
     </div>
   </div>
   <div class="column-two">
     <h3 class="cards__title">Próxima Cita</h3>
     <app-calendar-card
+      [style.height]="'100%'"
       appointmentOwner="Juanete Perez"
       [appointment]="appointmentList[0]"
     ></app-calendar-card>

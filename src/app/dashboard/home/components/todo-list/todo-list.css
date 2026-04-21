@@ -2,11 +2,18 @@
   background-color: white;
   display: flex;
   flex-direction: column;
-  padding-block: 0.5rem;
   gap: 1rem;
   background-color: white;
   border-radius: 0.5rem;
   box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.05);
+  height: 100%;
+  overflow-y: auto;
+  max-height: 22rem;
+}
+
+ul {
+  height: 100%;
+  overflow-y: auto;
 }
 
 li {
@@ -29,10 +36,11 @@ li:hover {
   justify-items: center;
   border: 0.1rem solid #cbd5e1;
   border-radius: 10rem;
+  transition: 300ms;
 }
 
 .check__indicator lucide-angular {
-  transform: translateX(10%);
+  transform: translate(15%, 5%);
 }
 
 .content__title {
@@ -40,6 +48,7 @@ li:hover {
   font-size: 1rem;
   font-weight: 400;
   margin-bottom: 0.2rem;
+  transition: 300ms;
 }
 
 .content__description {
@@ -66,17 +75,6 @@ li:hover {
   border-bottom: 0.1rem solid #f1f5f9;
 }
 
-.check--visual {
-  display: none;
-  justify-items: center;
-  align-items: center;
-  border-radius: 100rem;
-  border: 0.14rem solid #10b981;
-  width: 1.5rem;
-  height: 1.5rem;
-  color: #10b981;
-}
-
 .completed .check {
   display: flex;
 }
@@ -86,6 +84,19 @@ li:hover {
   color: #64748b;
 }
 
-.check__completed lucide-angular {
-  transform: translate(20%, 5%);
+.empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--secondary-ft-color);
+}
+
+.empty div {
+  color: var(--secondary-ft-color);
+  border: 0.1rem solid #e2e8f0;
+  background-color: #f1f5f9;
+  border-radius: 100rem;
+  padding: 0.6rem;
+  margin-bottom: 0.5rem;
 }

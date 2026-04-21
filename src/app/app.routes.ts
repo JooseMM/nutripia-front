@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { Login, Register, VerifyEmail, AuthenticationLayout } from './authentication';
 import { Appointments, Clients, DashboardLayout, Home } from './dashboard';
-import { authenticatedOnlyGuard, nutritionistOnlyGuard } from './authorization';
+import { authenticatedOnlyGuard, nutritionistOnlyGuard, unknownOnlyGuard } from './authorization';
 
 export const routes: Routes = [
   {
@@ -10,10 +10,12 @@ export const routes: Routes = [
     children: [
       {
         path: 'login',
+        canActivate: [unknownOnlyGuard],
         component: Login,
       },
       {
         path: 'register',
+        canActivate: [unknownOnlyGuard],
         component: Register,
       },
       {

@@ -1,8 +1,11 @@
 export interface TaskItem {
+  id: string;
   title: string;
   description: string;
   priority: TaskPrioritiesType;
+  isCompleted: boolean;
   createdAt: Date;
+  completedAt: Date | null;
 }
 
 export const TaskPrioritiesEnum = {
