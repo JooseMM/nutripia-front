@@ -14,7 +14,7 @@ import { TaskItem, TaskPrioritiesEnum } from '../models/task.model';
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home implements OnInit {
+export class Home {
   protected readonly USERS = UsersRound;
   protected readonly CALENDAR = Calendar1;
   private readonly authenticationService = inject(AuthenticationService);
@@ -26,13 +26,9 @@ export class Home implements OnInit {
     {
       date: new Date(2026, 6, 20, 13),
       isOnline: true,
-      observationList: ['Competencia dentro de un dia'],
+      observationList: ['Competencia dentro de unos dias donde tiene que bajar 5kg'],
     },
   ];
-
-  ngOnInit(): void {
-    this.authenticationService.verifySessionToken();
-  }
 
   protected readonly taskList: WritableSignal<TaskItem[]> = signal([
     {

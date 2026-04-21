@@ -1,0 +1,85 @@
+:host {
+  display: flex;
+  padding: 1rem;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 100%;
+}
+
+header {
+  display: flex;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 0.8rem;
+  border: 0.1rem solid #e2e8f0;
+  border-bottom-width: 0.2rem;
+  gap: 1rem;
+  color: #6b7280;
+}
+
+header button {
+  flex-grow: 0;
+  flex-basis: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.1rem solid #f2f4f6;
+  border-radius: 0.5rem;
+  color: #6b7280;
+  transition: 300ms;
+}
+
+header div {
+  display: flex;
+  gap: 1rem;
+  flex: 1;
+  font-size: 1rem;
+  align-items: center;
+  border: 0.1rem solid #f2f4f6;
+  background-color: #f2f4f6;
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.5rem;
+  transition: 300ms;
+}
+
+header div:hover,
+header div:focus,
+header button:hover {
+  border-color: #e2e8f0;
+  cursor: pointer;
+}
+
+header input {
+  border: none;
+  background: none;
+}
+
+header input:focus {
+  outline: none;
+}
+
+header input::placeholder,
+header input {
+  color: #6b7280;
+}
+
+.content {
+  display: flex;
+  height: 100%;
+  gap: 1rem;
+}
+
+.content ul {
+  flex-grow: 0;
+  flex-basis: 25rem;
+}
+
+.content__details {
+  flex: 1;
+}
+
+@media (min-width: 1000px) {
+  li:hover {
+    cursor: pointer;
+  }
+}

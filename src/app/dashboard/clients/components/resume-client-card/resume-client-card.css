@@ -1,0 +1,44 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 0.1rem solid transparent;
+  gap: 1rem;
+  transition: 300ms;
+}
+
+:host(.selected) {
+  border-color: #e2e8f0;
+  background-color: white;
+}
+
+.basic-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profile-picture {
+  padding: 0.5rem;
+  border-radius: 100rem;
+  background-color: #e2e1ec;
+  color: var(--primary-color);
+}
+
+.info__fullname {
+  color: var(--primary-ft-color);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.info__age {
+  color: var(--secondary-ft-color);
+}
+
+.tracking-info {
+  display: flex;
+  gap: 1rem;
+}

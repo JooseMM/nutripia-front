@@ -1,29 +1,27 @@
 :host {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  flex-wrap: wrap;
+  display: block;
+  padding: 1rem;
 }
 
 header {
-  background: #c1aee0 url(/images/home-header-bg.jpg);
-  background-position: center right -3.5rem;
-  background-repeat: no-repeat;
-  background-size: 16rem;
+  background: #c1aee0;
   color: #4b3c67;
   border-radius: 0.8rem;
-  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.5rem;
+  margin-bottom: 2dvh;
+  padding: 1.5rem;
 }
 
 header p {
   max-width: 50ch;
 }
+
 header h1 {
   max-width: 35ch;
+  font-size: 1.5rem;
 }
 
 header h1 span {
@@ -45,71 +43,44 @@ header > p {
 }
 
 .cards {
-  gap: 2.5rem 1rem;
-}
-
-.cards,
-.column-one {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.column-two,
-.column-one {
-  flex-wrap: wrap;
-  flex-basis: 20rem;
-  flex-grow: 1;
-}
-
-.column-two {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.column-one {
-  position: relative;
-  align-items: start;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 1rem;
-}
-
-.cards__title {
-  position: absolute;
-  top: 0;
-  left: 1rem;
-  font-size: 1rem;
-  transform: translateY(-130%);
-  color: #1e293b;
-  font-weight: 500;
-}
-.column-one__todo {
-  position: relative;
-  margin-top: 1.5rem;
 }
 
 @media (min-width: 800px) {
   :host {
-    height: 100%;
+    height: 100dvh;
+    max-height: 100dvh;
     overflow-y: hidden;
   }
-  .column-two {
-    flex-basis: 25rem;
-    flex-grow: 0;
+
+  header {
+    height: 20dvh;
+    background: #c1aee0 url(/images/home-header-bg.jpg);
+    background-position: center right -3.5rem;
+    background-repeat: no-repeat;
+    background-size: 16rem;
+    border: 0.1rem solid var(--primary-color);
+    border-bottom-width: 0.2rem;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
   }
 
   .cards {
-    gap: 1.5rem;
-    flex: 1;
+    gap: 1rem;
+    height: 74dvh;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 10.5rem 1fr;
   }
 
-  .column-one {
-    gap: 2.5rem 1.5rem;
+  .card__todo {
+    grid-column: span 2;
   }
 
-  .column-one__todo {
-    flex-shrink: 0;
-    flex-basis: 100%;
-    margin: 0;
-    flex-grow: 1;
+  .card__calendar {
+    grid-row: span 2;
   }
 }

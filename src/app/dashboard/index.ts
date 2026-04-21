@@ -5,3 +5,4 @@ export { Clients } from './clients/clients';
 export { Appointments } from './appointments/appointments';
 
 export type { Appointment } from './models/appointments.model';
+export type { Client } from './models/client.model';

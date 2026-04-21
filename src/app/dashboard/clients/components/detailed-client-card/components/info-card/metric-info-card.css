@@ -1,0 +1,35 @@
+:host {
+  border-radius: 0.8rem;
+  background-color: #f2f4f6;
+  padding: 0.8rem 1rem;
+  min-width: 8rem;
+}
+
+.title {
+  color: #777b7f;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+div {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  line-height: 1;
+  gap: 0.2rem;
+  margin-top: 0.2rem;
+}
+
+.value {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.metric {
+  color: #777b7f;
+  font-weight: 300;
+  font-size: 1rem;
+  transform: translateY(-20%);
+}

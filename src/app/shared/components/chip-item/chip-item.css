@@ -1,0 +1,25 @@
+:host {
+  display: block;
+  padding: 0.5rem 1rem;
+  width: fit-content;
+  border-radius: 1rem;
+}
+:host(.red) {
+  background-color: #ffc7e9;
+  color: #673e59;
+}
+
+:host(.purple) {
+  background-color: #d7c3f7;
+  color: #4b3c67;
+}
+
+:host(.yellow) {
+  color: #67563c;
+  background-color: #f7edd7;
+}
+
+:host(.green) {
+  color: var(--ok-ft-color);
+  background-color: var(--ok-bg-color);
+}

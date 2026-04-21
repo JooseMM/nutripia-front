@@ -1,1 +1,23 @@
-<p>clients works!</p>
+<header>
+  <div>
+    <lucide-angular [img]="SEARCH_ICON" size="15"></lucide-angular>
+    <input placeholder="Busqueda de cliente..." />
+  </div>
+  <button>
+    <lucide-angular [img]="FILTER_ICON" size="15"></lucide-angular>
+  </button>
+</header>
+<div class="content">
+  <ul>
+    @for (client of clientList(); track $index) {
+      <li (click)="select($index)">
+        <app-resume-client-card
+          [isSelected]="selectedClient() == $index"
+          fullname="Elena Rodriguez"
+          [age]="32"
+        ></app-resume-client-card>
+      </li>
+    }
+  </ul>
+  <app-detailed-client-card class="content__details"></app-detailed-client-card>
+</div>

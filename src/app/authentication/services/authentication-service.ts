@@ -72,8 +72,7 @@ export class AuthenticationService {
   sendPasswordChangeCode(_email: string): void {}
 
   verifySessionToken(): void {
-    if (this.isAuthenticated()) return;
-    if (!this.sessionToken()) throw new Error('Invalid session token');
+    if (!this.sessionToken()) return;
 
     this._authenticationInfo.set({
       userId: 'user-1',

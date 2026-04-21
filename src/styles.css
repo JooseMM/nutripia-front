@@ -1,7 +1,7 @@
 @import '@angular/cdk/overlay-prebuilt.css';
 
 :root {
-  --primary-ft-color: #1e293b;
+  --primary-ft-color: #2F3336;
   --secondary-ft-color: #5b6063;
   --primary-color: #8b7ca8;
   --soft-gray: #e2e8f0;
@@ -17,6 +17,7 @@ body {
   padding: 0;
   margin: 0;
   overflow: hidden;
+  color: var(--primary-ft-color);
 }
 
 button {

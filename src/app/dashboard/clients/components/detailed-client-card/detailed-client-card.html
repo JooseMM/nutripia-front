@@ -1,0 +1,18 @@
+<h3>Detalles de Cliente</h3>
+<div class="goals-diagnosis">
+  <ul>
+    <h4>DIAGNÓSTICO CLÍNICO</h4>
+    @for (diagnosis of diagnosisList; track $index) {
+      <li>
+        <app-chip-item [name]="diagnosis" color="purple"></app-chip-item>
+      </li>
+    }
+  </ul>
+  <ul></ul>
+</div>
+<div class="metrics">
+  <app-metric-info-card title="estatura" value="162" metric="cm"></app-metric-info-card>
+  <app-metric-info-card title="peso actual" value="74" metric="kg"></app-metric-info-card>
+  <app-metric-info-card title="IMC" value="23.2"></app-metric-info-card>
+  <app-metric-info-card title="grasa corporal" value="23.2" metric="%"></app-metric-info-card>
+</div>

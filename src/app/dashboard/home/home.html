@@ -12,8 +12,6 @@
   </p>
 </header>
 <div class="cards">
-  <div class="column-one">
-    <h3 class="cards__title">Resumen</h3>
     <app-metrics-card
       [icon]="USERS"
       iconBackground="#675784"
@@ -22,25 +20,18 @@
       title="cantidad de clientes"
       [value]="10"
     ></app-metrics-card>
-    <app-metrics-card
-      [icon]="CALENDAR"
-      iconColor="#673E59"
-      iconBackground="#FFC7E9"
-      [improvementPercentage]="-12"
-      title="citas nutricionales"
-      [value]="5"
-    ></app-metrics-card>
-    <div class="column-one__todo">
-      <h3 class="cards__title">Tareas Prioritarias</h3>
-      <app-todo-list [style.height]="'100%'" [taskList]="taskList()"></app-todo-list>
-    </div>
-  </div>
-  <div class="column-two">
-    <h3 class="cards__title">Próxima Cita</h3>
-    <app-calendar-card
-      [style.height]="'100%'"
-      appointmentOwner="Juanete Perez"
-      [appointment]="appointmentList[0]"
-    ></app-calendar-card>
-  </div>
+  <app-metrics-card
+    [icon]="CALENDAR"
+    iconColor="#673E59"
+    iconBackground="#FFC7E9"
+    [improvementPercentage]="-12"
+    title="citas nutricionales"
+    [value]="5"
+  ></app-metrics-card>
+  <app-calendar-card
+    class="card__calendar"
+    appointmentOwner="Juanete Perez"
+    [appointment]="appointmentList[0]"
+  ></app-calendar-card>
+  <app-todo-list class="card__todo" [taskList]="taskList()"></app-todo-list>
 </div>
