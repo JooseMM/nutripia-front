@@ -13,6 +13,5 @@ import { Component, input } from '@angular/core';
   },
 })
 export class ChipItem {
-  name = input.required<string>();
   color = input<'red' | 'blue' | 'green' | 'purple'>('red');
 }

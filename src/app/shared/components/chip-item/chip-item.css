@@ -2,8 +2,11 @@
   display: block;
   padding: 0.5rem 1rem;
   width: fit-content;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  text-wrap: nowrap;
 }
+
 :host(.red) {
   background-color: #ffc7e9;
   color: #673e59;

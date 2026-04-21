@@ -1,14 +1,30 @@
 <h3>Detalles de Cliente</h3>
 <div class="goals-diagnosis">
-  <ul>
-    <h4>DIAGNÓSTICO CLÍNICO</h4>
-    @for (diagnosis of diagnosisList; track $index) {
+  <div>
+    <h4>diagnóstico clínico</h4>
+    <ul>
+      @for (diagnosis of diagnosisList; track $index) {
+        <li>
+          <app-chip-item color="purple">{{ diagnosis }}</app-chip-item>
+        </li>
+      }
       <li>
-        <app-chip-item [name]="diagnosis" color="purple"></app-chip-item>
+        <button class="goals-diagnosis__add">
+          <lucide-angular [img]="PLUS_ICON" size="15"></lucide-angular>Agregar
+        </button>
       </li>
-    }
-  </ul>
-  <ul></ul>
+    </ul>
+  </div>
+  <div>
+    <h4>objetivos</h4>
+    <ul>
+      @for (diagnosis of diagnosisList; track $index) {
+        <li>
+          <app-chip-item color="purple">{{ diagnosis }}</app-chip-item>
+        </li>
+      }
+    </ul>
+  </div>
 </div>
 <div class="metrics">
   <app-metric-info-card title="estatura" value="162" metric="cm"></app-metric-info-card>

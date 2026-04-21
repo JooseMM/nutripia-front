@@ -12,6 +12,15 @@ h3 {
   font-size: 1.5rem;
 }
 
+h4 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  font-weight: 400;
+  padding: 0;
+  margin: 0;
+  color: #777b7f;
+}
+
 p {
   color: var(--secondary-ft-color);
   margin-top: 0.5rem;
@@ -26,10 +35,36 @@ p {
   margin-top: 1rem;
 }
 
-.diagnosis {
+.goals-diagnosis {
   margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
 }
-.diagnosis h3 {
-  font-size: 1.2rem;
 
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.goals-diagnosis div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.goals-diagnosis__add {
+  display: flex;
+  gap: 0.5rem;
+  background-color: #dfe3e7;
+  color: #777b7f;
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 0.1rem solid #dfe3e7;
+  font-weight: 500;
+  transition: 300ms;
+}
+
+.goals-diagnosis__add:hover {
+  border-color: #777b7f;
 }
