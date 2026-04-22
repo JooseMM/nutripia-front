@@ -12,6 +12,9 @@ export { SendEmailCodeModal } from './overlay/send-email-code-modal/send-email-c
 
 export { SignPipe } from './pipes/sign-pipe';
 
+export type { Color } from './constants/useful-colors';
+export { softYellow, softPurple, softGreen, softRed, softGray } from './constants/useful-colors';
+
 export {
   createBasicOverlay,
   type SendEmailVerificationUsageType,

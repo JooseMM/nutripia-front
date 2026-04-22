@@ -1,4 +1,5 @@
 import { Component, input } from '@angular/core';
+import { Color, softPurple } from '../..';
 
 @Component({
   selector: 'app-chip-item',
@@ -6,12 +7,10 @@ import { Component, input } from '@angular/core';
   templateUrl: './chip-item.html',
   styleUrl: './chip-item.css',
   host: {
-    '[class.red]': "color() === 'red'",
-    '[class.blue]': "color() === 'blue'",
-    '[class.green]': "color() === 'green'",
-    '[class.purple]': "color() === 'purple'",
+    '[style.color]': 'color().color',
+    '[style.backgroundColor]': 'color().background',
   },
 })
 export class ChipItem {
-  color = input<'red' | 'blue' | 'green' | 'purple'>('red');
+  color = input<Color>(softPurple);
 }

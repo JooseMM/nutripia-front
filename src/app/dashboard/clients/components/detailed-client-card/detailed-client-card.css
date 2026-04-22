@@ -6,6 +6,8 @@
   border-radius: 0.5rem;
   border: 0.1rem solid #e2e8f0;
   font-size: 1rem;
+  gap: 1.5rem;
+  overflow-y: auto;
 }
 
 h3 {
@@ -32,13 +34,11 @@ p {
   gap: 1rem;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 1rem;
 }
 
 .goals-diagnosis {
-  margin-top: 1rem;
   display: flex;
-  gap: 1rem;
+  justify-content: space-between;
 }
 
 ul {
@@ -51,6 +51,7 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  flex: 1;
 }
 
 .goals-diagnosis__add {
@@ -67,4 +68,26 @@ ul {
 
 .goals-diagnosis__add:hover {
   border-color: #777b7f;
+}
+
+.contact-appointment {
+  display: flex;
+  padding: 1.5rem;
+  background-color: #fbf9fe;
+  border-radius: 0.5rem;
+  border: 0.1rem solid #f4f1f8;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.contact-appointment h4 {
+  transform: translateX(5%);
+}
+
+.contact-appointment div {
+  flex: 1;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }

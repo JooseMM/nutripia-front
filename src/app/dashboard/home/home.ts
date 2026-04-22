@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, computed, inject, signal, WritableSignal } from '@angular/core';
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { Calendar1, UsersRound } from 'lucide-angular';
 import { Appointment } from '..';

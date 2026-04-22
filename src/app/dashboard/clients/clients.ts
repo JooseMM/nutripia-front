@@ -14,7 +14,9 @@ export class Clients {
   protected readonly SEARCH_ICON = Search;
   protected readonly FILTER_ICON = Funnel;
   protected readonly clientList: WritableSignal<Client[]> = signal(clientList);
-  protected readonly selectedClient: WritableSignal<number | undefined> = signal(undefined);
+  protected readonly selectedClient: WritableSignal<number | undefined> = signal(
+    this.clientList().length > 0 ? 0 : undefined,
+  );
 
   protected select(index: number): void {
     this.selectedClient.set(index);

@@ -5,7 +5,7 @@
     <ul>
       @for (diagnosis of diagnosisList; track $index) {
         <li>
-          <app-chip-item color="purple">{{ diagnosis }}</app-chip-item>
+          <app-chip-item [color]="GetColorByIndex($index)">{{ diagnosis }}</app-chip-item>
         </li>
       }
       <li>
@@ -18,12 +18,29 @@
   <div>
     <h4>objetivos</h4>
     <ul>
-      @for (diagnosis of diagnosisList; track $index) {
+      @for (goal of goalList; track $index) {
         <li>
-          <app-chip-item color="purple">{{ diagnosis }}</app-chip-item>
+          <app-chip-item [color]="GetColorByIndex($index)">{{ goal }}</app-chip-item>
         </li>
       }
+      <li>
+        <button class="goals-diagnosis__add">
+          <lucide-angular [img]="PLUS_ICON" size="15"></lucide-angular>Agregar
+        </button>
+      </li>
     </ul>
+  </div>
+</div>
+<div class="contact-appointment">
+  <div>
+    <h4>información de contacto</h4>
+    <app-small-info-card [color]="GetColorByIndex(0)" [icon]="EMAIL_ICON" label="Correo Electrónico" value="mo@mo.cl"></app-small-info-card>
+    <app-small-info-card [color]="GetColorByIndex(0)" [icon]="PHONE_ICON" label="Teléfono" value="932421232"></app-small-info-card>
+  </div>
+  <div>
+    <h4>próxima cita</h4>
+    <app-small-info-card [color]="GetColorByIndex(0)" [icon]="PAST_ICON" label="Ultima Consulta" [value]="parseToString(past)"></app-small-info-card>
+    <app-small-info-card [color]="GetColorByIndex(2)" [icon]="FUTURE_ICON" label="Proxima Consulta" [value]="parseToString(next)"></app-small-info-card>
   </div>
 </div>
 <div class="metrics">

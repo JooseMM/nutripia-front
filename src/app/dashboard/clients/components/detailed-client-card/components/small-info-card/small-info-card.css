@@ -1,0 +1,26 @@
+:host {
+  background-color: white;
+  color: var(--primary-ft-color);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem;
+  border-radius: 1rem;
+  border: 0.1rem solid #F4F1F8;
+}
+
+.icon {
+  padding: 0.8rem;
+  border-radius: 5rem;
+}
+
+.title {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: #777b7f;
+  margin-bottom: 0.1rem;
+}
+
+.value {
+  font-weight: 500;
+}
