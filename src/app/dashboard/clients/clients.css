@@ -4,13 +4,12 @@
   flex-direction: column;
   gap: 2dvh;
   height: 100dvh;
-
 }
 
 header {
   display: flex;
   background-color: white;
-  padding: 1rem;
+  padding: 0.5rem;
   border-radius: 0.8rem;
   border: 0.1rem solid #e2e8f0;
   border-bottom-width: 0.2rem;
@@ -54,6 +53,7 @@ header button:hover {
 header input {
   border: none;
   background: none;
+  width: 100%;
 }
 
 header input:focus {
@@ -67,17 +67,40 @@ header input {
 
 .content {
   display: flex;
+  flex-direction: column;
   gap: 1rem;
   height: 84dvh;
 }
 
 .content ul {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
   flex-grow: 0;
-  flex-basis: 25rem;
+  flex-shrink: 0;
+  flex-basis: 10.5rem;
+  overflow-y: auto;
+}
+
+.content ul li {
+  flex: 50%;
 }
 
 .content__details {
   flex: 1;
+}
+
+@media (min-width: 800px) {
+  header {
+    padding: 1rem;
+  }
+  .content {
+    flex-direction: row;
+  }
+  .content ul {
+    display: block;
+    flex-basis: 18rem;
+  }
 }
 
 @media (min-width: 1000px) {

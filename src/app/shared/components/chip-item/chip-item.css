@@ -4,5 +4,10 @@
   width: fit-content;
   border-radius: 0.5rem;
   font-size: 0.9rem;
-  text-wrap: nowrap;
+}
+
+@media (min-width: 500px) {
+  :host {
+    text-wrap: nowrap;
+  }
 }

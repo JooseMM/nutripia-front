@@ -11,11 +11,11 @@ import {
   Plus,
 } from 'lucide-angular';
 import { SmallInfoCard } from './components/small-info-card/small-info-card';
-import { Color, softGreen, softPurple, softRed, softYellow, softGray } from '../../../../shared';
+import { Color, softGreen, softPurple, softRed, softYellow, softGray, Button } from '../../../../shared';
 
 @Component({
   selector: 'app-detailed-client-card',
-  imports: [MetricInfoCard, ChipItem, LucideAngularModule, SmallInfoCard],
+  imports: [MetricInfoCard, ChipItem, LucideAngularModule, SmallInfoCard, Button],
   templateUrl: './detailed-client-card.html',
   styleUrl: './detailed-client-card.css',
 })

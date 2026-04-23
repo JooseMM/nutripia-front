@@ -6,10 +6,11 @@
   gap: 1rem;
   padding: 0.8rem;
   border-radius: 1rem;
-  border: 0.1rem solid #F4F1F8;
+  border: 0.1rem solid #f4f1f8;
 }
 
 .icon {
+  display: none;
   padding: 0.8rem;
   border-radius: 5rem;
 }
@@ -23,4 +24,25 @@
 
 .value {
   font-weight: 500;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+@media (min-width: 500px) {
+  :host {
+    text-wrap: nowrap;
+  }
+  .icon {
+    display: block;
+  }
+  .description {
+    align-items: start;
+  }
 }

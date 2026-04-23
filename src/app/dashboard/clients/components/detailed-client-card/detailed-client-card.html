@@ -8,11 +8,6 @@
           <app-chip-item [color]="GetColorByIndex($index)">{{ diagnosis }}</app-chip-item>
         </li>
       }
-      <li>
-        <button class="goals-diagnosis__add">
-          <lucide-angular [img]="PLUS_ICON" size="15"></lucide-angular>Agregar
-        </button>
-      </li>
     </ul>
   </div>
   <div>
@@ -23,11 +18,6 @@
           <app-chip-item [color]="GetColorByIndex($index)">{{ goal }}</app-chip-item>
         </li>
       }
-      <li>
-        <button class="goals-diagnosis__add">
-          <lucide-angular [img]="PLUS_ICON" size="15"></lucide-angular>Agregar
-        </button>
-      </li>
     </ul>
   </div>
 </div>
@@ -48,4 +38,13 @@
   <app-metric-info-card title="peso actual" value="74" metric="kg"></app-metric-info-card>
   <app-metric-info-card title="IMC" value="23.2"></app-metric-info-card>
   <app-metric-info-card title="grasa corporal" value="23.2" metric="%"></app-metric-info-card>
+</div>
+<div class="actions">
+  <button app-button>Nueva Medición</button>
+  <button app-button [isSecondary]="true">
+    <lucide-angular [img]="PLUS_ICON" size="20"></lucide-angular>
+    <span>
+      Editar Perfil
+    </span>
+  </button>
 </div>

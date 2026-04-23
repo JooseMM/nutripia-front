@@ -38,4 +38,32 @@ const clientList: Client[] = [
     id: 'id-1231312',
     lastname: 'perez',
   },
+  {
+    birthDate: new Date(1990, 4, 20),
+    emailAddress: 'email@email.cl',
+    firstname: 'juanete',
+    id: 'id-1231312',
+    lastname: 'perez',
+  },
+  {
+    birthDate: new Date(1990, 4, 20),
+    emailAddress: 'email@email.cl',
+    firstname: 'juanete',
+    id: 'id-1231312',
+    lastname: 'perez',
+  },
+  {
+    birthDate: new Date(1990, 4, 20),
+    emailAddress: 'email@email.cl',
+    firstname: 'juanete',
+    id: 'id-1231312',
+    lastname: 'perez',
+  },
+  {
+    birthDate: new Date(1990, 4, 20),
+    emailAddress: 'email@email.cl',
+    firstname: 'juanete',
+    id: 'id-1231312',
+    lastname: 'perez',
+  },
 ];
