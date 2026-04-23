@@ -1,4 +1,13 @@
-<h3>Detalles de Cliente</h3>
+<header>
+  <h3>Detalles de Cliente</h3>
+  <div
+    [style.backgroundColor]="statusIndicator().background"
+    [style.color]="statusIndicator().color"
+  >
+    <lucide-angular size="18" [img]="isOkay() ? CHECK_ICON : WARNING_ICON"></lucide-angular>
+    <p>{{ isOkay() ? 'Pago al dia' : 'Pago con demora' }}</p>
+  </div>
+</header>
 <div class="goals-diagnosis">
   <div>
     <h4>diagnóstico clínico</h4>
@@ -24,13 +33,33 @@
 <div class="contact-appointment">
   <div>
     <h4>información de contacto</h4>
-    <app-small-info-card [color]="GetColorByIndex(0)" [icon]="EMAIL_ICON" label="Correo Electrónico" value="mo@mo.cl"></app-small-info-card>
-    <app-small-info-card [color]="GetColorByIndex(0)" [icon]="PHONE_ICON" label="Teléfono" value="932421232"></app-small-info-card>
+    <app-small-info-card
+      [color]="GetColorByIndex(0)"
+      [icon]="EMAIL_ICON"
+      label="Correo Electrónico"
+      value="mo@mo.cl"
+    ></app-small-info-card>
+    <app-small-info-card
+      [color]="GetColorByIndex(0)"
+      [icon]="PHONE_ICON"
+      label="Teléfono"
+      value="932421232"
+    ></app-small-info-card>
   </div>
   <div>
     <h4>próxima cita</h4>
-    <app-small-info-card [color]="GetColorByIndex(0)" [icon]="PAST_ICON" label="Ultima Consulta" [value]="parseToString(past)"></app-small-info-card>
-    <app-small-info-card [color]="GetColorByIndex(2)" [icon]="FUTURE_ICON" label="Proxima Consulta" [value]="parseToString(next)"></app-small-info-card>
+    <app-small-info-card
+      [color]="GetColorByIndex(0)"
+      [icon]="PAST_ICON"
+      label="Ultima Consulta"
+      [value]="parseToString(past)"
+    ></app-small-info-card>
+    <app-small-info-card
+      [color]="GetColorByIndex(2)"
+      [icon]="FUTURE_ICON"
+      label="Proxima Consulta"
+      [value]="parseToString(next)"
+    ></app-small-info-card>
   </div>
 </div>
 <div class="metrics">
@@ -43,8 +72,6 @@
   <button app-button>Nueva Medición</button>
   <button app-button [isSecondary]="true">
     <lucide-angular [img]="PLUS_ICON" size="20"></lucide-angular>
-    <span>
-      Editar Perfil
-    </span>
+    <span> Editar Perfil </span>
   </button>
 </div>

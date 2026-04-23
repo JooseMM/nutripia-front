@@ -94,12 +94,14 @@ header input {
   header {
     padding: 1rem;
   }
+
   .content {
     flex-direction: row;
   }
+
   .content ul {
     display: block;
-    flex-basis: 18rem;
+    flex-basis: 25rem;
   }
 }
 

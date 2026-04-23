@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { MetricInfoCard } from './components/info-card/metric-info-card';
 import { ChipItem } from '../../../../shared/components/chip-item/chip-item';
 import {
   Calendar1,
   CalendarCheck,
+  Check,
+  CircleAlert,
+  CircleCheck,
   LucideAngularModule,
   Mail,
   MapPin,
@@ -11,7 +14,15 @@ import {
   Plus,
 } from 'lucide-angular';
 import { SmallInfoCard } from './components/small-info-card/small-info-card';
-import { Color, softGreen, softPurple, softRed, softYellow, softGray, Button } from '../../../../shared';
+import {
+  Color,
+  softGreen,
+  softPurple,
+  softRed,
+  softYellow,
+  softGray,
+  Button,
+} from '../../../../shared';
 
 @Component({
   selector: 'app-detailed-client-card',
@@ -29,10 +40,19 @@ export class DetailedClientCard {
   protected readonly PAST_ICON = CalendarCheck;
   protected readonly FUTURE_ICON = Calendar1;
 
+  protected readonly WARNING_ICON = CircleAlert;
+  protected readonly CHECK_ICON = CircleCheck;
+
   protected readonly PURPLE = softPurple;
   protected readonly RED = softRed;
   protected readonly GREEN = softGreen;
   protected readonly YELLOW = softYellow;
+
+  protected readonly isOkay = signal(true);
+  protected readonly statusIndicator = computed(() => {
+    if (!this.isOkay()) return this.YELLOW;
+    return this.GREEN;
+  });
 
   private readonly now = new Date();
   protected readonly past = new Date(

@@ -11,6 +11,28 @@
   padding: 1rem;
 }
 
+header {
+  display: flex;
+  gap: 1rem;
+}
+
+header div {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding-block: 0.2rem;
+  padding-inline: 0.5rem 0.8rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+header p {
+  color: inherit;
+  padding: 0;
+  margin: 0;
+}
+
 h3 {
   font-size: 1.5rem;
 }
@@ -137,6 +159,7 @@ ul {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    margin-top: auto;
   }
 
   .metrics > * {
