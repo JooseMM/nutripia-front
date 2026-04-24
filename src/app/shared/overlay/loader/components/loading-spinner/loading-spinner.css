@@ -26,19 +26,6 @@ p {
   animation: glowing 2s linear infinite;
 }
 
-@keyframes glowing {
-  0% {
-    opacity: 0.4;
-  }
-  50% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0.4;
-  }
-}
-
 @keyframes spin {
   from {
     transform: rotate(0deg);

@@ -1,7 +1,7 @@
 @import '@angular/cdk/overlay-prebuilt.css';
 
 :root {
-  --primary-ft-color: #2F3336;
+  --primary-ft-color: #2f3336;
   --secondary-ft-color: #5b6063;
   --primary-color: #8b7ca8;
   --soft-gray: #e2e8f0;
@@ -10,6 +10,8 @@
   --error-bg-color: #fef6f6;
   --ok-bg-color: #dcfce7;
   --ok-ft-color: #15803d;
+
+  --skeleton-color: #f2f4f6;
 }
 
 html,
@@ -85,4 +87,24 @@ lucide-angular {
 /* Ensure the CDK backdrop is visible and covers the screen */
 .cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
   opacity: 1;
+}
+
+.skeleton-glowing {
+  border-radius: 0.5rem;
+  background-color: var(--skeleton-color);
+  animation: glowing 2s linear infinite;
+}
+
+@keyframes glowing {
+  0% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
 }

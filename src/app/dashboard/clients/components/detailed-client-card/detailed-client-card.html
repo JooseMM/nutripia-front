@@ -1,73 +1,98 @@
 <header>
-  <h3>Detalles de Cliente</h3>
-  <div
-    [style.backgroundColor]="statusIndicator().background"
-    [style.color]="statusIndicator().color"
-  >
-    <lucide-angular size="18" [img]="isOkay() ? CHECK_ICON : WARNING_ICON"></lucide-angular>
-    <p>{{ isOkay() ? 'Pago al dia' : 'Pago con demora' }}</p>
-  </div>
+  @if(loading()) {
+    <div [style.width]="'50%'" [style.height]="'2rem'"  class="skeleton-glowing"></div>
+  } @else {
+    <h3>{{ fullName() }}</h3>
+    <div
+      class="content"
+      [style.backgroundColor]="statusIndicator().color.background"
+      [style.color]="statusIndicator().color"
+    >
+      <lucide-angular size="18" [img]="statusIndicator().icon"></lucide-angular>
+      <p>{{ statusIndicator().text }}</p>
+    </div>
+  }
 </header>
 <div class="goals-diagnosis">
+  @if(loading()) {
+    <div [style.width]="'50%'" [style.height]="'5rem'" class="skeleton-glowing"></div>
+  } @else {
   <div>
     <h4>diagnóstico clínico</h4>
     <ul>
-      @for (diagnosis of diagnosisList; track $index) {
+      @for (diagnosis of data()?.diagnosisList; track $index) {
         <li>
           <app-chip-item [color]="GetColorByIndex($index)">{{ diagnosis }}</app-chip-item>
         </li>
+      } @empty {
+
       }
     </ul>
   </div>
   <div>
     <h4>objetivos</h4>
     <ul>
-      @for (goal of goalList; track $index) {
+      @for (objective of data()?.objectiveList; track $index) {
         <li>
-          <app-chip-item [color]="GetColorByIndex($index)">{{ goal }}</app-chip-item>
+          <app-chip-item [color]="GetColorByIndex($index)">{{ objective }}</app-chip-item>
         </li>
+      } @empty {
+
       }
     </ul>
   </div>
+  }
 </div>
-<div class="contact-appointment">
-  <div>
-    <h4>información de contacto</h4>
-    <app-small-info-card
-      [color]="GetColorByIndex(0)"
-      [icon]="EMAIL_ICON"
-      label="Correo Electrónico"
-      value="mo@mo.cl"
-    ></app-small-info-card>
-    <app-small-info-card
-      [color]="GetColorByIndex(0)"
-      [icon]="PHONE_ICON"
-      label="Teléfono"
-      value="932421232"
-    ></app-small-info-card>
+@if(loading()) {
+    <div [style.width]="'100%'" [style.minHeight]="'10rem'" class="skeleton-glowing"></div>
+  } @else {
+  <div class="contact-appointment">
+    <div>
+      <h4>información de contacto</h4>
+      <app-small-info-card
+        [color]="GetColorByIndex(0)"
+        [icon]="EMAIL_ICON"
+        label="Correo Electrónico"
+        value="mo@mo.cl"
+      ></app-small-info-card>
+      <app-small-info-card
+        [color]="GetColorByIndex(0)"
+        [icon]="PHONE_ICON"
+        label="Teléfono"
+        value="932421232"
+      ></app-small-info-card>
+    </div>
+    <div>
+      <h4>próxima cita</h4>
+      <app-small-info-card
+        [color]="GetColorByIndex(0)"
+        [icon]="PAST_ICON"
+        label="Ultima Consulta"
+        [value]="parseToString(data()?.nextAppointment)"
+      ></app-small-info-card>
+      <app-small-info-card
+        [color]="GetColorByIndex(2)"
+        [icon]="FUTURE_ICON"
+        label="Proxima Consulta"
+        [value]="parseToString(data()?.previousAppointment)"
+      ></app-small-info-card>
+    </div>
   </div>
-  <div>
-    <h4>próxima cita</h4>
-    <app-small-info-card
-      [color]="GetColorByIndex(0)"
-      [icon]="PAST_ICON"
-      label="Ultima Consulta"
-      [value]="parseToString(past)"
-    ></app-small-info-card>
-    <app-small-info-card
-      [color]="GetColorByIndex(2)"
-      [icon]="FUTURE_ICON"
-      label="Proxima Consulta"
-      [value]="parseToString(next)"
-    ></app-small-info-card>
-  </div>
-</div>
+  }
 <div class="metrics">
-  <app-metric-info-card title="estatura" value="162" metric="cm"></app-metric-info-card>
-  <app-metric-info-card title="peso actual" value="74" metric="kg"></app-metric-info-card>
-  <app-metric-info-card title="IMC" value="23.2"></app-metric-info-card>
-  <app-metric-info-card title="grasa corporal" value="23.2" metric="%"></app-metric-info-card>
+  @if(loading()) {
+      <div [style.width]="'8rem'" [style.height]="'5rem'" class="skeleton-glowing"></div>
+      <div [style.width]="'8rem'" [style.height]="'5rem'" class="skeleton-glowing"></div>
+      <div [style.width]="'8rem'" [style.height]="'5rem'" class="skeleton-glowing"></div>
+      <div [style.width]="'8rem'" [style.height]="'5rem'" class="skeleton-glowing"></div>
+  } @else {
+  <app-metric-info-card title="estatura" [value]="data()?.height" metric="cm"></app-metric-info-card>
+  <app-metric-info-card title="peso actual" [value]="data()?.weight" metric="kg"></app-metric-info-card>
+  <app-metric-info-card title="IMC" [value]="data()?.imc"></app-metric-info-card>
+  <app-metric-info-card title="grasa corporal" [value]="data()?.bodyFatPercentage" metric="%"></app-metric-info-card>
+  }
 </div>
+@if(!loading()) {
 <div class="actions">
   <button app-button>Nueva Medición</button>
   <button app-button [isSecondary]="true">
@@ -75,3 +100,4 @@
     <span> Editar Perfil </span>
   </button>
 </div>
+}

@@ -9,15 +9,24 @@
 </header>
 <div class="content">
   <ul>
-    @for (client of clientList(); track $index) {
+    @if(isLoading()) {
+    <li [style.width]="'100%'" [style.height]="'5rem'" class="skeleton-glowing"></li>
+    <li [style.width]="'100%'" [style.height]="'5rem'" class="skeleton-glowing"></li>
+    <li [style.width]="'100%'" [style.height]="'5rem'" class="skeleton-glowing"></li>
+    <li [style.width]="'100%'" [style.height]="'5rem'" class="skeleton-glowing"></li>
+    } @else {
+    @for (client of clientList(); track client.id) {
       <li (click)="select($index)">
         <app-resume-client-card
-          [isSelected]="selectedClient() == $index"
+          [isSelected]="selectedIndex() == $index"
           fullname="Elena Rodriguez"
           [age]="32"
         ></app-resume-client-card>
       </li>
     }
+    }
   </ul>
-  <app-detailed-client-card class="content__details"></app-detailed-client-card>
+  @if(clientList()) {
+    <app-detailed-client-card [fullName]="getSelectedFullName()" [status]="getSelectedStatus()" [data]="selectedClientResume()" [loading]="isLoading()" class="content__details"></app-detailed-client-card>
+  }
 </div>

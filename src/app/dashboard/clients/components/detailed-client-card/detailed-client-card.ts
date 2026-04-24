@@ -1,10 +1,9 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, effect, input, OnInit } from '@angular/core';
 import { MetricInfoCard } from './components/info-card/metric-info-card';
 import { ChipItem } from '../../../../shared/components/chip-item/chip-item';
 import {
   Calendar1,
   CalendarCheck,
-  Check,
   CircleAlert,
   CircleCheck,
   LucideAngularModule,
@@ -23,6 +22,7 @@ import {
   softGray,
   Button,
 } from '../../../../shared';
+import { ClientStatus, ResumeClientInfo, ClientStatusEnum } from '../../..';
 
 @Component({
   selector: 'app-detailed-client-card',
@@ -31,8 +31,11 @@ import {
   styleUrl: './detailed-client-card.css',
 })
 export class DetailedClientCard {
-  diagnosisList = ['Diabetes B', 'Hipertension'];
-  goalList = ['Ganancia muscular', 'Perdida de peso'];
+  data = input<ResumeClientInfo | undefined>();
+  status = input<ClientStatus | undefined>();
+  fullName = input<string | undefined>();
+  loading = input.required<boolean>();
+
   protected readonly PLUS_ICON = Plus;
   protected readonly EMAIL_ICON = Mail;
   protected readonly PHONE_ICON = Phone;
@@ -48,25 +51,23 @@ export class DetailedClientCard {
   protected readonly GREEN = softGreen;
   protected readonly YELLOW = softYellow;
 
-  protected readonly isOkay = signal(true);
   protected readonly statusIndicator = computed(() => {
-    if (!this.isOkay()) return this.YELLOW;
-    return this.GREEN;
+    const status = this.status();
+    switch (status) {
+      case ClientStatusEnum.Okay:
+        return { color: this.GREEN, text: 'Pago al dia', icon: CircleCheck };
+      case ClientStatusEnum.Overdue:
+        return { color: this.YELLOW, text: 'Pago con demora', icon: CircleAlert };
+      case ClientStatusEnum.Canceled:
+        return { color: this.RED, text: 'Subscripcion cancelada', icon: CircleAlert };
+      default:
+        throw new Error('Unhandle status case: ', status);
+    }
   });
 
-  private readonly now = new Date();
-  protected readonly past = new Date(
-    this.now.getFullYear(),
-    this.now.getMonth() - 2,
-    this.now.getDate() - 10,
-  );
-  protected readonly next = new Date(
-    this.now.getFullYear(),
-    this.now.getMonth() + 1,
-    this.now.getDate() + 5,
-  );
+  protected parseToString(date: Date | undefined): string {
+    if (!date) return '';
 
-  protected parseToString(date: Date): string {
     return date.toLocaleDateString('es-ES', {
       month: 'numeric',
       day: 'numeric',

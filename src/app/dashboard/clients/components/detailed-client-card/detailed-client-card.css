@@ -16,7 +16,7 @@ header {
   gap: 1rem;
 }
 
-header div {
+header .content {
   display: flex;
   gap: 0.5rem;
   align-items: center;
@@ -98,6 +98,11 @@ ul {
 
 .goals-diagnosis__add:hover {
   border-color: #777b7f;
+}
+
+.goals-diagnosis__skeleton {
+  width: 50%;
+  height: 5rem;
 }
 
 .contact-appointment {

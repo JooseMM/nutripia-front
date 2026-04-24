@@ -7,7 +7,7 @@ import { Component, input } from '@angular/core';
   styleUrl: './metric-info-card.css',
 })
 export class MetricInfoCard {
-  title = input.required<string>();
-  value = input.required<string>();
+  title = input<string>();
+  value = input<number>();
   metric = input<'kg' | 'cm' | '%' | ''>('');
 }

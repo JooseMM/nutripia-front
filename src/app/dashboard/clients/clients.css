@@ -103,6 +103,10 @@ header input {
     display: block;
     flex-basis: 25rem;
   }
+
+  .content ul li {
+    margin-top: 1rem;
+  }
 }
 
 @media (min-width: 1000px) {
