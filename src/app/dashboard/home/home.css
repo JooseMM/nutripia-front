@@ -7,11 +7,14 @@ header {
   background: #c1aee0;
   color: #4b3c67;
   border-radius: 0.8rem;
+  border: 0.1rem solid var(--primary-color);
+  border-bottom-width: 0.2rem;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 2dvh;
-  padding: 1.5rem;
+  padding: 2dvh 1rem;
 }
 
 header h1 {
@@ -52,13 +55,13 @@ header > p {
   }
 
   header {
-    height: 20dvh;
+    height: 18dvh;
+    max-height: 6rem;
     background: #c1aee0 url(/images/home-header-bg.jpg);
     background-position: center right -3.5rem;
     background-repeat: no-repeat;
     background-size: 16rem;
-    border: 0.1rem solid var(--primary-color);
-    border-bottom-width: 0.2rem;
+    padding: 1rem;
   }
 
   header h1 {

@@ -1,4 +1,8 @@
-<aside class="drawer">
+<aside
+  [class.drawer--visible]="isDrawerOpen()"
+  [class.drawer--hidden]="!isDrawerOpen()"
+  class="drawer"
+>
   <nav>
     <a class="logo--desktop">
       <app-logo></app-logo>
@@ -60,3 +64,10 @@
 <main>
   <router-outlet></router-outlet>
 </main>
+<button (click)="toggleDrawerState()" class="menu-button" app-button [isSecondary]="true">
+  <lucide-angular
+    [class.spin]="animateIcon()"
+    [img]="isDrawerOpen() ? CLOSE_ICON : MENU_ICON"
+    size="25"
+  ></lucide-angular>
+</button>

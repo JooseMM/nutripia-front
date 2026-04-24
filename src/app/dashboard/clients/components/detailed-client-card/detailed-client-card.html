@@ -15,7 +15,13 @@
     </div>
   }
 
-  <button app-button [isSecondary]="true" [style.height]="'2.5rem'" [style.paddingInline]="'0.8rem'" (click)="close()">
+  <button
+    app-button
+    [isSecondary]="true"
+    [style.height]="'2.5rem'"
+    [style.paddingInline]="'0.8rem'"
+    (click)="close()"
+  >
     <lucide-angular [img]="CLOSE_ICON" size="25"></lucide-angular>
   </button>
 </header>
@@ -67,13 +73,13 @@
     <div>
       <h4>próxima cita</h4>
       <app-small-info-card
-        [color]="GetColorByIndex(0)"
+        [color]="GetColorByIndex(1)"
         [icon]="PAST_ICON"
         label="Ultima Consulta"
         [value]="parseToString(data()?.nextAppointment)"
       ></app-small-info-card>
       <app-small-info-card
-        [color]="GetColorByIndex(2)"
+        [color]="GetColorByIndex(1)"
         [icon]="FUTURE_ICON"
         label="Proxima Consulta"
         [value]="parseToString(data()?.previousAppointment)"

@@ -1,12 +1,13 @@
 :host {
-  background-color: #f2f4f6;
   color: var(--primary-ft-color);
+  background-color: #f2f4f6;
+  border-radius: 0.8rem;
+  border: 0.1rem solid #eaeaea;
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.8rem;
-  border-radius: 1rem;
-  border: 0.1rem solid #eaeaea;
+  padding-block: 0.8rem;
+  text-wrap: nowrap;
 }
 
 .icon {
@@ -35,8 +36,10 @@
 
 @media (min-width: 500px) {
   :host {
-    text-wrap: nowrap;
+    background: none;
+    border: none;
   }
+
   .icon {
     display: block;
   }

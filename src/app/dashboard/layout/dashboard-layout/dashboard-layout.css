@@ -6,6 +6,10 @@
 
 .drawer {
   display: flex;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
   flex-direction: column;
   justify-content: space-between;
   padding: 1.5rem 1rem;
@@ -13,6 +17,24 @@
   background-color: white;
   border-right: 0.1rem solid #e2e8f0;
   width: 5rem;
+  z-index: 10;
+  transition: 300ms;
+}
+
+.drawer--visible {
+  transform: translateX(0);
+}
+
+.drawer--hidden {
+  transform: translateX(-5rem);
+}
+
+.menu-button {
+  overflow: hidden;
+  position: absolute;
+  padding: 0.8rem 1rem;
+  bottom: 1rem;
+  right: 1rem;
 }
 
 ul {
@@ -153,6 +175,39 @@ main {
   overflow-y: auto;
 }
 
+.spin {
+  animation: rotation 300ms infinite;
+}
+
+@keyframes rotation {
+  from {
+    transform: scale(0.5) rotate(0deg);
+  }
+  to {
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
 @media (min-width: 1000px) {
   a p,
   nav p,
@@ -170,7 +225,7 @@ main {
 
   .user {
     justify-content: flex-start;
-    padding: 1rem;
+    padding: 0.8rem 1rem;
     transition: 300ms;
     outline: 0.1rem solid #f8fafc;
     background-color: #f8fafc;
@@ -178,7 +233,9 @@ main {
   }
 
   .drawer {
-    width: 20rem;
+    position: static;
+    transform: none !important;
+    width: 15rem;
   }
 
   .logo--desktop {
@@ -192,5 +249,9 @@ main {
   main {
     overflow-y: hidden;
     max-height: 100dvh;
+  }
+
+  .menu-button {
+    display: none;
   }
 }

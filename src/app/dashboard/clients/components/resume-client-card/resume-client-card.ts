@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 import { UserRound, LucideAngularModule } from 'lucide-angular';
 
 @Component({
@@ -12,6 +12,7 @@ import { UserRound, LucideAngularModule } from 'lucide-angular';
 })
 export class ResumeClientCard {
   protected readonly USER_ICON = UserRound;
+  protected readonly userProfileImage = signal("images/mock-profile.jpg");
   isSelected = input<boolean>(false);
   fullname = input.required<string>();
   age = input.required<number>();

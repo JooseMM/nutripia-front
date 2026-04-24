@@ -20,21 +20,23 @@
   border-color: #e2e8f0;
 }
 
-:host(.secondary):hover {
-  color: var(--primary-color);
-  border-color: rgb(103, 87, 132);
-}
-
-:host:hover {
-  background-color: white;
-  border-color: var(--primary-color);
-  color: var(--primary-color);
-  cursor: pointer;
-}
-
 :host:disabled {
   opacity: 0.5;
   cursor: default;
   background-color: var(--primary-color);
   color: white;
+}
+
+@media (min-width: 1000px) {
+  :host(.secondary):hover {
+    color: var(--primary-color);
+    border-color: rgb(103, 87, 132);
+  }
+
+  :host:hover {
+    background-color: white;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    cursor: pointer;
+  }
 }

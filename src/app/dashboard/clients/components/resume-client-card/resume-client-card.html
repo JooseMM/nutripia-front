@@ -1,6 +1,10 @@
 <div class="basic-info">
   <div class="profile-picture">
-    <lucide-angular [img]="USER_ICON" size="30"></lucide-angular>
+    @if (!userProfileImage()) {
+      <lucide-angular [img]="USER_ICON" size="30"></lucide-angular>
+    } @else {
+      <img [src]="userProfileImage()" />
+    }
   </div>
   <div class="info">
     <p class="info__fullname">{{ fullname() }}</p>

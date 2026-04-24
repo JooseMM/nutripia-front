@@ -37,6 +37,10 @@ button:hover {
   font-family: 'Lexend', sans-serif;
   font-style: normal;
   box-sizing: border-box;
+  /* Color del "thumb" (la barra) y del "track" (el fondo) */
+  scrollbar-color: #e2e1ec #f8fafc;
+  /* Valores: auto, thin, o none (para ocultarla) */
+  scrollbar-width: thin;
 }
 
 b {

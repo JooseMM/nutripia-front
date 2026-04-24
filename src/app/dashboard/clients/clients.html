@@ -28,6 +28,8 @@
   </ul>
   @if (isSelected()) {
     <app-detailed-client-card
+      animate.enter="content__details--enter"
+      animate.leave="content__details--leave"
       [fullName]="getSelectedFullName()"
       [status]="getSelectedStatus()"
       [data]="selectedClientResume()"

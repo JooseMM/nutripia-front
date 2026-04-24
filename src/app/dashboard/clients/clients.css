@@ -16,6 +16,8 @@ header {
   gap: 1rem;
   color: #6b7280;
   height: 10dvh;
+  min-height: 3rem;
+  max-height: 3.5rem;
 }
 
 header button {
@@ -89,13 +91,47 @@ header input {
   height: fit-content;
 }
 
-.content ul li {
+.content__list li {
   flex: 50%;
+}
+
+.content__details {
+  transform-origin: bottom right;
+}
+
+.content__details--enter {
+  animation: fade-and-scale-up 100ms;
+}
+
+.content__details--leave {
+  animation: fade-and-scale-down 100ms;
+}
+
+@keyframes fade-and-scale-up {
+  from {
+    opacity: 0;
+    transform: scale(0.1) translate(50%, 50%);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+  }
+}
+
+@keyframes fade-and-scale-down {
+  from {
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.1) translate(50%, 50%);
+  }
 }
 
 @media (min-width: 1000px) {
   header {
-    padding: 1rem;
+    padding: 0.6rem;
   }
 
   .content {
@@ -103,7 +139,8 @@ header input {
   }
 
   .content__list {
-    display: block;
+    display: flex;
+    row-gap: 0.5rem;
     flex-basis: 25rem;
   }
 
@@ -111,7 +148,7 @@ header input {
     display: block;
   }
 
-  .content__list li {
+  .content__list li:not(:first-child) {
     margin-top: 1rem;
   }
 
