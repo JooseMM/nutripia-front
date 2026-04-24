@@ -14,14 +14,23 @@
 header {
   display: flex;
   gap: 1rem;
+  justify-content: space-between;
+  text-align: left;
 }
 
-header .content {
+.content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.content__info {
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  padding-block: 0.2rem;
-  padding-inline: 0.5rem 0.8rem;
+  padding-block: 0.3rem;
+  padding-inline: 0.4rem 0.8rem;
   border-radius: 1rem;
   font-size: 0.8rem;
   font-weight: 500;
@@ -34,7 +43,8 @@ header p {
 }
 
 h3 {
-  font-size: 1.5rem;
+  text-transform: capitalize;
+  font-size: 1.8rem;
 }
 
 h4 {
@@ -44,6 +54,7 @@ h4 {
   padding: 0;
   margin: 0;
   color: #777b7f;
+  text-wrap: nowrap;
 }
 
 p {
@@ -110,10 +121,7 @@ ul {
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
-  padding: 1rem;
-  background-color: #fbf9fe;
   border-radius: 0.5rem;
-  border: 0.1rem solid #f4f1f8;
 }
 
 .contact-appointment h4 {
@@ -145,14 +153,22 @@ ul {
   gap: 0.5rem;
 }
 
+.content__close {
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  outline: 0.1rem solid transparent;
+  color: var(--primary-ft-color);
+  opacity: 0.5;
+  transition: 300ms;
+}
+
 @media (min-width: 500px) {
   :host {
     text-align: left;
-    padding: 2rem;
+    padding: 1.5rem;
   }
 
   h4 {
-    text-wrap: nowrap;
     font-size: 0.8rem;
   }
 
@@ -168,10 +184,16 @@ ul {
   }
 
   .metrics > * {
-    flex: 0 1 auto;
+    flex: 0 0.5 auto;
   }
 
-  .contact-appointment {
-    padding: 1.5rem;
+  .content__close:hover {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 1000px) {
+  :host {
+    padding: 2rem;
   }
 }

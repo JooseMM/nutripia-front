@@ -1,6 +1,7 @@
 :host {
   border-radius: 0.8rem;
   background-color: #f2f4f6;
+  border: 0.1rem solid #eaeaea;
   padding: 0.8rem 1rem;
   min-width: 8rem;
   text-align: center;

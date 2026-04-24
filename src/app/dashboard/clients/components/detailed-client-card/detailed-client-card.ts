@@ -1,4 +1,4 @@
-import { Component, computed, effect, input, OnInit } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { MetricInfoCard } from './components/info-card/metric-info-card';
 import { ChipItem } from '../../../../shared/components/chip-item/chip-item';
 import {
@@ -11,6 +11,7 @@ import {
   MapPin,
   Phone,
   Plus,
+  X,
 } from 'lucide-angular';
 import { SmallInfoCard } from './components/small-info-card/small-info-card';
 import {
@@ -31,10 +32,12 @@ import { ClientStatus, ResumeClientInfo, ClientStatusEnum } from '../../..';
   styleUrl: './detailed-client-card.css',
 })
 export class DetailedClientCard {
-  data = input<ResumeClientInfo | undefined>();
-  status = input<ClientStatus | undefined>();
-  fullName = input<string | undefined>();
-  loading = input.required<boolean>();
+  data = input<ResumeClientInfo>();
+  status = input<ClientStatus>();
+  fullName = input<string>();
+  isLoading = input.required<boolean>();
+
+  onClose = output<void>();
 
   protected readonly PLUS_ICON = Plus;
   protected readonly EMAIL_ICON = Mail;
@@ -42,6 +45,7 @@ export class DetailedClientCard {
   protected readonly LOCATION_ICON = MapPin;
   protected readonly PAST_ICON = CalendarCheck;
   protected readonly FUTURE_ICON = Calendar1;
+  protected readonly CLOSE_ICON = X;
 
   protected readonly WARNING_ICON = CircleAlert;
   protected readonly CHECK_ICON = CircleCheck;
@@ -64,6 +68,10 @@ export class DetailedClientCard {
         throw new Error('Unhandle status case: ', status);
     }
   });
+
+  protected close() {
+    this.onClose.emit();
+  }
 
   protected parseToString(date: Date | undefined): string {
     if (!date) return '';

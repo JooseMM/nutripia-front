@@ -72,25 +72,28 @@ header input {
   height: 84dvh;
 }
 
-.content ul {
+.content__list {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
-  flex-grow: 0;
-  flex-shrink: 0;
-  flex-basis: 10.5rem;
+  align-items: center;
+  align-content: flex-start;
+  justify-content: flex-start;
   overflow-y: auto;
+}
+
+.content__list--selected {
+  display: none;
+}
+
+.content__list li {
+  height: fit-content;
 }
 
 .content ul li {
   flex: 50%;
 }
 
-.content__details {
-  flex: 1;
-}
-
-@media (min-width: 800px) {
+@media (min-width: 1000px) {
   header {
     padding: 1rem;
   }
@@ -99,18 +102,24 @@ header input {
     flex-direction: row;
   }
 
-  .content ul {
+  .content__list {
     display: block;
     flex-basis: 25rem;
   }
 
-  .content ul li {
+  .content__list--selected {
+    display: block;
+  }
+
+  .content__list li {
     margin-top: 1rem;
   }
-}
 
-@media (min-width: 1000px) {
-  li:hover {
+  .content__list li:hover {
     cursor: pointer;
+  }
+
+  .content__details {
+    flex: 1;
   }
 }

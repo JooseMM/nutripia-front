@@ -1,51 +1,53 @@
 <header>
-  @if(loading()) {
-    <div [style.width]="'50%'" [style.height]="'2rem'"  class="skeleton-glowing"></div>
+  @if (isLoading()) {
+    <div [style.width]="'50%'" [style.height]="'2rem'" class="skeleton-glowing"></div>
   } @else {
-    <h3>{{ fullName() }}</h3>
-    <div
-      class="content"
-      [style.backgroundColor]="statusIndicator().color.background"
-      [style.color]="statusIndicator().color"
-    >
-      <lucide-angular size="18" [img]="statusIndicator().icon"></lucide-angular>
-      <p>{{ statusIndicator().text }}</p>
+    <div class="content">
+      <h3>{{ fullName() }}</h3>
+      <div
+        class="content__info"
+        [style.backgroundColor]="statusIndicator().color.background"
+        [style.color]="statusIndicator().color"
+      >
+        <lucide-angular size="18" [img]="statusIndicator().icon"></lucide-angular>
+        <p>{{ statusIndicator().text }}</p>
+      </div>
     </div>
   }
+
+  <button app-button [isSecondary]="true" [style.height]="'2.5rem'" [style.paddingInline]="'0.8rem'" (click)="close()">
+    <lucide-angular [img]="CLOSE_ICON" size="25"></lucide-angular>
+  </button>
 </header>
 <div class="goals-diagnosis">
-  @if(loading()) {
+  @if (isLoading()) {
     <div [style.width]="'50%'" [style.height]="'5rem'" class="skeleton-glowing"></div>
   } @else {
-  <div>
-    <h4>diagnóstico clínico</h4>
-    <ul>
-      @for (diagnosis of data()?.diagnosisList; track $index) {
-        <li>
-          <app-chip-item [color]="GetColorByIndex($index)">{{ diagnosis }}</app-chip-item>
-        </li>
-      } @empty {
-
-      }
-    </ul>
-  </div>
-  <div>
-    <h4>objetivos</h4>
-    <ul>
-      @for (objective of data()?.objectiveList; track $index) {
-        <li>
-          <app-chip-item [color]="GetColorByIndex($index)">{{ objective }}</app-chip-item>
-        </li>
-      } @empty {
-
-      }
-    </ul>
-  </div>
+    <div>
+      <h4>diagnóstico clínico</h4>
+      <ul>
+        @for (diagnosis of data()?.diagnosisList; track $index) {
+          <li>
+            <app-chip-item [color]="GetColorByIndex($index)">{{ diagnosis }}</app-chip-item>
+          </li>
+        } @empty {}
+      </ul>
+    </div>
+    <div>
+      <h4>objetivos</h4>
+      <ul>
+        @for (objective of data()?.objectiveList; track $index) {
+          <li>
+            <app-chip-item [color]="GetColorByIndex($index)">{{ objective }}</app-chip-item>
+          </li>
+        } @empty {}
+      </ul>
+    </div>
   }
 </div>
-@if(loading()) {
-    <div [style.width]="'100%'" [style.minHeight]="'10rem'" class="skeleton-glowing"></div>
-  } @else {
+@if (isLoading()) {
+  <div [style.width]="'100%'" [style.minHeight]="'10rem'" class="skeleton-glowing"></div>
+} @else {
   <div class="contact-appointment">
     <div>
       <h4>información de contacto</h4>
@@ -78,26 +80,38 @@
       ></app-small-info-card>
     </div>
   </div>
-  }
+}
 <div class="metrics">
-  @if(loading()) {
-      <div [style.width]="'8rem'" [style.height]="'5rem'" class="skeleton-glowing"></div>
-      <div [style.width]="'8rem'" [style.height]="'5rem'" class="skeleton-glowing"></div>
-      <div [style.width]="'8rem'" [style.height]="'5rem'" class="skeleton-glowing"></div>
-      <div [style.width]="'8rem'" [style.height]="'5rem'" class="skeleton-glowing"></div>
-  } @else {
-  <app-metric-info-card title="estatura" [value]="data()?.height" metric="cm"></app-metric-info-card>
-  <app-metric-info-card title="peso actual" [value]="data()?.weight" metric="kg"></app-metric-info-card>
-  <app-metric-info-card title="IMC" [value]="data()?.imc"></app-metric-info-card>
-  <app-metric-info-card title="grasa corporal" [value]="data()?.bodyFatPercentage" metric="%"></app-metric-info-card>
-  }
+  <app-metric-info-card
+    title="estatura"
+    [value]="data()?.height"
+    [isLoading]="isLoading()"
+    metric="cm"
+  ></app-metric-info-card>
+  <app-metric-info-card
+    title="peso actual"
+    [value]="data()?.weight"
+    metric="kg"
+    [isLoading]="isLoading()"
+  ></app-metric-info-card>
+  <app-metric-info-card
+    [isLoading]="isLoading()"
+    title="IMC"
+    [value]="data()?.imc"
+  ></app-metric-info-card>
+  <app-metric-info-card
+    [isLoading]="isLoading()"
+    title="grasa corporal"
+    [value]="data()?.bodyFatPercentage"
+    metric="%"
+  ></app-metric-info-card>
 </div>
-@if(!loading()) {
-<div class="actions">
-  <button app-button>Nueva Medición</button>
-  <button app-button [isSecondary]="true">
-    <lucide-angular [img]="PLUS_ICON" size="20"></lucide-angular>
-    <span> Editar Perfil </span>
-  </button>
-</div>
+@if (!isLoading()) {
+  <div class="actions">
+    <button app-button>Nueva Medición</button>
+    <button app-button [isSecondary]="true">
+      <lucide-angular [img]="PLUS_ICON" size="20"></lucide-angular>
+      <span> Editar Perfil </span>
+    </button>
+  </div>
 }

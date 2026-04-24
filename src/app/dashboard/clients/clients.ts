@@ -1,12 +1,4 @@
-import {
-  Component,
-  computed,
-  inject,
-  linkedSignal,
-  OnInit,
-  signal,
-  WritableSignal,
-} from '@angular/core';
+import { Component, computed, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { Funnel, LucideAngularModule, Search } from 'lucide-angular';
 import { ResumeClientCard } from './components/resume-client-card/resume-client-card';
 import { DetailedClientCard } from './components/detailed-client-card/detailed-client-card';
@@ -27,39 +19,40 @@ export class Clients implements OnInit {
   protected readonly SEARCH_ICON = Search;
   protected readonly FILTER_ICON = Funnel;
 
-  protected readonly clientList = computed(() => this.service.clientList());
-  protected readonly resumeList = computed(() => this.service.clientResumeInfoList());
   protected readonly isLoading = computed(() => this.loadingManager.isLoading(this.LOADING_KEY));
 
+  protected readonly clientList = computed(() => this.service.clientList());
+  protected readonly resumeList = computed(() => this.service.clientResumeInfoList());
+
   protected readonly selectedIndex: WritableSignal<number | undefined> = signal(undefined);
+  protected readonly isSelected = computed(() => this.selectedIndex() != null);
 
   protected readonly getSelectedStatus = computed(() => {
-    const index = this.selectedIndex();
-    if (!index) return;
-
-    return this.clientList()[index].status;
+    if (!this.isSelected()) return;
+    return this.clientList()[this.selectedIndex()!].status;
   });
 
   protected readonly getSelectedFullName = computed(() => {
-    const index = this.selectedIndex();
-    if (!index) return;
+    if (!this.isSelected()) return;
 
-    const client = this.clientList()[index];
+    const client = this.clientList()[this.selectedIndex()!];
     return `${client.firstname} ${client.lastname}`;
   });
 
   protected readonly selectedClientResume = computed(() => {
-    const index = this.selectedIndex();
     const clientList = this.clientList();
-    if (!index || !clientList.length) return;
+    if (!this.isSelected()) return;
 
-    const client = clientList[index];
-    console.log('changed: ', client);
+    const client = clientList[this.selectedIndex()!];
     return this.resumeList().find((r) => r.id === client.id);
   });
 
   ngOnInit(): void {
     this.service.fetchClientList(this.LOADING_KEY);
+  }
+
+  removeSelection(): void {
+    this.selectedIndex.set(undefined);
   }
 
   protected select(index: number): void {
