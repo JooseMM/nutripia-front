@@ -55,8 +55,8 @@ header > p {
   }
 
   header {
-    height: 18dvh;
-    max-height: 6rem;
+    height: 12dvh;
+    max-height: 10rem;
     background: #c1aee0 url(/images/home-header-bg.jpg);
     background-position: center right -3.5rem;
     background-repeat: no-repeat;
@@ -70,7 +70,7 @@ header > p {
 
   .cards {
     gap: 1rem;
-    height: 74dvh;
+    height: 82dvh;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 10.5rem 1fr;
   }

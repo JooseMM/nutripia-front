@@ -9,6 +9,7 @@
   overflow-y: auto;
   text-align: center;
   padding: 1.5rem;
+  height: 100%;
 }
 
 header {

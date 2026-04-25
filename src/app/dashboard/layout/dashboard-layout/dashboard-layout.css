@@ -248,7 +248,7 @@ main {
 
   main {
     overflow-y: hidden;
-    max-height: 100dvh;
+    height: 100%;
   }
 
   .menu-button {

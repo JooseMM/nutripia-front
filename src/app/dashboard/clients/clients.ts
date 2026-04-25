@@ -21,6 +21,7 @@ export class Clients implements OnInit {
 
   protected readonly isLoading = computed(() => this.loadingManager.isLoading(this.LOADING_KEY));
 
+  protected readonly skeletonList = Array.from({ length: 8 }, (_, __) => undefined);
   protected readonly clientList = computed(() => this.service.clientList());
   protected readonly resumeList = computed(() => this.service.clientResumeInfoList());
 

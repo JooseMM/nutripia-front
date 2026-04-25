@@ -1,13 +1,28 @@
-<div class="basic-info">
-  <div class="profile-picture">
-    @if (!userProfileImage()) {
-      <lucide-angular [img]="USER_ICON" size="30"></lucide-angular>
-    } @else {
-      <img [src]="userProfileImage()" />
+@if(isLoading()) {
+  <div class="content">
+    <div class="skeleton-icon skeleton-glowing">
+    </div>
+    <div class="skelenton-info skeleton-glowing">
+    </div>
+  </div>
+} @else {
+  <div class="content">
+    <div class="profile-picture">
+      @if (!userProfileImage()) {
+        <lucide-angular [img]="USER_ICON" size="30"></lucide-angular>
+      } @else {
+        <img [src]="userProfileImage()" />
+      }
+    </div>
+    <div class="info">
+      <p class="info__fullname">{{ fullname() }}</p>
+      <p class="info__age">{{ age() }} años</p>
+    </div>
+  </div>
+  <div class="actions">
+    @if(showWarning()) {
+    <lucide-angular [color]="WARNING_COLOR.color" size="25" [img]="WARNING_ICON"></lucide-angular>
     }
+    <button app-button (click)="select()" [isSecondary]="true" [style.paddingInline]="'1rem'">Ver más</button>
   </div>
-  <div class="info">
-    <p class="info__fullname">{{ fullname() }}</p>
-    <p class="info__age">{{ age() }} años</p>
-  </div>
-</div>
+}

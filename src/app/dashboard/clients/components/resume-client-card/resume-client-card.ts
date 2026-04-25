@@ -1,9 +1,11 @@
-import { Component, input, signal } from '@angular/core';
-import { UserRound, LucideAngularModule } from 'lucide-angular';
+import { Component, computed, input, output, signal } from '@angular/core';
+import { UserRound, LucideAngularModule, CircleAlert } from 'lucide-angular';
+import { Button, softYellow } from '../../../../shared';
+import { ClientStatus, ClientStatusEnum } from '../../../models/client.model';
 
 @Component({
   selector: 'app-resume-client-card',
-  imports: [LucideAngularModule],
+  imports: [LucideAngularModule, Button],
   templateUrl: './resume-client-card.html',
   styleUrl: './resume-client-card.css',
   host: {
@@ -11,9 +13,22 @@ import { UserRound, LucideAngularModule } from 'lucide-angular';
   },
 })
 export class ResumeClientCard {
-  protected readonly USER_ICON = UserRound;
-  protected readonly userProfileImage = signal("images/mock-profile.jpg");
   isSelected = input<boolean>(false);
-  fullname = input.required<string>();
-  age = input.required<number>();
+  fullname = input<string>('');
+  age = input<number>(0);
+  status = input<ClientStatus>(ClientStatusEnum.Okay);
+  isLoading = input<boolean>(false);
+
+  onSelected = output<void>();
+
+  protected readonly WARNING_COLOR = softYellow;
+  protected readonly WARNING_ICON = CircleAlert;
+  protected readonly USER_ICON = UserRound;
+  protected readonly userProfileImage = signal('images/mock-profile.jpg');
+
+  protected readonly showWarning = computed(() => this.status() !== ClientStatusEnum.Okay);
+
+  protected select(): void {
+    this.onSelected.emit();
+  }
 }
