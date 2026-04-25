@@ -1,0 +1,13 @@
+<div app-basic-card>
+  <button [disabled]="noNext() || isLoading()" (click)="changePage(-1)">
+    <lucide-angular [img]="previousPage" size="25"></lucide-angular>
+  </button>
+  @if (isLoading()) {
+    <div class="skeleton-glowing" [style.width]="'5rem'" [style.height]="'2rem'"></div>
+  } @else {
+    <div class="">{{ currentPage() }} de {{ lastPage() }}</div>
+  }
+  <button [disabled]="noNext() || isLoading()" (click)="changePage(1)">
+    <lucide-angular [img]="nextPage" size="25"></lucide-angular>
+  </button>
+</div>

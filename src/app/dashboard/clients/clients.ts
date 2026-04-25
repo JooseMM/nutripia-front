@@ -4,10 +4,11 @@ import { ResumeClientCard } from './components/resume-client-card/resume-client-
 import { DetailedClientCard } from './components/detailed-client-card/detailed-client-card';
 import { NutritionistClientService } from '../services/nutritionist-client.service';
 import { LoadingManager } from '../../shared';
+import { Pagination } from '../../shared/components/pagination/pagination';
 
 @Component({
   selector: 'app-clients',
-  imports: [LucideAngularModule, ResumeClientCard, DetailedClientCard],
+  imports: [LucideAngularModule, ResumeClientCard, DetailedClientCard, Pagination],
   templateUrl: './clients.html',
   styleUrl: './clients.css',
 })
@@ -24,6 +25,7 @@ export class Clients implements OnInit {
   protected readonly skeletonList = Array.from({ length: 7 }, (_, __) => undefined);
   protected readonly clientList = computed(() => this.service.clientList());
   protected readonly resumeList = computed(() => this.service.clientResumeInfoList());
+  protected readonly paginationStatus = computed(() => this.service.paginationState());
 
   protected readonly selectedIndex: WritableSignal<number | undefined> = signal(undefined);
   protected readonly isSelected = computed(() => this.selectedIndex() != null);
@@ -49,7 +51,11 @@ export class Clients implements OnInit {
   });
 
   ngOnInit(): void {
-    this.service.fetchClientList(this.LOADING_KEY);
+    this.fetchList();
+  }
+
+  protected fetchList(page = 1): void {
+    this.service.fetchClientList(this.LOADING_KEY, this.paginationStatus().currentPage + page);
   }
 
   removeSelection(): void {

@@ -75,11 +75,21 @@ header input {
 
 .content__list {
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+  overflow-y: auto;
+}
+
+.content__list ul {
+  display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
   justify-content: flex-start;
-  overflow-y: auto;
   gap: 0.5rem;
+  width: 100%;
 }
 
 .content__list--selected {
@@ -87,7 +97,7 @@ header input {
 }
 
 .content__list li {
-  flex: 50%;
+  flex-grow: 1;
   width: 100%;
 }
 
@@ -121,21 +131,26 @@ header input {
   }
 
   .content {
+    width: 100%;
+    align-items: stretch;
     flex-direction: row;
     flex: 1;
   }
 
-  .content__list {
+  .content__list ul {
     display: flex;
     gap: 1rem;
-    flex-basis: 35rem;
-  }
-
-  .content__list li {
-    width: auto;
   }
 
   .content__details {
     flex: 1;
+    min-width: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .content__list {
+    display: flex !important;
+    flex-basis: 30rem;
   }
 }

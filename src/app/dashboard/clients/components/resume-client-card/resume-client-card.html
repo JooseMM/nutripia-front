@@ -1,9 +1,7 @@
-@if(isLoading()) {
+@if (isLoading()) {
   <div class="content">
-    <div class="skeleton-icon skeleton-glowing">
-    </div>
-    <div class="skelenton-info skeleton-glowing">
-    </div>
+    <div class="skeleton-icon skeleton-glowing"></div>
+    <div class="skelenton-info skeleton-glowing"></div>
   </div>
 } @else {
   <div class="content">
@@ -20,9 +18,11 @@
     </div>
   </div>
   <div class="actions">
-    @if(showWarning()) {
-    <lucide-angular [color]="WARNING_COLOR.color" size="25" [img]="WARNING_ICON"></lucide-angular>
+    @if (showWarning()) {
+      <lucide-angular [color]="WARNING_COLOR.color" size="25" [img]="WARNING_ICON"></lucide-angular>
     }
-    <button app-button (click)="select()" [isSecondary]="true" [style.paddingInline]="'1rem'">Ver más</button>
+    <button app-button (click)="select()" [isSecondary]="true" [style.paddingInline]="'1rem'">
+      Ver más
+    </button>
   </div>
 }

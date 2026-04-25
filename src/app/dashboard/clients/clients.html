@@ -8,32 +8,36 @@
   </button>
 </header>
 <div class="content">
-  <ul
-    class="content__list"
-    [style.flexGrow]="isSelected() ? '0' : '1'"
-    [class.content__list--selected]="isSelected()"
-  >
-    @if (isLoading()) {
-      @for (client of skeletonList; track $index) {
-        <li>
-          <app-resume-client-card [isLoading]="isLoading()"></app-resume-client-card>
-        </li>
+  <div [style.flexGrow]="isSelected() ? '0' : '1'" [class.content__list--selected]="isSelected()" class="content__list">
+    <ul >
+      @if (isLoading()) {
+        @for (client of skeletonList; track $index) {
+          <li>
+            <app-resume-client-card [isLoading]="isLoading()"></app-resume-client-card>
+          </li>
+        }
+      } @else {
+        @for (client of clientList(); track client.id) {
+          <li>
+            <app-resume-client-card
+              [isSelected]="selectedIndex() == $index"
+              (onSelected)="select($index)"
+              [fullname]="client.firstname + ' ' + client.lastname"
+              [birthDate]="client.birthDate"
+              [status]="client.status"
+              [isLoading]="isLoading()"
+            ></app-resume-client-card>
+          </li>
+        }
       }
-    } @else {
-      @for (client of clientList(); track client.id) {
-        <li>
-          <app-resume-client-card
-            [isSelected]="selectedIndex() == $index"
-            (onSelected)="select($index)"
-            fullname="Elena Rodriguez"
-            [age]="32"
-            [status]="client.status"
-            [isLoading]="isLoading()"
-          ></app-resume-client-card>
-        </li>
-      }
-    }
-  </ul>
+    </ul>
+    <app-pagination
+      [currentPage]="paginationStatus().currentPage"
+      [lastPage]="paginationStatus().lastPage"
+      [isLoading]="isLoading()"
+      (onChange)="fetchList($event)"
+    ></app-pagination>
+  </div>
   @if (isSelected()) {
     <app-detailed-client-card
       animate.enter="content__details--enter"

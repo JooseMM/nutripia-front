@@ -15,6 +15,9 @@ export { SignPipe } from './pipes/sign-pipe';
 export type { Color } from './constants/useful-colors';
 export { softYellow, softPurple, softGreen, softRed, softGray } from './constants/useful-colors';
 
+export type { Pagination } from './models/pagination.model';
+export { BasicCard } from './components/basic-card/basic-card';
+
 export {
   createBasicOverlay,
   type SendEmailVerificationUsageType,
