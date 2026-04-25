@@ -35,7 +35,6 @@ export class DetailedClientCard {
   data = input<ResumeClientInfo>();
   status = input<ClientStatus>();
   fullName = input<string>();
-  isLoading = input.required<boolean>();
 
   onClose = output<void>();
 

@@ -9,6 +9,7 @@
   gap: 1rem;
   transition: 150ms;
   background-color: white;
+  min-height: 5.75rem;
 }
 
 :host:hover {
@@ -24,6 +25,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  flex: 1;
 }
 
 .profile-picture {
@@ -66,12 +68,13 @@
 }
 
 .skeleton-icon {
-  width: 3rem;
+  flex: 0;
+  flex-basis: 3rem;
   height: 3rem;
   border-radius: 100rem;
 }
 
 .skelenton-info {
   height: 3rem;
-  width: 20rem;
+  flex: 1;
 }
