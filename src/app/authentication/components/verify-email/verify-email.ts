@@ -8,7 +8,7 @@ import {
   signal,
   ViewChildren,
 } from '@angular/core';
-import { Button, LoadingManager } from '../../../shared';
+import { Button, LoadingManager, UnexpectedErrorModal } from '../../../shared';
 import {
   FormControl,
   NonNullableFormBuilder,
@@ -16,7 +16,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { distinctUntilChanged, finalize, map, Subscription, tap } from 'rxjs';
-import { AUTHENTICATION_LOADING_KEY, AuthenticationService, Token } from '../..';
+import {
+  AUTHENTICATION_LOADING_KEY,
+  AuthenticationService,
+  EmailVerificationResponseState,
+  Token,
+} from '../..';
 import { Router } from '@angular/router';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
@@ -101,14 +106,28 @@ export class VerifyEmail implements OnInit, OnDestroy {
     this.authenticationService
       .verifyEmail(token)
       .pipe(finalize(() => this.loadingManager.hideSpinner(AUTHENTICATION_LOADING_KEY)))
-      .subscribe((isOkay) => {
-        if (!isOkay) {
-          this.isCodeWrong.set(true);
-          return;
+      .subscribe((state) => {
+        switch (state) {
+          case EmailVerificationResponseState.Ok:
+            this.router.navigate(['/login']);
+            break;
+          case EmailVerificationResponseState.WrongToken:
+            this.isCodeWrong.set(true);
+            break;
+          default:
+            this.openUnexpectedErrorModal();
         }
-
-        this.router.navigate(['/home']);
       });
+  }
+
+  protected openUnexpectedErrorModal() {
+    this.overlayRef = createBasicOverlay(this.overlay);
+
+    const portal = new ComponentPortal(UnexpectedErrorModal);
+    const componentRef = this.overlayRef.attach(portal);
+    this.overlayRef.backdropClick().subscribe(() => this.overlayRef.detach());
+
+    componentRef.instance.overlayRef = this.overlayRef;
   }
 
   protected openResendVerificationEmail() {

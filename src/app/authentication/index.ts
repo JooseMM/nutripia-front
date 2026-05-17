@@ -1,13 +1,17 @@
 /* Models */
 export type { UserRoleTypes } from './models/role.models';
-export type { AuthenticatedUser } from './models/authenticatedUser.models';
+export type { AuthenticatedUser } from './models/authenticated-user.models';
 export type { LoginResponse, LoginRequestDto } from './models/login.dto';
 export type { RegisterNutritionist } from './models/register.dto';
-export type { RegistrationStateType } from './models/registrationResponseState.enum';
-export type { LoginResponseStateType } from './models/loginResponseState.enum';
+export type { RegistrationStateType } from './models/registration-response-state.enum';
+export {
+  type EmailVerificationStateType,
+  EmailVerificationResponseState,
+} from './models/email-verification-response-state.enum';
+export type { LoginResponseStateType } from './models/login-response-state.enum';
 export type { Token } from './models/token.dto';
-export { LoginResponseState } from './models/loginResponseState.enum';
-export { RegistrationResponseState } from './models/registrationResponseState.enum';
+export { LoginResponseState } from './models/login-response-state.enum';
+export { RegistrationResponseState } from './models/registration-response-state.enum';
 export { UserRoles } from './models/role.models';
 
 /* Services */
@@ -21,7 +25,7 @@ export {
 } from './constants/constants';
 
 /* Layout */
-export  { AuthenticationLayout } from './layout/authentication-layout/authentication-layout';
+export { AuthenticationLayout } from './layout/authentication-layout/authentication-layout';
 
 /* Components */
 export { Login } from './components/login/login';

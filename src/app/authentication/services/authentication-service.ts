@@ -1,6 +1,8 @@
 import { computed, inject, Injectable, signal, WritableSignal } from '@angular/core';
 import {
   AuthenticatedUser,
+  EmailVerificationResponseState,
+  EmailVerificationStateType,
   LoginRequestDto,
   LoginResponse,
   LoginResponseStateType,
@@ -10,10 +12,10 @@ import {
   Token,
   UserRoles,
 } from '..';
-import { delay, map, Observable, of, tap } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 import { LoginResponseState } from '..';
 import { environment } from '../../../environments/environment.development';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BFFResponse } from '../../shared/models/api-response.model';
 
 @Injectable({
@@ -53,21 +55,36 @@ export class AuthenticationService {
   }
 
   nutritionistRegister(payload: RegisterNutritionist): Observable<RegistrationStateType> {
-    let response: RegistrationStateType = RegistrationResponseState.Ok;
-    if (payload.emailAddress === 'conflict@example')
-      response = RegistrationResponseState.EmailAlreadyPresent;
-
-    if (payload.emailAddress === 'unexpected@example.com')
-      response = RegistrationResponseState.UnexpectedError;
-
-    return of(response).pipe(delay(1000));
+    return this.http
+      .post(`${environment.BFF_URL}/authentication/nutritionist/register`, payload)
+      .pipe(
+        map((_) => RegistrationResponseState.Ok),
+        catchError((err: HttpErrorResponse) => {
+          switch (err.status) {
+            case 422:
+            case 400:
+              return of(RegistrationResponseState.ValidationError);
+            case 409:
+              return of(RegistrationResponseState.EmailAlreadyPresent);
+            default:
+              return of(RegistrationResponseState.UnexpectedError);
+          }
+        }),
+      );
   }
 
-  verifyEmail(payload: Token): Observable<boolean> {
-    let isOkay = false;
-    if (payload.token === 'REPREP') isOkay = true;
-
-    return of(isOkay).pipe(delay(1000));
+  verifyEmail(payload: Token): Observable<EmailVerificationStateType> {
+    return this.http
+      .post(`${environment.BFF_URL}/authentication/nutritionist/verify-email`, payload)
+      .pipe(
+        map((_) => EmailVerificationResponseState.Ok),
+        catchError((err: HttpErrorResponse) => {
+          if (err.status === 422 || err.status === 400) {
+            return of(EmailVerificationResponseState.WrongToken);
+          }
+          return of(EmailVerificationResponseState.UnexpectedError);
+        }),
+      );
   }
 
   resendEmailVerification(_email: string): void {}
