@@ -75,14 +75,27 @@ export class AuthenticationService {
 
   verifyEmail(payload: Token): Observable<EmailVerificationStateType> {
     return this.http
-      .post(`${environment.BFF_URL}/authentication/nutritionist/verify-email`, payload)
+      .post<
+        BFFResponse<LoginResponse>
+      >(`${environment.BFF_URL}/authentication/nutritionist/verify-email`, payload)
       .pipe(
+        tap((response) => {
+          this._authenticationInfo.set({
+            userId: response.data.userId,
+            firstname: response.data.firstname,
+            role: UserRoles.Nutritionist,
+          });
+        }),
         map((_) => EmailVerificationResponseState.Ok),
         catchError((err: HttpErrorResponse) => {
-          if (err.status === 422 || err.status === 400) {
-            return of(EmailVerificationResponseState.WrongToken);
+          switch (err.status) {
+            case 400:
+            case 404:
+            case 422:
+              return of(EmailVerificationResponseState.WrongToken);
+            default:
+              return of(EmailVerificationResponseState.UnexpectedError);
           }
-          return of(EmailVerificationResponseState.UnexpectedError);
         }),
       );
   }

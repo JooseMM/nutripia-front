@@ -1,19 +1,19 @@
-<form [formArray]="form">
-  <label>Verifica tu correo</label>
-  <p>
-    Hemos enviado un código de 6 dígitos a tu correo electrónico. Ingrésalo a continuación para
-    activar tu cuenta.
-  </p>
-  <div [class.invalid]="isCodeWrong()">
-    @for (control of form.controls; track $index) {
-      <input [formControl]="control" #input (input)="takeLastCharacterOnly($event, $index)" />
-    }
-    @if (isCodeWrong()) {
-      <small>Código de verificación incorrecto.</small>
-    }
+@if (isCodeWrong()) {
+  <div class="icon icon--fail">
+    <lucide-angular [img]="FAILURE_ICON" size="60"></lucide-angular>
   </div>
-  <button app-button [disabled]="isCodeWrong() || form.invalid" (click)="submit()">
-    Verificar Código
-  </button>
-  <button (click)="openResendVerificationEmail()" class="resend-button">¿No recibiste el código? <b>Reenviar</b></button>
-</form>
+  <h2>Verificación fallida</h2>
+  <p>
+    Ocurrió un error inesperado durante el proceso. Por favor, asegúrate de estar usando el enlace
+    enviado a tu <b>correo electrónico</b> y vuelve a intentarlo.
+  </p>
+} @else {
+  <div class="icon">
+    <lucide-angular [img]="OKAY_ICON" size="60"></lucide-angular>
+  </div>
+  <h2>¡Verificación exitosa!</h2>
+  <p>
+    Tu dirección de <b>correo electrónico</b> ha sido confirmada. Serás redirigido al panel de
+    control en <b>{{ timeleft() }}</b> segundos.
+  </p>
+}

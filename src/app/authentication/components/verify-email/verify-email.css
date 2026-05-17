@@ -1,75 +1,33 @@
-form {
+:host {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  text-align: left;
+  text-align: center;
+  font-size: 1.3rem;
 }
 
-label {
-  font-weight: bold;
-  font-size: 2rem;
-  color: var(--primary-ft-color);
+h2 {
+  font-size: 1.8rem;
   margin-bottom: 0.8rem;
 }
 
-p {
-  line-height: 1.8rem;
-  color: var(--secondary-ft-color);
-  margin-bottom: 2rem;
-  max-width: 50ch;
+.icon {
+  padding: 1.5rem 1.5rem;
+  border-radius: 20rem;
+  width: fit-content;
+  background-color: #e6e3ed;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  vertical-align: middle;
+  line-height: 0;
 }
 
-div {
-  max-width: 100%;
-  display: flex;
-  gap: 0.3rem;
-  margin-bottom: 3.5rem;
-  position: relative;
-  justify-content: space-between;
+.icon--fail {
+  background-color: #fee3e7;
+  color: #a8364b;
 }
 
-.invalid input {
-  border-color: var(--error-ft-color);
-}
-
-small {
-  position: absolute;
-  bottom: -1.8rem;
-  text-align: center;
-  color: var(--error-ft-color);
-}
-
-input {
-  padding: 0.8rem 0.5rem;
-  max-width: 13dvw;
-  text-align: center;
-  font-size: 1.5rem;
-  text-transform: uppercase;
+b {
   color: var(--primary-ft-color);
-  border-radius: 0.8rem;
-  border: 0.1rem solid #e2e8f0;
-}
-
-input:focus {
-  outline-color: var(--primary-color);
-}
-
-.resend-button {
-  color: var(--secondary-ft-color);
-  margin-top: 2.5rem;
-  text-align: center;
-  transition: 300ms;
-  opacity: 0.85;
-  font-size: 0.9rem;
-}
-
-.resend-button:hover {
-  opacity: 1;
-}
-
-@media (min-width: 1000px) {
-  input {
-    max-width: 4.5rem;
-    padding: 1rem;
-  }
 }

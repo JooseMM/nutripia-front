@@ -1,21 +1,7 @@
-import {
-  Component,
-  ElementRef,
-  inject,
-  OnDestroy,
-  OnInit,
-  QueryList,
-  signal,
-  ViewChildren,
-} from '@angular/core';
+import { Component, inject, input, OnDestroy, OnInit, signal } from '@angular/core';
 import { Button, LoadingManager, UnexpectedErrorModal } from '../../../shared';
-import {
-  FormControl,
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { distinctUntilChanged, finalize, map, Subscription, tap } from 'rxjs';
+import { ReactiveFormsModule } from '@angular/forms';
+import { finalize, Subscription } from 'rxjs';
 import {
   AUTHENTICATION_LOADING_KEY,
   AuthenticationService,
@@ -27,94 +13,63 @@ import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { SendEmailCodeModal } from '../../../shared';
 import { createBasicOverlay } from '../../../shared';
+import { MailCheck, LucideAngularModule, TriangleAlert } from 'lucide-angular';
 
 @Component({
   selector: 'app-verify-email',
-  imports: [Button, ReactiveFormsModule],
+  imports: [ReactiveFormsModule, LucideAngularModule],
   templateUrl: './verify-email.html',
   styleUrl: './verify-email.css',
 })
 export class VerifyEmail implements OnInit, OnDestroy {
-  @ViewChildren('input') inputs!: QueryList<ElementRef<HTMLInputElement>>;
-  private readonly fb = inject(NonNullableFormBuilder);
   private readonly router = inject(Router);
   private readonly authenticationService = inject(AuthenticationService);
   private readonly loadingManager = inject(LoadingManager);
+  protected readonly OKAY_ICON = MailCheck;
+  protected readonly FAILURE_ICON = TriangleAlert;
 
   private readonly overlay = inject(Overlay);
   private overlayRef!: OverlayRef;
 
   private readonly subscriptionRef = new Subscription();
 
-  protected readonly form = this.fb.array([
-    new FormControl('', [Validators.required, Validators.maxLength(1)]),
-    new FormControl('', [Validators.required, Validators.maxLength(1)]),
-    new FormControl('', [Validators.required, Validators.maxLength(1)]),
-    new FormControl('', [Validators.required, Validators.maxLength(1)]),
-    new FormControl('', [Validators.required, Validators.maxLength(1)]),
-    new FormControl('', [Validators.required, Validators.maxLength(1)]),
-  ]);
-
-  protected isCodeWrong = signal(false);
+  protected readonly isCodeWrong = signal(false);
+  protected readonly timeleft = signal(0);
+  private intervalId: number | undefined;
+  verificationToken = input.required<string>();
 
   ngOnInit(): void {
-    const ref = this.form.valueChanges
-      .pipe(
-        distinctUntilChanged(),
-        tap(() => {
-          if (this.isCodeWrong()) this.isCodeWrong.set(false);
-        }),
-        map((values) => {
-          const nextEmptyIndex = values.findIndex((v) => v === '');
-
-          return nextEmptyIndex < 0 ? undefined : nextEmptyIndex;
-        }),
-      )
-      .subscribe((target) => {
-        if (!target) return;
-
-        this.inputs.toArray()[target].nativeElement.focus();
-      });
-
-    this.subscriptionRef.add(ref);
+    this.sendVerificationToken();
   }
 
   ngOnDestroy(): void {
     this.subscriptionRef.unsubscribe();
+    this.cleanUpInterval();
   }
 
-  takeLastCharacterOnly(event: Event, index: number): void {
-    const control = this.form.controls[index];
-    if (!control) return;
-
-    const input = event.target as HTMLInputElement;
-    const transformed = input.value.toUpperCase().trim();
-    control.setValue(transformed.charAt(transformed.length - 1));
-  }
-
-  protected submit(): void {
-    if (this.form.invalid) {
+  protected sendVerificationToken(): void {
+    const token = this.verificationToken();
+    if (!token) {
+      this.isCodeWrong.set(true);
       return;
     }
 
-    const data = this.form.getRawValue();
-    const token: Token = {
-      token: data.join(''),
-    };
+    const payload: Token = { token };
 
     this.loadingManager.showSpinner(AUTHENTICATION_LOADING_KEY);
     this.authenticationService
-      .verifyEmail(token)
+      .verifyEmail(payload)
       .pipe(finalize(() => this.loadingManager.hideSpinner(AUTHENTICATION_LOADING_KEY)))
       .subscribe((state) => {
         switch (state) {
           case EmailVerificationResponseState.Ok:
-            this.router.navigate(['/login']);
+            this.startRedirectionTimeout();
             break;
           case EmailVerificationResponseState.WrongToken:
             this.isCodeWrong.set(true);
             break;
           default:
+            this.isCodeWrong.set(true);
             this.openUnexpectedErrorModal();
         }
       });
@@ -130,6 +85,18 @@ export class VerifyEmail implements OnInit, OnDestroy {
     componentRef.instance.overlayRef = this.overlayRef;
   }
 
+  private startRedirectionTimeout(): void {
+    this.intervalId = setInterval(() => {
+      if (this.timeleft() > 1) {
+        this.timeleft.update((prev) => prev--);
+      } else {
+        this.cleanUpInterval();
+        this.timeleft.set(0);
+        this.router.navigate(['/home']);
+      }
+    });
+  }
+
   protected openResendVerificationEmail() {
     this.overlayRef = createBasicOverlay(this.overlay);
 
@@ -138,5 +105,11 @@ export class VerifyEmail implements OnInit, OnDestroy {
     this.overlayRef.backdropClick().subscribe(() => this.overlayRef.detach());
 
     componentRef.instance.overlayRef = this.overlayRef;
+  }
+
+  private cleanUpInterval(): void {
+    if (this.intervalId !== undefined) {
+      clearInterval(this.intervalId);
+    }
   }
 }

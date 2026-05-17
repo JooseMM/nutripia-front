@@ -19,7 +19,7 @@ export const routes: Routes = [
         component: Register,
       },
       {
-        path: 'verify-email',
+        path: 'verify-email/:verificationToken',
         component: VerifyEmail,
       },
     ],
