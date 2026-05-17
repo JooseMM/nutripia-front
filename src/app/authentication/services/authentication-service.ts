@@ -1,7 +1,8 @@
-import { computed, Injectable, signal, WritableSignal } from '@angular/core';
+import { computed, inject, Injectable, signal, WritableSignal } from '@angular/core';
 import {
   AuthenticatedUser,
   LoginRequestDto,
+  LoginResponse,
   LoginResponseStateType,
   RegisterNutritionist,
   RegistrationResponseState,
@@ -9,44 +10,46 @@ import {
   Token,
   UserRoles,
 } from '..';
-import { delay, Observable, of, tap } from 'rxjs';
+import { delay, map, Observable, of, tap } from 'rxjs';
 import { LoginResponseState } from '..';
 import { environment } from '../../../environments/environment.development';
+import { HttpClient } from '@angular/common/http';
+import { BFFResponse } from '../../shared/models/api-response.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
+  private readonly http = inject(HttpClient);
   private readonly _authenticationInfo: WritableSignal<AuthenticatedUser | undefined> =
     signal(undefined);
   readonly authenticationInfo = this._authenticationInfo.asReadonly();
 
-  private readonly _sessionToken: WritableSignal<string | undefined> = signal(
-    localStorage.getItem(environment.CACHE_SESSION) || undefined,
-  );
-  readonly sessionToken = this._sessionToken.asReadonly();
-  readonly isAuthenticated = computed(() => !!this.sessionToken());
+  readonly isAuthenticated = computed(() => !!this._authenticationInfo());
 
   nutritionistLogin(payload: LoginRequestDto): Observable<LoginResponseStateType> {
-    if (payload.emailAddress === 'wrong@example.com')
-      return of(LoginResponseState.WrongCredentials).pipe(delay(1000));
-    if (payload.emailAddress === 'unexpected@example.com')
-      return of(LoginResponseState.UnexpectedError).pipe(delay(1000));
+    return this.http
+      .post<
+        BFFResponse<LoginResponse>
+      >(`${environment.BFF_URL}/authentication/nutritionist/login`, payload)
+      .pipe(
+        tap((response) => {
+          this._authenticationInfo.set({
+            userId: response.data.userId,
+            firstname: response.data.firstname,
+            role: UserRoles.Nutritionist,
+          });
+        }),
+        map((response) => {
+          if (response.statusCode === 422) {
+            return LoginResponseState.WrongCredentials;
+          } else if (response.statusCode >= 400) {
+            return LoginResponseState.UnexpectedError;
+          }
 
-    this._authenticationInfo.set({
-      userId: 'user-1',
-      firstname: 'juanete',
-      role: UserRoles.Nutritionist,
-    });
-
-    return of(LoginResponseState.Ok).pipe(
-      tap(() => {
-        const token = 'super-secure-session-token-key';
-        this._sessionToken.set(token);
-        localStorage.setItem(environment.CACHE_SESSION, token);
-      }),
-      delay(1000),
-    );
+          return LoginResponseState.Ok;
+        }),
+      );
   }
 
   nutritionistRegister(payload: RegisterNutritionist): Observable<RegistrationStateType> {
@@ -71,18 +74,9 @@ export class AuthenticationService {
 
   sendPasswordChangeCode(_email: string): void {}
 
-  verifySessionToken(): void {
-    if (!this.sessionToken()) return;
-
-    this._authenticationInfo.set({
-      userId: 'user-1',
-      firstname: 'juanete',
-      role: UserRoles.Nutritionist,
-    });
-  }
+  verifySessionToken(): void {}
 
   logout(): void {
-    this._sessionToken.set(undefined);
     this._authenticationInfo.set(undefined);
   }
 }

@@ -1,7 +1,7 @@
 /* Models */
 export type { UserRoleTypes } from './models/role.models';
 export type { AuthenticatedUser } from './models/authenticatedUser.models';
-export type { LoginResponseDto, LoginRequestDto } from './models/login.dto';
+export type { LoginResponse, LoginRequestDto } from './models/login.dto';
 export type { RegisterNutritionist } from './models/register.dto';
 export type { RegistrationStateType } from './models/registrationResponseState.enum';
 export type { LoginResponseStateType } from './models/loginResponseState.enum';

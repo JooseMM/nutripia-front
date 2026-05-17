@@ -5,6 +5,8 @@ export interface LoginRequestDto {
   password: string;
 }
 
-export type LoginResponseDto = AuthenticatedUser & {
-  token: string;
+export type LoginResponse = AuthenticatedUser & {
+  userId: string;
+  userFirstname: string;
+  userRole: string;
 };
