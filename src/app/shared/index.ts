@@ -18,6 +18,8 @@ export { softYellow, softPurple, softGreen, softRed, softGray } from './constant
 export type { Pagination } from './models/pagination.model';
 export { BasicCard } from './components/basic-card/basic-card';
 
+export { passwordMatchValidator } from './validators/confirm-password.validator';
+
 export {
   createBasicOverlay,
   type SendEmailVerificationUsageType,

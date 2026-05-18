@@ -32,3 +32,4 @@ export { AuthenticationLayout } from './layout/authentication-layout/authenticat
 export { Login } from './components/login/login';
 export { Register } from './components/register/register';
 export { VerifyEmail } from './components/verify-email/verify-email';
+export { ResetPassword } from './components/reset-password/reset-password';

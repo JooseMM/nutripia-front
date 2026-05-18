@@ -18,6 +18,7 @@ import { LoginResponseState } from '..';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BFFResponse } from '../../shared/models/api-response.model';
+import { PasswordReset } from '../models/password-reset.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -108,7 +109,33 @@ export class AuthenticationService {
     );
   }
 
-  sendPasswordChangeCode(_email: EmailAddress): void {}
+  checkPasswordResetVerificationToken(token: string): Observable<boolean> {
+    return this.http
+      .get<void>(`${environment.BFF_URL}/authentication/nutritionist/start-password-reset/${token}`)
+      .pipe(
+        map((_) => true),
+        catchError((_) => of(false)),
+      );
+  }
+
+  startPasswordReset(payload: EmailAddress): Observable<boolean> {
+    return this.http.post<void>(
+      `${environment.BFF_URL}/authentication/nutritionist/start-password-reset`,
+      payload,
+    );
+  }
+
+  finishPasswordReset(payload: PasswordReset): Observable<boolean> {
+    return this.http
+      .post<void>(
+        `${environment.BFF_URL}/authentication/nutritionist/finish-password-reset`,
+        payload,
+      )
+      .pipe(
+        map((_) => true),
+        catchError((err: HttpErrorResponse) => of(err.status == 500 ? false : true)),
+      );
+  }
 
   verifySessionToken(): void {}
 

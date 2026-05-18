@@ -64,7 +64,7 @@ export class SendEmailCodeModal {
 
     switch (this.usage) {
       case this.USAGE_TYPE.ResetPassword:
-        this.authenticationService.sendPasswordChangeCode(payload);
+        this.authenticationService.finishPasswordReset(payload);
         break;
       case this.USAGE_TYPE.VerifyEmail:
         this.authenticationService.resendEmailVerification(payload).subscribe();

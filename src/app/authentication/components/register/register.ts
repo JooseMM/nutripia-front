@@ -1,13 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthenticationService, MIN_PASSWORD_LENGTH, PASSWORD_PATTERN } from '../../';
-import { passwordMatchValidator } from './register.utils';
 import {
   AUTHENTICATION_LOADING_KEY,
   RegisterNutritionist,
   RegistrationResponseState,
 } from '../../';
-import { CustomInput, SendEmailCodeModal } from '../../../shared';
+import { CustomInput, passwordMatchValidator, SendEmailCodeModal } from '../../../shared';
 import { Button } from '../../../shared';
 import { LucideAngularModule, Mail, RotateCcw } from 'lucide-angular';
 import { CustomCheckbox } from '../../../shared';

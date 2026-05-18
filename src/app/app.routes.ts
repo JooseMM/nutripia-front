@@ -1,5 +1,11 @@
 import { Routes } from '@angular/router';
-import { Login, Register, VerifyEmail, AuthenticationLayout } from './authentication';
+import {
+  Login,
+  Register,
+  VerifyEmail,
+  AuthenticationLayout,
+  ResetPassword,
+} from './authentication';
 import { Appointments, Clients, DashboardLayout, Home } from './dashboard';
 import { authenticatedOnlyGuard, nutritionistOnlyGuard, unknownOnlyGuard } from './authorization';
 
@@ -21,6 +27,10 @@ export const routes: Routes = [
       {
         path: 'verify-email/:verificationToken',
         component: VerifyEmail,
+      },
+      {
+        path: 'reset-password/:passwordResetToken',
+        component: ResetPassword,
       },
     ],
   },
