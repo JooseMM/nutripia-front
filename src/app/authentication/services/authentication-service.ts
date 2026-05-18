@@ -9,6 +9,7 @@ import {
   RegisterNutritionist,
   RegistrationResponseState,
   RegistrationStateType,
+  EmailAddress,
   Token,
   UserRoles,
 } from '..';
@@ -100,9 +101,14 @@ export class AuthenticationService {
       );
   }
 
-  resendEmailVerification(_email: string): void {}
+  resendEmailVerification(payload: EmailAddress): Observable<void> {
+    return this.http.post<void>(
+      `${environment.BFF_URL}/authentication/nutritionist/resend-email-verification`,
+      payload,
+    );
+  }
 
-  sendPasswordChangeCode(_email: string): void {}
+  sendPasswordChangeCode(_email: EmailAddress): void {}
 
   verifySessionToken(): void {}
 

@@ -127,6 +127,7 @@ small {
   color: var(--primary-ft-color);
   opacity: 0.6;
   transition: 300ms;
+  padding: 0.9rem;
 }
 
 .actions .close:hover {

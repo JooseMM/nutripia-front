@@ -46,7 +46,6 @@
       </form>
     </div>
     <div class="actions">
-      <button class="close" (click)="close()">Cerrar</button>
       <button
         app-button
         [disabled]="!emailControl.valid"
@@ -55,6 +54,7 @@
       >
         Enviar codigo
       </button>
+      <button class="close" (click)="close()">Cerrar</button>
     </div>
   </div>
 }

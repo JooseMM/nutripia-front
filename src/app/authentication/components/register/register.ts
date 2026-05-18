@@ -7,7 +7,7 @@ import {
   RegisterNutritionist,
   RegistrationResponseState,
 } from '../../';
-import { CustomInput } from '../../../shared';
+import { CustomInput, SendEmailCodeModal } from '../../../shared';
 import { Button } from '../../../shared';
 import { LucideAngularModule, Mail, RotateCcw } from 'lucide-angular';
 import { CustomCheckbox } from '../../../shared';
@@ -93,6 +93,16 @@ export class Register {
             throw new Error('Unhandle registration result: ', status);
         }
       });
+  }
+
+  protected openResendVerificationModal(): void {
+    this.overlayRef = createBasicOverlay(this.overlay);
+
+    const portal = new ComponentPortal(SendEmailCodeModal);
+    const componentRef = this.overlayRef.attach(portal);
+    this.overlayRef.backdropClick().subscribe(() => this.overlayRef.detach());
+
+    componentRef.instance.overlayRef = this.overlayRef;
   }
 
   protected openUnexpectedErrorModal() {

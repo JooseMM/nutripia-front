@@ -13,6 +13,7 @@ export type { Token } from './models/token.dto';
 export { LoginResponseState } from './models/login-response-state.enum';
 export { RegistrationResponseState } from './models/registration-response-state.enum';
 export { UserRoles } from './models/role.models';
+export type { EmailAddress } from './models/resend-email-verification.dto';
 
 /* Services */
 export { AuthenticationService } from './services/authentication-service';

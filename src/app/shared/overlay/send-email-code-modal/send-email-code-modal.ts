@@ -3,7 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { LucideAngularModule, Mail, MailCheck } from 'lucide-angular';
 import { Button } from '../../components/button/button';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthenticationService } from '../../../authentication';
+import { AuthenticationService, EmailAddress } from '../../../authentication';
 import { SendEmailVerificationUsage, SendEmailVerificationUsageType } from '../overlay.utils';
 
 @Component({
@@ -58,12 +58,16 @@ export class SendEmailCodeModal {
   protected submit(): void {
     if (this.emailControl.invalid) return;
 
+    const payload: EmailAddress = {
+      emailAddress: this.emailControl.value,
+    };
+
     switch (this.usage) {
       case this.USAGE_TYPE.ResetPassword:
-        this.authenticationService.sendPasswordChangeCode(this.emailControl.value);
+        this.authenticationService.sendPasswordChangeCode(payload);
         break;
       case this.USAGE_TYPE.VerifyEmail:
-        this.authenticationService.resendEmailVerification(this.emailControl.value);
+        this.authenticationService.resendEmailVerification(payload).subscribe();
         break;
       default:
         throw new Error('Unhandle usage: ', this.usage);

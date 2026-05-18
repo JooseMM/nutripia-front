@@ -11,10 +11,10 @@
     <div class="completed__resend">
       <p class="completed__resend__title">¿No has recibido el correo electrónico?</p>
       <p class="completed__resend__description">Revisa tu carpeta de spam o correo no deseado.</p>
-      <a routerLink="/authentication/resend">
+      <button (click)="openResendVerificationModal()">
         <lucide-icon [img]="RETRY" size="15"></lucide-icon>
         Reenviar correo de verificación
-      </a>
+      </button>
     </div>
   </div>
 } @else {
