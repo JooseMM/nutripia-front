@@ -119,10 +119,15 @@ export class AuthenticationService {
   }
 
   startPasswordReset(payload: EmailAddress): Observable<boolean> {
-    return this.http.post<void>(
-      `${environment.BFF_URL}/authentication/nutritionist/start-password-reset`,
-      payload,
-    );
+    return this.http
+      .post<void>(
+        `${environment.BFF_URL}/authentication/nutritionist/start-password-reset`,
+        payload,
+      )
+      .pipe(
+        map((_) => true),
+        catchError((err: HttpErrorResponse) => of(err.status == 500 ? false : true)),
+      );
   }
 
   finishPasswordReset(payload: PasswordReset): Observable<boolean> {
