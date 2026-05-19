@@ -4,7 +4,7 @@ import { AuthenticationService, MIN_PASSWORD_LENGTH, PASSWORD_PATTERN } from '..
 import { AUTHENTICATION_LOADING_KEY } from '../../';
 import { CustomInput, passwordMatchValidator } from '../../../shared';
 import { Button } from '../../../shared';
-import { LucideAngularModule, Mail, RotateCcw } from 'lucide-angular';
+import { LucideAngularModule, TriangleAlert, UserRoundPen } from 'lucide-angular';
 import { LoadingManager } from '../../../shared';
 import { finalize } from 'rxjs';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
@@ -20,8 +20,8 @@ import { PasswordReset } from '../../models/password-reset.dto';
   styleUrl: './reset-password.css',
 })
 export class ResetPassword implements OnInit {
-  protected readonly MESSAGE = Mail;
-  protected readonly RETRY = RotateCcw;
+  protected readonly ERROR_ICON = TriangleAlert;
+  protected readonly PASSWORD_ICON = UserRoundPen;
 
   private readonly authenticationService = inject(AuthenticationService);
   private readonly fb = inject(NonNullableFormBuilder);
@@ -50,10 +50,7 @@ export class ResetPassword implements OnInit {
   );
 
   ngOnInit(): void {
-    const token = this.passwordResetToken();
-    if (!token || token.length != 64) {
-      this.checkToken(token);
-    }
+    this.checkToken(this.passwordResetToken());
   }
 
   protected checkToken(token: string): void {

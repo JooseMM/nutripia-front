@@ -110,6 +110,10 @@ export class AuthenticationService {
   }
 
   checkPasswordResetVerificationToken(token: string): Observable<boolean> {
+    if (!token || token.length != 64) {
+      return of(false);
+    }
+
     return this.http
       .get<void>(`${environment.BFF_URL}/authentication/nutritionist/start-password-reset/${token}`)
       .pipe(
@@ -126,7 +130,7 @@ export class AuthenticationService {
       )
       .pipe(
         map((_) => true),
-        catchError((err: HttpErrorResponse) => of(err.status == 500 ? false : true)),
+        catchError((err: HttpErrorResponse) => of(err.status === 500 ? false : true)),
       );
   }
 
@@ -138,7 +142,7 @@ export class AuthenticationService {
       )
       .pipe(
         map((_) => true),
-        catchError((err: HttpErrorResponse) => of(err.status == 500 ? false : true)),
+        catchError((err: HttpErrorResponse) => of(err.status === 500 ? false : true)),
       );
   }
 
