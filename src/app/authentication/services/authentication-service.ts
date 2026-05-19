@@ -130,7 +130,12 @@ export class AuthenticationService {
       )
       .pipe(
         map((_) => true),
-        catchError((err: HttpErrorResponse) => of(err.status === 500 ? false : true)),
+        catchError((err: HttpErrorResponse) => {
+          if (err?.status === 500) {
+            return of(true);
+          }
+          return of(false);
+        }),
       );
   }
 
@@ -142,7 +147,12 @@ export class AuthenticationService {
       )
       .pipe(
         map((_) => true),
-        catchError((err: HttpErrorResponse) => of(err.status === 500 ? false : true)),
+        catchError((err: HttpErrorResponse) => {
+          if (err.status === 500) {
+            return of(false);
+          }
+          return of(true);
+        }),
       );
   }
 
