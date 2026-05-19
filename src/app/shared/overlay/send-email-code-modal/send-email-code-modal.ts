@@ -4,7 +4,7 @@ import { LucideAngularModule, Mail, MailCheck } from 'lucide-angular';
 import { Button } from '../../components/button/button';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthenticationService, EmailAddress } from '../../../authentication';
-import { SendEmailVerificationUsage, SendEmailVerificationUsageType } from '../overlay.utils';
+import { VerificationCodeUsage, VerificationCodeUsageType } from '../overlay.utils';
 
 @Component({
   selector: 'app-send-email-code-modal',
@@ -17,9 +17,9 @@ export class SendEmailCodeModal {
   protected readonly isFocus = signal(false);
   protected readonly EMAIL_ICON = Mail;
   protected readonly OKAY_ICON = MailCheck;
-  protected readonly USAGE_TYPE = SendEmailVerificationUsage;
+  protected readonly USAGE_TYPE = VerificationCodeUsage;
 
-  usage: SendEmailVerificationUsageType = this.USAGE_TYPE.VerifyEmail;
+  usage: VerificationCodeUsageType = this.USAGE_TYPE.VerifyEmail;
   overlayRef?: OverlayRef;
 
   protected readonly isSended = signal(false);
@@ -57,6 +57,7 @@ export class SendEmailCodeModal {
 
   protected submit(): void {
     if (this.emailControl.invalid) return;
+    console.log(this.usage);
 
     const payload: EmailAddress = {
       emailAddress: this.emailControl.value,
@@ -64,7 +65,7 @@ export class SendEmailCodeModal {
 
     switch (this.usage) {
       case this.USAGE_TYPE.ResetPassword:
-        this.authenticationService.startPasswordReset(payload);
+        this.authenticationService.startPasswordReset(payload).subscribe();
         break;
       case this.USAGE_TYPE.VerifyEmail:
         this.authenticationService.resendEmailVerification(payload).subscribe();

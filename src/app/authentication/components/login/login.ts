@@ -5,6 +5,7 @@ import {
   CustomInput,
   LoadingManager,
   SendEmailCodeModal,
+  VerificationCodeUsage,
   UnexpectedErrorModal,
 } from '../../../shared';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -62,6 +63,7 @@ export class Login {
     const componentRef = this.overlayRef.attach(portal);
     this.overlayRef.backdropClick().subscribe(() => this.overlayRef.detach());
 
+    componentRef.instance.usage = VerificationCodeUsage.ResetPassword;
     componentRef.instance.overlayRef = this.overlayRef;
   }
 

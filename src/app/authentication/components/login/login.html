@@ -3,7 +3,7 @@
     <h1>Bienvenido de nuevo</h1>
     <p>Ingresa tus credenciales para acceder a tu panel.</p>
   </div>
-  <form [formGroup]="form" (submit)="submit()">
+  <form [formGroup]="form" (ngSubmit)="submit()">
     <app-custom-input
       formControlName="email"
       label="Correo Electrónico"
@@ -17,9 +17,9 @@
       placeholder="●●●●●●●●●●●●●●●●●●●●"
     ></app-custom-input>
     <div class="reset-password">
-      <button (click)="openResetPasswordModal()">¿Olvidaste tu contraseña?</button>
+      <button type="button" (click)="openResetPasswordModal()">¿Olvidaste tu contraseña?</button>
     </div>
-    <button app-button class="submit" type="submit">Iniciar Sesión</button>
+    <button [disabled]="!form.valid" app-button class="submit" type="submit">Iniciar Sesión</button>
     <div class="oauth">
       <p>O CONTINÚA CON</p>
       <button>

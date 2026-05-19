@@ -12,10 +12,10 @@ export function createBasicOverlay(overlay: Overlay): OverlayRef {
   });
 }
 
-export const SendEmailVerificationUsage = {
+export const VerificationCodeUsage = {
   ResetPassword: 'reset-password',
   VerifyEmail: 'verify-email',
 } as const;
 
-export type SendEmailVerificationUsageType =
-  (typeof SendEmailVerificationUsage)[keyof typeof SendEmailVerificationUsage];
+export type VerificationCodeUsageType =
+  (typeof VerificationCodeUsage)[keyof typeof VerificationCodeUsage];

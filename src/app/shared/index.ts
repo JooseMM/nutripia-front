@@ -22,6 +22,6 @@ export { passwordMatchValidator } from './validators/confirm-password.validator'
 
 export {
   createBasicOverlay,
-  type SendEmailVerificationUsageType,
-  SendEmailVerificationUsage,
+  type VerificationCodeUsageType,
+  VerificationCodeUsage
 } from './overlay/overlay.utils';

@@ -58,6 +58,7 @@ export class Register {
   );
 
   protected submit(): void {
+    console.log('fire');
     if (this.form.invalid) return;
 
     const value = this.form.getRawValue();

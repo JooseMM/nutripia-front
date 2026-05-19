@@ -28,7 +28,7 @@
         Asegúrese de que su dirección de correo electrónico sea correcta antes de solicitar un
         código de verificación.
       </p>
-      <form>
+      <div class="input--wrapper">
         <label>DIRECCIÓN DE CORREO</label>
         <div [class.focus]="isFocus()" [class.invalid]="hasErrors" class="email-input">
           <lucide-angular [img]="EMAIL_ICON" size="20"></lucide-angular>
@@ -37,13 +37,14 @@
             placeholder="ejem: cesar.andrade@correo.com"
             (focus)="setFocus(true)"
             (blur)="setFocus(false)"
+            (keydown.enter)="submit()"
           />
         </div>
 
         @if (hasErrors) {
           <small>{{ error() }}</small>
         }
-      </form>
+      </div>
     </div>
     <div class="actions">
       <button

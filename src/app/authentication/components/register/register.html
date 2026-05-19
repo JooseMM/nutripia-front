@@ -22,7 +22,7 @@
     <h1>Crea tu cuenta</h1>
     <p>Sé parte de la revolución nutricional y transforma la vida de tus pacientes con NutriPia.</p>
   </div>
-  <form [formGroup]="form">
+  <form [formGroup]="form" (ngSubmit)="submit()">
     <app-custom-input
       formControlName="firstname"
       label="Primer nombre"
@@ -66,8 +66,8 @@
       formControlName="acceptTerm"
       label="Acepto los Términos y Condiciones así como la Política de Privacidad."
     ></app-custom-checkbox>
+    <button type="submit" app-button [style.width]="'100%'" [disabled]="!form.valid">
+      Crear Cuenta
+    </button>
   </form>
-  <button app-button [style.width]="'100%'" [disabled]="!form.valid" (click)="submit()">
-    Crear Cuenta
-  </button>
 }

@@ -44,14 +44,12 @@ export class AuthenticationService {
             role: UserRoles.Nutritionist,
           });
         }),
-        map((response) => {
-          if (response.statusCode === 422) {
-            return LoginResponseState.WrongCredentials;
-          } else if (response.statusCode >= 400) {
-            return LoginResponseState.UnexpectedError;
+        map((_) => LoginResponseState.Ok),
+        catchError((err: HttpErrorResponse) => {
+          if (err.status === 500) {
+            return of(LoginResponseState.UnexpectedError);
           }
-
-          return LoginResponseState.Ok;
+          return of(LoginResponseState.WrongCredentials);
         }),
       );
   }

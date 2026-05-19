@@ -4,7 +4,7 @@ import { AuthenticationService, MIN_PASSWORD_LENGTH, PASSWORD_PATTERN } from '..
 import { AUTHENTICATION_LOADING_KEY } from '../../';
 import { CustomInput, passwordMatchValidator } from '../../../shared';
 import { Button } from '../../../shared';
-import { LucideAngularModule, TriangleAlert, UserRoundPen } from 'lucide-angular';
+import { CircleCheckBig, LucideAngularModule, TriangleAlert, UserRoundPen } from 'lucide-angular';
 import { LoadingManager } from '../../../shared';
 import { finalize } from 'rxjs';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
@@ -12,6 +12,7 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { UnexpectedErrorModal } from '../../../shared';
 import { createBasicOverlay } from '../../../shared';
 import { PasswordReset } from '../../models/password-reset.dto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password',
@@ -22,10 +23,12 @@ import { PasswordReset } from '../../models/password-reset.dto';
 export class ResetPassword implements OnInit {
   protected readonly ERROR_ICON = TriangleAlert;
   protected readonly PASSWORD_ICON = UserRoundPen;
+  protected readonly COMPLETED_ICON = CircleCheckBig;
 
   private readonly authenticationService = inject(AuthenticationService);
   private readonly fb = inject(NonNullableFormBuilder);
   private readonly loadingManager = inject(LoadingManager);
+  private readonly router = inject(Router);
 
   private readonly overlay = inject(Overlay);
   private overlayRef!: OverlayRef;
@@ -57,6 +60,10 @@ export class ResetPassword implements OnInit {
     this.authenticationService.checkPasswordResetVerificationToken(token).subscribe((isOkay) => {
       this.isCodeWrong.set(!isOkay);
     });
+  }
+
+  protected navigateToLogin(): void {
+    this.router.navigate(['authentication/login']);
   }
 
   protected submit(): void {
