@@ -11,6 +11,7 @@ import { Pagination } from '../../shared/components/pagination/pagination';
   imports: [LucideAngularModule, ResumeClientCard, DetailedClientCard, Pagination],
   templateUrl: './clients.html',
   styleUrl: './clients.css',
+  providers: [NutritionistClientService],
 })
 export class Clients implements OnInit {
   private readonly service = inject(NutritionistClientService);

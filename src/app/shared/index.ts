@@ -23,5 +23,9 @@ export { passwordMatchValidator } from './validators/confirm-password.validator'
 export {
   createBasicOverlay,
   type VerificationCodeUsageType,
-  VerificationCodeUsage
+  VerificationCodeUsage,
 } from './overlay/overlay.utils';
+
+export type { BFFResponse } from './models/api-response.model';
+
+export type { PossibleValue } from './models/possible-value.model';

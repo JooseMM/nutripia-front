@@ -67,9 +67,7 @@ const mockResumeClientInfo: ResumeClientInfo = {
   height: 162,
 };
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class NutritionistClientService {
   private readonly loadingManager = inject(LoadingManager);
 

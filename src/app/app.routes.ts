@@ -6,7 +6,7 @@ import {
   AuthenticationLayout,
   ResetPassword,
 } from './authentication';
-import { Appointments, Clients, DashboardLayout, Home } from './dashboard';
+import { Appointments, Clients, DashboardLayout, Home } from './nutritionist';
 import { authenticatedOnlyGuard, nutritionistOnlyGuard, unknownOnlyGuard } from './authorization';
 
 export const routes: Routes = [
