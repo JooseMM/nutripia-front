@@ -1,10 +1,13 @@
-<div class="header" [style]="{ justifyContent: appointment() ? 'start' : 'center'  }">
+<div class="header" [style]="{ justifyContent: appointment() ? 'start' : 'center' }">
   @if (!appointment()) {
     <div class="empty">
       <div>
-        <lucide-angular [img]="EMPTY" size="30"></lucide-angular>
+        <lucide-angular [img]="EMPTY" size="40"></lucide-angular>
       </div>
       <p>No hay citas pendientes</p>
+      <button app-button [isSecondary]="true">
+        AGREGAR
+      </button>
     </div>
   } @else {
     <div class="header__icon">

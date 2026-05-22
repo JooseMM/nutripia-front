@@ -1,18 +1,22 @@
 import { Component, computed, input } from '@angular/core';
 import { AppointmentResume } from '../../../..';
 import { Button } from '../../../../../shared';
-import { CalendarCheck2, Info, LucideAngularModule, Video } from 'lucide-angular';
+import { CalendarCheck2, Info, LucideAngularModule, PlusIcon, Video } from 'lucide-angular';
 
 @Component({
   selector: 'app-calendar-card',
   imports: [Button, LucideAngularModule],
   templateUrl: './calendar-card.html',
   styleUrl: './calendar-card.css',
+  host: {
+    '[style.justifyContent]': 'appointment() ? "start" : "center"',
+  },
 })
 export class CalendarCard {
   protected readonly ICON = Video;
   protected readonly INFO = Info;
   protected readonly EMPTY = CalendarCheck2;
+  protected readonly PLUS = PlusIcon;
   appointment = input<AppointmentResume | undefined>(undefined);
 
   protected readonly observationList = computed(() => {

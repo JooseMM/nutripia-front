@@ -94,6 +94,7 @@ li:not(.empty):hover {
   justify-content: center;
   align-items: center;
   color: var(--secondary-ft-color);
+  transform: translateY(-10%);
 }
 
 .empty div {
@@ -101,6 +102,13 @@ li:not(.empty):hover {
   border: 0.1rem solid #e2e8f0;
   background-color: #f1f5f9;
   border-radius: 100rem;
-  padding: 0.6rem;
+  padding: 1rem;
   margin-block: 1.5rem 0.8rem;
+}
+
+.empty button {
+  width: 100%;
+  max-width: 16rem;
+  padding-block: 0.6rem;
+  margin-top: 1rem;
 }
