@@ -1,5 +1,5 @@
 import { Component, computed, input } from '@angular/core';
-import { Appointment } from '../../..';
+import { AppointmentResume } from '../../..';
 import { Button } from '../../../../shared';
 import { Info, LucideAngularModule, Video } from 'lucide-angular';
 
@@ -12,27 +12,50 @@ import { Info, LucideAngularModule, Video } from 'lucide-angular';
 export class CalendarCard {
   protected readonly ICON = Video;
   protected readonly INFO = Info;
-  appointmentOwner = input.required<string>();
-  appointment = input.required<Appointment>();
+  appointment = input<AppointmentResume | undefined>(undefined);
 
-  protected readonly observationList = computed(() => [
-    this.appointment().isOnline ? 'Presencial' : 'Teleconsulta',
-    ...this.appointment().observationList,
-  ]);
+  protected readonly observationList = computed(() => {
+    const isOnline = this.appointment()?.isOnline;
+    if (isOnline === undefined) {
+      return [];
+    }
+    return [isOnline ? 'Presencial' : 'Teleconsulta'];
+  });
 
-  protected readonly day = computed(() => this.appointment().date.getDate());
+  protected readonly day = computed(() => {
+    const date = this.appointment()?.date;
+    if (!date) {
+      return 0;
+    }
+    return date.getDate();
+  });
 
-  protected readonly month = computed(() =>
-    this.appointment().date.toLocaleString('es-ES', { month: 'long' }).slice(0, 3),
-  );
+  protected readonly month = computed(() => {
+    const date = this.appointment()?.date;
+    if (!date) {
+      return '';
+    }
+
+    return date.toLocaleString('es-ES', { month: 'long' }).slice(0, 3);
+  });
 
   protected readonly hours = computed(() => {
-    const date = this.appointment().date;
+    const appointment = this.appointment();
+    if (!appointment?.date || !appointment?.minutesDuration) {
+      return '00:00 - 00:00';
+    }
 
-    const hh = date.getHours().toString().padStart(2, '0');
-    const mm = date.getMinutes().toString().padStart(2, '0');
-    const hhNext = ((date.getHours() + 1) % 24).toString().padStart(2, '0');
+    const startDate = appointment.date;
+    const duration = appointment.minutesDuration;
 
-    return `${hh}:${mm} - ${hhNext}:${mm}`;
+    const endDate = new Date(startDate.getTime() + duration * 60 * 1000);
+
+    const startHH = startDate.getHours().toString().padStart(2, '0');
+    const startMM = startDate.getMinutes().toString().padStart(2, '0');
+
+    const endHH = endDate.getHours().toString().padStart(2, '0');
+    const endMM = endDate.getMinutes().toString().padStart(2, '0');
+
+    return `${startHH}:${startMM} - ${endHH}:${endMM}`;
   });
 }

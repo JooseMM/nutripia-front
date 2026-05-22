@@ -8,26 +8,35 @@
   </h1>
 </header>
 <div class="cards">
-    <app-metrics-card
-      [icon]="USERS"
-      iconBackground="#675784"
-      iconColor="#FFF"
-      [improvementPercentage]="+22"
-      title="cantidad de clientes"
-      [value]="10"
-    ></app-metrics-card>
+  <app-metrics-card
+    [icon]="USERS"
+    iconBackground="#675784"
+    iconColor="#FFF"
+    [improvementPercentage]="
+      calculatePorcentageChange(
+        performanceResume?.previousClientCount,
+        performanceResume?.currentClientCount
+      )
+    "
+    title="cantidad de clientes por mes"
+    [value]="performanceResume?.currentAppointmentCount"
+  ></app-metrics-card>
   <app-metrics-card
     [icon]="CALENDAR"
     iconColor="#673E59"
     iconBackground="#FFC7E9"
-    [improvementPercentage]="-12"
-    title="citas nutricionales"
-    [value]="5"
+    [improvementPercentage]="
+      calculatePorcentageChange(
+        performanceResume?.previousAppointmentCount,
+        performanceResume?.currentAppointmentCount
+      )
+    "
+    title="citas nutricionales por mes"
+    [value]="performanceResume?.currentAppointmentCount"
   ></app-metrics-card>
   <app-calendar-card
     class="card__calendar"
-    appointmentOwner="Juanete Perez"
-    [appointment]="appointmentList[0]"
+    [appointment]="performanceResume?.appointmentResume"
   ></app-calendar-card>
   <app-todo-list class="card__todo" [taskList]="taskList()"></app-todo-list>
 </div>

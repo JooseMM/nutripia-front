@@ -1,30 +1,44 @@
+export interface AppointmentResume {
+  id: string;
+  date: Date;
+  nutritionistId: string;
+  clientName: string;
+  isOnline: boolean;
+  minutesDuration: number;
+}
+
 export interface NutritionistPerformanceResume {
   currentClientCount: number;
   previousClientCount: number;
   currentAppointmentCount: number;
   previousAppointmentCount: number;
-  nextAppointment: Date;
-  nextAppointmentClientName: string;
-  appointmentMinutesDuration: number;
+  appointmentResume: AppointmentResume;
 }
 
-export type NutritionistPerformanceResponse = Omit<
+export type RawAppointmentResume = Omit<AppointmentResume, 'date'> & {
+  date: string;
+};
+
+export type RawNutritionistPerformanceResume = Omit<
   NutritionistPerformanceResume,
-  'nextAppointment'
+  'appointmentResume'
 > & {
-  nextAppointment: string;
+  appointmentResume: RawAppointmentResume;
 };
 
 export function nutritionistPerformanceResumeAdapter(
-  raw: NutritionistPerformanceResponse,
+  raw: RawNutritionistPerformanceResume,
 ): NutritionistPerformanceResume {
-  const nextAppointment = new Date(raw.nextAppointment);
-  if (isNaN(nextAppointment.valueOf())) {
+  const date = new Date(raw.appointmentResume.date);
+  if (isNaN(date.valueOf())) {
     throw new Error('Invalid next appointment date');
   }
 
   return {
     ...raw,
-    nextAppointment,
+    appointmentResume: {
+      ...raw.appointmentResume,
+      date,
+    },
   };
 }

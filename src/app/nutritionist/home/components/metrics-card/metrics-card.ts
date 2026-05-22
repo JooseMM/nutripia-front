@@ -13,7 +13,7 @@ export class MetricsCard {
   iconBackground = input.required<`#${string}`>();
   iconColor = input.required<`#${string}`>();
   improvementPercentage = input.required<number>();
-  value = input.required<number>();
+  value = input<number | undefined>(0);
   title = input.required<string>();
 
   protected getProgressBar() {

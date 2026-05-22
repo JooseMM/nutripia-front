@@ -13,9 +13,15 @@ export {
   ClientStatusEnum,
 } from './models/client.model';
 
-export type {
-  NutritionistPerformanceResume,
-  NutritionistPerformanceResponse,
+export {
+  type NutritionistPerformanceResume,
+  type RawNutritionistPerformanceResume,
+  type RawAppointmentResume,
+  type AppointmentResume,
+  nutritionistPerformanceResumeAdapter,
 } from './models/performance-resume.model';
 
 export { NutritionistClientService } from './services/nutritionist-client.service';
+export { NutritionistPerformanceResumeService } from './services/nutritionist-performance-resume.service';
+
+export { PERFOMANCE_RESUME_LOADING_KEY } from './constants/constants';

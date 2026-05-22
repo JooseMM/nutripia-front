@@ -6,7 +6,13 @@ import {
   AuthenticationLayout,
   ResetPassword,
 } from './authentication';
-import { Appointments, Clients, DashboardLayout, Home } from './nutritionist';
+import {
+  Appointments,
+  Clients,
+  DashboardLayout,
+  Home,
+  NutritionistPerformanceResumeService,
+} from './nutritionist';
 import { authenticatedOnlyGuard, nutritionistOnlyGuard, unknownOnlyGuard } from './authorization';
 
 export const routes: Routes = [
@@ -42,6 +48,7 @@ export const routes: Routes = [
       {
         path: '',
         component: Home,
+        providers: [NutritionistPerformanceResumeService],
       },
       {
         path: 'clients',

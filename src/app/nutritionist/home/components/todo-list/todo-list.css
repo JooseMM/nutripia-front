@@ -102,5 +102,5 @@ li:hover {
   background-color: #f1f5f9;
   border-radius: 100rem;
   padding: 0.6rem;
-  margin-bottom: 0.5rem;
+  margin-block: 1.5rem 0.5rem;
 }

@@ -1,0 +1,1 @@
+export const PERFOMANCE_RESUME_LOADING_KEY = 'NPR';

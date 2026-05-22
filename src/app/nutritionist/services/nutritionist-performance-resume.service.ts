@@ -1,31 +1,23 @@
-import { inject, Injectable, signal, WritableSignal } from '@angular/core';
-import { NutritionistPerformanceResponse, NutritionistPerformanceResume } from '..';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BFFResponse } from '../../shared';
+import { BFFResponse, PossibleValue } from '../../shared';
 import { environment } from '../../../environments/environment.development';
-import { catchError, map, Observable, of, tap } from 'rxjs';
-import { nutritionistPerformanceResumeAdapter } from '../models/performance-resume.model';
+import { map, Observable } from 'rxjs';
+import {
+  NutritionistPerformanceResume,
+  nutritionistPerformanceResumeAdapter,
+  RawNutritionistPerformanceResume,
+} from '../models/performance-resume.model';
 
 @Injectable()
 export class NutritionistPerformanceResumeService {
   private readonly http = inject(HttpClient);
 
-  private readonly _resume: WritableSignal<NutritionistPerformanceResume | undefined> =
-    signal(undefined);
-  readonly resume = this._resume.asReadonly();
-
-  fetchResume(nutritionistId: string): Observable<boolean> {
+  fetch(nutritionistId: string): Observable<PossibleValue<NutritionistPerformanceResume>> {
     return this.http
       .get<
-        BFFResponse<NutritionistPerformanceResponse>
-      >(`${environment.BFF_URL}/nutritionist/resume/${nutritionistId}`, { withCredentials: true })
-      .pipe(
-        map((response) => nutritionistPerformanceResumeAdapter(response.data)),
-        tap((data) => this._resume.set(data)),
-        map(() => true),
-        catchError((_) => {
-          return of(false);
-        }),
-      );
+        BFFResponse<RawNutritionistPerformanceResume>
+      >(`${environment.BFF_URL}/nutritionist/resume/${nutritionistId}`)
+      .pipe(map((response) => nutritionistPerformanceResumeAdapter(response.data)));
   }
 }
