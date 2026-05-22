@@ -106,7 +106,6 @@
   width: 100%;
   align-items: center;
   color: var(--secondary-ft-color);
-  transform: translateY(-40%);
 }
 
 .empty div {
@@ -122,4 +121,10 @@
   margin-top: 1rem;
   padding-block: 0.6rem;
   width: 80%;
+}
+
+@media (min-width: 1000px) {
+  .empty {
+    transform: translateY(-40%);
+  }
 }
