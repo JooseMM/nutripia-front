@@ -1,7 +1,7 @@
 import { Component, computed, input, output, signal } from '@angular/core';
 import { UserRound, LucideAngularModule, CircleAlert } from 'lucide-angular';
-import { Button, softYellow } from '../../../../shared';
-import { ClientStatus, ClientStatusEnum } from '../../../models/client.model';
+import { Button, softYellow } from '../../../../../shared';
+import { ClientStatus, ClientStatusEnum } from '../../../../models/client.model';
 
 @Component({
   selector: 'app-resume-client-card',

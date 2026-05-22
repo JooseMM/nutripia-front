@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthenticationService, UserRoles } from '../../authentication';
+import { AuthenticationService, UserRoles } from '../../nutritionist';
 import { map } from 'rxjs';
 
 export const nutritionistOnlyGuard: CanActivateFn = (_route, _state) => {

@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { LucideAngularModule, LucideIconData } from 'lucide-angular';
-import { Color, softPurple } from '../../../../../../shared';
+import { Color, softPurple } from '../../../../../../../shared';
 
 @Component({
   selector: 'app-small-info-card',

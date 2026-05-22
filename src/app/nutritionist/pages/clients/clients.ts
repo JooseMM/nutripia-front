@@ -2,9 +2,9 @@ import { Component, computed, inject, OnInit, signal, WritableSignal } from '@an
 import { Funnel, LucideAngularModule, Search } from 'lucide-angular';
 import { ResumeClientCard } from './components/resume-client-card/resume-client-card';
 import { DetailedClientCard } from './components/detailed-client-card/detailed-client-card';
-import { NutritionistClientService } from '../services/nutritionist-client.service';
-import { LoadingManager } from '../../shared';
-import { Pagination } from '../../shared/components/pagination/pagination';
+import { NutritionistClientService } from '../../services/nutritionist-client.service';
+import { LoadingManager } from '../../../shared';
+import { Pagination } from '../../../shared/components/pagination/pagination';
 
 @Component({
   selector: 'app-clients',

@@ -13,9 +13,9 @@ import {
   Token,
   UserRoles,
   UserRoleTypes,
+  LoginResponseState
 } from '..';
 import { catchError, map, Observable, of, tap } from 'rxjs';
-import { LoginResponseState } from '..';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BFFResponse } from '../../shared/models/api-response.model';
@@ -30,7 +30,7 @@ export class AuthenticationService {
     signal(undefined);
   readonly authenticationInfo = this._authenticationInfo.asReadonly();
 
-  readonly isAuthenticated = computed(() => !!this._authenticationInfo());
+  readonly isAuthenticated = computed(() => !!this._authenticationInfo()?.userId);
 
   nutritionistLogin(payload: LoginRequestDto): Observable<LoginResponseStateType> {
     return this.http
@@ -169,7 +169,9 @@ export class AuthenticationService {
           });
         }),
         map((_) => UserRoles.Nutritionist),
-        catchError((_) => of(UserRoles.Unknown)),
+        catchError((_) => {
+          return of(UserRoles.Unknown)
+        }),
       );
   }
 

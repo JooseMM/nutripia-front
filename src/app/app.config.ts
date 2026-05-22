@@ -5,7 +5,7 @@ import { routes } from './app.routes';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { credentialsInterceptor } from './authentication/interceptors/auth.interceptor';
+import { credentialsInterceptor } from './nutritionist/';
 
 registerLocaleData(localeEs);
 

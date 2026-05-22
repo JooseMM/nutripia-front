@@ -1,11 +1,5 @@
 import { Routes } from '@angular/router';
-import {
-  Login,
-  Register,
-  VerifyEmail,
-  AuthenticationLayout,
-  ResetPassword,
-} from './authentication';
+import { Login, Register, VerifyEmail, AuthenticationLayout, ResetPassword } from './nutritionist';
 import {
   Appointments,
   Clients,
@@ -13,7 +7,7 @@ import {
   Home,
   NutritionistPerformanceResumeService,
 } from './nutritionist';
-import { authenticatedOnlyGuard, nutritionistOnlyGuard, unknownOnlyGuard } from './authorization';
+import { nutritionistOnlyGuard, unknownOnlyGuard } from './authorization';
 
 export const routes: Routes = [
   {

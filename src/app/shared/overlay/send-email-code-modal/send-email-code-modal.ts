@@ -3,7 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { LucideAngularModule, Mail, MailCheck } from 'lucide-angular';
 import { Button } from '../../components/button/button';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthenticationService, EmailAddress } from '../../../authentication';
+import { AuthenticationService, EmailAddress } from '../../../nutritionist';
 import { VerificationCodeUsage, VerificationCodeUsageType } from '../overlay.utils';
 
 @Component({

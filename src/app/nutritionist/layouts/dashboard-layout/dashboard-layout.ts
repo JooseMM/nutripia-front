@@ -10,7 +10,7 @@ import {
   UserRound,
   X,
 } from 'lucide-angular';
-import { AuthenticationService } from '../../../authentication';
+import { AuthenticationService } from '../..';
 
 @Component({
   selector: 'app-dashboard-layout',

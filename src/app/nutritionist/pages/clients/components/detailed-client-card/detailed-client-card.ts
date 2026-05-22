@@ -1,6 +1,6 @@
 import { Component, computed, input, output } from '@angular/core';
 import { MetricInfoCard } from './components/info-card/metric-info-card';
-import { ChipItem } from '../../../../shared/components/chip-item/chip-item';
+import { ChipItem } from '../../../../../shared/components/chip-item/chip-item';
 import {
   Calendar1,
   CalendarCheck,
@@ -22,8 +22,8 @@ import {
   softYellow,
   softGray,
   Button,
-} from '../../../../shared';
-import { ClientStatus, ResumeClientInfo, ClientStatusEnum } from '../../..';
+} from '../../../../../shared';
+import { ClientStatus, ResumeClientInfo, ClientStatusEnum } from '../../../..';
 
 @Component({
   selector: 'app-detailed-client-card',

@@ -3,22 +3,22 @@ import { DatePipe, TitleCasePipe } from '@angular/common';
 import { Calendar1, UsersRound } from 'lucide-angular';
 import { CalendarCard } from './components/calendar-card/calendar-card';
 import { MetricsCard } from './components/metrics-card/metrics-card';
-import { AuthenticationService } from '../../authentication';
 import { TodoList } from './components/todo-list/todo-list';
-import { TaskItem, TaskPrioritiesEnum } from '../models/task.model';
+import { TaskItem } from '../../models/task.model';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import {
   createBasicOverlay,
   LoadingManager,
   PossibleValue,
   UnexpectedErrorModal,
-} from '../../shared';
+} from '../../../shared';
 import { ComponentPortal } from '@angular/cdk/portal';
 import {
   NutritionistPerformanceResume,
   NutritionistPerformanceResumeService,
+  AuthenticationService,
   PERFOMANCE_RESUME_LOADING_KEY,
-} from '..';
+} from '../..';
 import { finalize } from 'rxjs';
 
 @Component({

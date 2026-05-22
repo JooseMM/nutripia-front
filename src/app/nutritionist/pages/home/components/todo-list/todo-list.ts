@@ -1,5 +1,5 @@
 import { Component, input, linkedSignal } from '@angular/core';
-import { TaskItem } from '../../../models/task.model';
+import { TaskItem } from '../../../../models/task.model';
 import { Check, EllipsisVertical, LucideAngularModule, ClipboardCheck } from 'lucide-angular';
 
 @Component({
