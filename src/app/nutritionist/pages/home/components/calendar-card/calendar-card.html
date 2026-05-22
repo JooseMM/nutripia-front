@@ -1,28 +1,39 @@
-<div class="header">
-  <div class="header__icon">
-    <p class="header__icon__month">{{ month() }}</p>
-    <p class="header__icon__day">{{ day() }}</p>
-  </div>
-  <div class="header__info">
-    <p class="header__info__name">{{ appointment()?.clientName ?? '' }}</p>
-    <p class="header__info__hour">{{ hours() }}</p>
-  </div>
+<div class="header" [style]="{ justifyContent: appointment() ? 'start' : 'center'  }">
+  @if (!appointment()) {
+    <div class="empty">
+      <div>
+        <lucide-angular [img]="EMPTY" size="30"></lucide-angular>
+      </div>
+      <p>No hay citas pendientes</p>
+    </div>
+  } @else {
+    <div class="header__icon">
+      <p class="header__icon__month">{{ month() }}</p>
+      <p class="header__icon__day">{{ day() }}</p>
+    </div>
+    <div class="header__info">
+      <p class="header__info__name">{{ appointment()?.clientName ?? '' }}</p>
+      <p class="header__info__hour">{{ hours() }}</p>
+    </div>
+  }
 </div>
-<div class="description">
-  <div class="description__title">
-    <lucide-angular [img]="INFO" size="20"></lucide-angular>
-    <p>Observaciones</p>
+@if (appointment()) {
+  <div class="description">
+    <div class="description__title">
+      <lucide-angular [img]="INFO" size="20"></lucide-angular>
+      <p>Observaciones</p>
+    </div>
+    <ul class="description__observation">
+      @for (observation of observationList(); track $index) {
+        <li [class.border-bottom]="!$last">-&emsp;{{ observation }}</li>
+      }
+    </ul>
   </div>
-  <ul class="description__observation">
-    @for (observation of observationList(); track $index) {
-      <li [class.border-bottom]="!$last">-&emsp;{{ observation }}</li>
-    }
-  </ul>
-</div>
-<div class="actions">
-  <button app-button class="actions__primary">
-    <lucide-angular [img]="ICON" size="25"></lucide-angular>
-    <span>Unirse</span>
-  </button>
-  <button class="actions__secondary">Reprogramar</button>
-</div>
+  <div class="actions">
+    <button app-button class="actions__primary">
+      <lucide-angular [img]="ICON" size="25"></lucide-angular>
+      <span>Unirse</span>
+    </button>
+    <button class="actions__secondary">Reprogramar</button>
+  </div>
+}

@@ -57,7 +57,10 @@ export class Home implements OnInit {
       .pipe(finalize(() => this.loadingManager.hideSpinner(PERFOMANCE_RESUME_LOADING_KEY)))
       .subscribe({
         next: (data) => (this.performanceResume = data),
-        error: () => this.openUnexpectedErrorModal(),
+        error: (err) => {
+          console.log(err)
+          this.openUnexpectedErrorModal();
+        }
       });
   }
 

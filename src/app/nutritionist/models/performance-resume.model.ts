@@ -12,7 +12,7 @@ export interface NutritionistPerformanceResume {
   previousClientCount: number;
   currentAppointmentCount: number;
   previousAppointmentCount: number;
-  appointmentResume: AppointmentResume;
+  appointmentResume?: AppointmentResume;
 }
 
 export type RawAppointmentResume = Omit<AppointmentResume, 'date'> & {
@@ -23,12 +23,19 @@ export type RawNutritionistPerformanceResume = Omit<
   NutritionistPerformanceResume,
   'appointmentResume'
 > & {
-  appointmentResume: RawAppointmentResume;
+  appointmentResume?: RawAppointmentResume;
 };
 
 export function nutritionistPerformanceResumeAdapter(
   raw: RawNutritionistPerformanceResume,
 ): NutritionistPerformanceResume {
+  if (raw.appointmentResume == undefined) {
+    return {
+      ...raw,
+      appointmentResume: undefined,
+    };
+  }
+
   const date = new Date(raw.appointmentResume.date);
   if (isNaN(date.valueOf())) {
     throw new Error('Invalid next appointment date');

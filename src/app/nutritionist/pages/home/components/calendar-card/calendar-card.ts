@@ -1,7 +1,7 @@
 import { Component, computed, input } from '@angular/core';
 import { AppointmentResume } from '../../../..';
 import { Button } from '../../../../../shared';
-import { Info, LucideAngularModule, Video } from 'lucide-angular';
+import { CalendarCheck2, Info, LucideAngularModule, Video } from 'lucide-angular';
 
 @Component({
   selector: 'app-calendar-card',
@@ -12,6 +12,7 @@ import { Info, LucideAngularModule, Video } from 'lucide-angular';
 export class CalendarCard {
   protected readonly ICON = Video;
   protected readonly INFO = Info;
+  protected readonly EMPTY = CalendarCheck2;
   appointment = input<AppointmentResume | undefined>(undefined);
 
   protected readonly observationList = computed(() => {

@@ -98,3 +98,21 @@
   color: var(--primary-ft-color);
   font-weight: 500;
 }
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--secondary-ft-color);
+  padding-top: 4rem;
+}
+
+.empty div {
+  color: var(--secondary-ft-color);
+  border: 0.1rem solid #e2e8f0;
+  background-color: #f1f5f9;
+  border-radius: 100rem;
+  padding: 0.6rem;
+  margin-bottom: 0.8rem;
+}
