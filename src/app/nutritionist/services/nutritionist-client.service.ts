@@ -13,6 +13,23 @@ const mockClients: Client[] = [
     lastname: 'contreras',
     status: ClientStatusEnum.Okay,
   },
+
+  {
+    birthDate: new Date(1990, 4, 20),
+    emailAddress: 'email@email.cl',
+    firstname: 'enrique',
+    id: 'id-1',
+    lastname: 'contreras',
+    status: ClientStatusEnum.Okay,
+  },
+  {
+    birthDate: new Date(1990, 4, 20),
+    emailAddress: 'email@email.cl',
+    firstname: 'enrique',
+    id: 'id-1',
+    lastname: 'contreras',
+    status: ClientStatusEnum.Okay,
+  },
   {
     birthDate: new Date(1998, 8, 1),
     emailAddress: 'email@email.cl',

@@ -153,4 +153,8 @@ header input {
     display: flex !important;
     flex-basis: 30rem;
   }
+  .pagination {
+    position: absolute;
+    bottom: 1rem;
+  }
 }

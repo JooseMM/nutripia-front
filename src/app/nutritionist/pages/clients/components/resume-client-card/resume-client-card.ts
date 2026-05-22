@@ -2,10 +2,11 @@ import { Component, computed, input, output, signal } from '@angular/core';
 import { UserRound, LucideAngularModule, CircleAlert } from 'lucide-angular';
 import { Button, softYellow } from '../../../../../shared';
 import { ClientStatus, ClientStatusEnum } from '../../../../models/client.model';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-resume-client-card',
-  imports: [LucideAngularModule, Button],
+  imports: [LucideAngularModule, Button, TitleCasePipe],
   templateUrl: './resume-client-card.html',
   styleUrl: './resume-client-card.css',
   host: {
