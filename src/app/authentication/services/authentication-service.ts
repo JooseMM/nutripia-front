@@ -12,6 +12,7 @@ import {
   EmailAddress,
   Token,
   UserRoles,
+  UserRoleTypes,
 } from '..';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import { LoginResponseState } from '..';
@@ -154,7 +155,23 @@ export class AuthenticationService {
       );
   }
 
-  verifySessionToken(): void {}
+  checkSession(): Observable<UserRoleTypes> {
+    return this.http
+      .get<
+        BFFResponse<LoginResponse>
+      >(`${environment.BFF_URL}/authentication/nutritionist/check-session`)
+      .pipe(
+        tap((response) => {
+          this._authenticationInfo.set({
+            userId: response.data.userId,
+            firstname: response.data.firstname,
+            role: UserRoles.Nutritionist,
+          });
+        }),
+        map((_) => UserRoles.Nutritionist),
+        catchError((_) => of(UserRoles.Unknown)),
+      );
+  }
 
   logout(): void {
     this._authenticationInfo.set(undefined);

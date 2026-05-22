@@ -43,17 +43,16 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardLayout,
-    canActivate: [authenticatedOnlyGuard],
+    providers: [NutritionistPerformanceResumeService],
+    canActivate: [nutritionistOnlyGuard],
     children: [
       {
         path: '',
         component: Home,
-        providers: [NutritionistPerformanceResumeService],
       },
       {
         path: 'clients',
         component: Clients,
-        canActivate: [nutritionistOnlyGuard],
       },
       {
         path: 'appointments',

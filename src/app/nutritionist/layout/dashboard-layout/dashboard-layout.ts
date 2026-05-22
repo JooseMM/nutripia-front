@@ -33,7 +33,7 @@ export class DashboardLayout implements OnInit {
   protected readonly animateIcon = signal(false);
 
   ngOnInit(): void {
-    this.authenticationService.verifySessionToken();
+    this.authenticationService.checkSession();
   }
 
   constructor() {

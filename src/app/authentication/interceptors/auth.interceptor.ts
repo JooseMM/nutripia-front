@@ -5,6 +5,7 @@ import { catchError, throwError } from 'rxjs';
 
 export const credentialsInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
+
   const secureReq = req.clone({
     withCredentials: true,
   });
