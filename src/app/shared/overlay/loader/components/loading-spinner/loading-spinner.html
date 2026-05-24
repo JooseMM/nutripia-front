@@ -1,6 +1,8 @@
 @if (show()) {
-  <div>
+  <div [style]="customStyles()">
     <lucide-icon class="spinner" [img]="SPINNER" size="60"></lucide-icon>
-    <p>Cocinando tu perfil profesional...</p>
+    @if (showLabel()) {
+      <p>Cocinando tu perfil profesional...</p>
+    }
   </div>
 }

@@ -11,6 +11,8 @@ import { LoadingManager } from '../../services/loading-manager';
 export class LoadingSpinner {
   protected readonly SPINNER = LoaderCircle;
   private service = inject(LoadingManager);
+  showLabel = input<boolean>(true);
+  customStyles = input<Record<string, string>>();
 
   key = input.required<string>();
   protected show = computed(() => this.service.isLoading(this.key()));

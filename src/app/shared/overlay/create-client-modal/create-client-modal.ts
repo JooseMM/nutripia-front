@@ -1,19 +1,31 @@
 import { OverlayRef } from '@angular/cdk/overlay';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Flag, LucideAngularModule, ScrollText, UserRound, X } from 'lucide-angular';
 import { Button } from '../../components/button/button';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { softGray, softPurple, softRed, softYellow } from '../../constants/useful-colors';
 import { CustomInput } from '../../components/custom-input/custom-input';
 import { CustomSelect } from '../../components/custom-select/custom-select';
+import { LoadingManager } from '../loader/services/loading-manager';
+import { LoadingSpinner } from '../loader/components/loading-spinner/loading-spinner';
 
 @Component({
   selector: 'app-create-client-modal',
-  imports: [LucideAngularModule, Button, ReactiveFormsModule, CustomInput, CustomSelect],
+  imports: [
+    LucideAngularModule,
+    Button,
+    ReactiveFormsModule,
+    CustomInput,
+    CustomSelect,
+    LoadingSpinner,
+  ],
   templateUrl: './create-client-modal.html',
   styleUrl: './create-client-modal.css',
 })
 export class CreateClientModal {
+  private readonly loadingManager = inject(LoadingManager);
+  protected readonly LOADING_KEY = 'CCM';
+
   protected readonly BASIC_ICON = UserRound;
   protected readonly GOAL_ICON = Flag;
   protected readonly HISTORY_ICON = ScrollText;
@@ -29,7 +41,8 @@ export class CreateClientModal {
     { id: 2, value: 'Femenino' },
   ];
 
-  protected readonly currentStep = signal<'BASIC' | 'GOAL' | 'HISTORY'>('BASIC');
+  protected readonly currentStep = signal<'BASIC' | 'GOAL' | 'HISTORY' | 'COMPLETED'>('COMPLETED');
+  protected readonly isLoading = computed(() => this.loadingManager.isLoading(this.LOADING_KEY));
   protected readonly fb = inject(NonNullableFormBuilder);
   protected readonly currentColor = computed(() => {
     switch (this.currentStep()) {
@@ -37,7 +50,7 @@ export class CreateClientModal {
         return this.BASIC_COLOR;
       case 'GOAL':
         return this.GOAL_COLOR;
-      case 'HISTORY':
+      default:
         return this.HISTORY_COLOR;
     }
   });
@@ -48,7 +61,7 @@ export class CreateClientModal {
         return this.BASIC_ICON;
       case 'GOAL':
         return this.GOAL_ICON;
-      case 'HISTORY':
+      default:
         return this.HISTORY_ICON;
     }
   });
@@ -59,7 +72,7 @@ export class CreateClientModal {
         return 'Información Basica';
       case 'GOAL':
         return 'Objetivos Principales';
-      case 'HISTORY':
+      default:
         return 'Antecedentes Importantes';
     }
   });
@@ -96,7 +109,8 @@ export class CreateClientModal {
         if (this.basicForm.invalid) {
           return;
         }
-        console.log(this.basicForm.getRawValue());
+        this.currentStep.set('COMPLETED');
+        this.loadingManager.showSpinner(this.LOADING_KEY);
         break;
     }
   }

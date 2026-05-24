@@ -6,77 +6,85 @@
       <lucide-angular [img]="CLOSE_ICON" size="30"></lucide-angular>
     </button>
   </div>
-  <div class="progress">
-    <div [class.current]="currentStep() === 'BASIC'">
-      <lucide-angular [img]="BASIC_ICON" size="20"></lucide-angular>
-    </div>
-    <!-- <div [class.current]="currentStep() === 'GOAL'"> -->
-    <!--   <lucide-angular [img]="GOAL_ICON" size="20"></lucide-angular> -->
-    <!-- </div> -->
-    <!-- <div [class.current]="currentStep() === 'HISTORY'"> -->
-    <!--   <lucide-angular [img]="HISTORY_ICON" size="20"></lucide-angular> -->
-    <!-- </div> -->
-  </div>
-  <div class="content">
-    <div class="content__header">
-      <div
-        class="content__header__icon"
-        [style]="{ backgroundColor: currentColor().background, color: currentColor().color }"
-      >
-        <lucide-angular [img]="curretStepIcon()" size="18"></lucide-angular>
+  @if (isLoading()) {
+    <app-loading-spinner
+      [customStyles]="{ position: 'static', transform: 'none', marginTop: '2.5rem' }"
+      [showLabel]="false"
+      [key]="LOADING_KEY"
+    ></app-loading-spinner>
+  } @else {
+    <div class="progress">
+      <div [class.current]="currentStep() === 'BASIC'">
+        <lucide-angular [img]="BASIC_ICON" size="20"></lucide-angular>
       </div>
-      <h3>{{ curretStepTitle() }}</h3>
+      <!-- <div [class.current]="currentStep() === 'GOAL'"> -->
+      <!--   <lucide-angular [img]="GOAL_ICON" size="20"></lucide-angular> -->
+      <!-- </div> -->
+      <!-- <div [class.current]="currentStep() === 'HISTORY'"> -->
+      <!--   <lucide-angular [img]="HISTORY_ICON" size="20"></lucide-angular> -->
+      <!-- </div> -->
     </div>
-    @switch (currentStep()) {
-      @case ('BASIC') {
-        <form [formGroup]="basicForm" (ngSubmit)="submit()">
-          <div class="two-columns">
-            <app-custom-input
-              (onSubmit)="submit()"
-              formControlName="firstname"
-              label="Nombre"
-              placeholder="Ingresar nombre"
-            ></app-custom-input>
-            <app-custom-input
-              (onSubmit)="submit()"
-              formControlName="lastname"
-              label="Apellido"
-              placeholder="Ingresar apellido"
-            ></app-custom-input>
-          </div>
-          <div class="two-columns">
-            <app-custom-select
-              formControlName="sex"
-              [options]="SEX_OPTIONS"
-              label="Sexo"
-            ></app-custom-select>
-            <app-custom-input
-              formControlName="birthDate"
-              label="Fecha de nacimiento"
-              type="date"
-              placeholder="ejem: 2000-01-01"
-            ></app-custom-input>
-          </div>
-          <div class="two-columns">
-            <app-custom-input
-              (onSubmit)="submit()"
-              formControlName="phone"
-              label="Teléfono"
-              placeholder="ejem: 9 2312 4354"
-            ></app-custom-input>
-            <app-custom-input
-              (onSubmit)="submit()"
-              formControlName="emailAddress"
-              label="Correo Electronico"
-              placeholder="ejem: example@example.cl"
-            ></app-custom-input>
-          </div>
-        </form>
+    <div class="content">
+      <div class="content__header">
+        <div
+          class="content__header__icon"
+          [style]="{ backgroundColor: currentColor().background, color: currentColor().color }"
+        >
+          <lucide-angular [img]="curretStepIcon()" size="18"></lucide-angular>
+        </div>
+        <h3>{{ curretStepTitle() }}</h3>
+      </div>
+      @switch (currentStep()) {
+        @case ('BASIC') {
+          <form [formGroup]="basicForm" (ngSubmit)="submit()">
+            <div class="two-columns">
+              <app-custom-input
+                (onSubmit)="submit()"
+                formControlName="firstname"
+                label="Nombre"
+                placeholder="Ingresar nombre"
+              ></app-custom-input>
+              <app-custom-input
+                (onSubmit)="submit()"
+                formControlName="lastname"
+                label="Apellido"
+                placeholder="Ingresar apellido"
+              ></app-custom-input>
+            </div>
+            <div class="two-columns">
+              <app-custom-select
+                formControlName="sex"
+                [options]="SEX_OPTIONS"
+                label="Sexo"
+              ></app-custom-select>
+              <app-custom-input
+                formControlName="birthDate"
+                label="Fecha de nacimiento"
+                type="date"
+                placeholder="ejem: 2000-01-01"
+              ></app-custom-input>
+            </div>
+            <div class="two-columns">
+              <app-custom-input
+                (onSubmit)="submit()"
+                formControlName="phone"
+                label="Teléfono"
+                placeholder="ejem: 9 2312 4354"
+              ></app-custom-input>
+              <app-custom-input
+                (onSubmit)="submit()"
+                formControlName="emailAddress"
+                label="Correo Electronico"
+                placeholder="ejem: example@example.cl"
+              ></app-custom-input>
+            </div>
+          </form>
+        }
+        @case ('GOAL') {}
+        @case ('COMPLETED') {}
       }
-      @case ('GOAL') {}
-      @case ('HISTORY') {}
-    }
-  </div>
+    </div>
+  }
   <div class="actions">
     <button (click)="back()" [disabled]="currentStep() === 'BASIC'">Anterior</button>
     <button (click)="submit()" class="next" [disabled]="areFormsInvalid()" app-button>
