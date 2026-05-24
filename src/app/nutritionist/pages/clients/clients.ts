@@ -3,12 +3,15 @@ import { Funnel, LucideAngularModule, Search } from 'lucide-angular';
 import { ResumeClientCard } from './components/resume-client-card/resume-client-card';
 import { DetailedClientCard } from './components/detailed-client-card/detailed-client-card';
 import { NutritionistClientService } from '../../services/nutritionist-client.service';
-import { LoadingManager } from '../../../shared';
+import { Button, createBasicOverlay, LoadingManager } from '../../../shared';
 import { Pagination } from '../../../shared/components/pagination/pagination';
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { CreateClientModal } from '../../../shared/overlay/create-client-modal/create-client-modal';
+import { ComponentPortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-clients',
-  imports: [LucideAngularModule, ResumeClientCard, DetailedClientCard, Pagination],
+  imports: [LucideAngularModule, ResumeClientCard, DetailedClientCard, Pagination, Button],
   templateUrl: './clients.html',
   styleUrl: './clients.css',
   providers: [NutritionistClientService],
@@ -17,6 +20,9 @@ export class Clients implements OnInit {
   private readonly service = inject(NutritionistClientService);
   private readonly loadingManager = inject(LoadingManager);
   private readonly LOADING_KEY = 'client-page-loading';
+
+  private readonly overlay = inject(Overlay);
+  private overlayRef!: OverlayRef;
 
   protected readonly SEARCH_ICON = Search;
   protected readonly FILTER_ICON = Funnel;
@@ -53,6 +59,7 @@ export class Clients implements OnInit {
 
   ngOnInit(): void {
     this.fetchList();
+    this.createClientPopup();
   }
 
   protected fetchList(page = 1): void {
@@ -65,5 +72,15 @@ export class Clients implements OnInit {
 
   protected select(index: number): void {
     this.selectedIndex.set(index);
+  }
+
+  protected createClientPopup(): void {
+    this.overlayRef = createBasicOverlay(this.overlay);
+
+    const portal = new ComponentPortal(CreateClientModal);
+    const componentRef = this.overlayRef.attach(portal);
+    this.overlayRef.backdropClick().subscribe(() => this.overlayRef.detach());
+
+    componentRef.instance.overlayRef = this.overlayRef;
   }
 }

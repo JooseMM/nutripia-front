@@ -1,15 +1,20 @@
 <header>
+  <button class="filter">
+    <lucide-angular [img]="FILTER_ICON" size="15"></lucide-angular>
+  </button>
   <div>
     <lucide-angular [img]="SEARCH_ICON" size="15"></lucide-angular>
     <input placeholder="Busqueda de cliente..." />
   </div>
-  <button>
-    <lucide-angular [img]="FILTER_ICON" size="15"></lucide-angular>
-  </button>
+  <button app-button>AGREGAR</button>
 </header>
 <div class="content">
-  <div [style.flexGrow]="isSelected() ? '0' : '1'" [class.content__list--selected]="isSelected()" class="content__list">
-    <ul >
+  <div
+    [style.flexGrow]="isSelected() ? '0' : '1'"
+    [class.content__list--selected]="isSelected()"
+    class="content__list"
+  >
+    <ul>
       @if (isLoading()) {
         @for (client of skeletonList; track $index) {
           <li>

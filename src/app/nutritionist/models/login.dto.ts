@@ -5,8 +5,4 @@ export interface LoginRequestDto {
   password: string;
 }
 
-export type LoginResponse = AuthenticatedUser & {
-  userId: string;
-  userFirstname: string;
-  userRole: string;
-};
+export type LoginResponse = Omit<AuthenticatedUser, 'userRole'>;

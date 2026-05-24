@@ -19,7 +19,7 @@ header {
   max-height: 3.5rem;
 }
 
-header button {
+.filter {
   flex-grow: 0;
   flex-basis: 2rem;
   display: flex;
@@ -64,6 +64,10 @@ header input:focus {
 header input::placeholder,
 header input {
   color: #6b7280;
+}
+
+header button:not(.filter) {
+  padding-inline: 1rem;
 }
 
 .content {

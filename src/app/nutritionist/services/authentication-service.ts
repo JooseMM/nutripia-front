@@ -13,7 +13,7 @@ import {
   Token,
   UserRoles,
   UserRoleTypes,
-  LoginResponseState
+  LoginResponseState,
 } from '..';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
@@ -41,8 +41,8 @@ export class AuthenticationService {
         tap((response) => {
           this._authenticationInfo.set({
             userId: response.data.userId,
-            firstname: response.data.firstname,
-            role: UserRoles.Nutritionist,
+            userFirstname: response.data.userFirstname,
+            userRole: UserRoles.Nutritionist,
           });
         }),
         map((_) => LoginResponseState.Ok),
@@ -83,8 +83,8 @@ export class AuthenticationService {
         tap((response) => {
           this._authenticationInfo.set({
             userId: response.data.userId,
-            firstname: response.data.firstname,
-            role: UserRoles.Nutritionist,
+            userFirstname: response.data.userFirstname,
+            userRole: UserRoles.Nutritionist,
           });
         }),
         map((_) => EmailVerificationResponseState.Ok),
@@ -164,13 +164,13 @@ export class AuthenticationService {
         tap((response) => {
           this._authenticationInfo.set({
             userId: response.data.userId,
-            firstname: response.data.firstname,
-            role: UserRoles.Nutritionist,
+            userFirstname: response.data.userFirstname,
+            userRole: UserRoles.Nutritionist,
           });
         }),
         map((_) => UserRoles.Nutritionist),
         catchError((_) => {
-          return of(UserRoles.Unknown)
+          return of(UserRoles.Unknown);
         }),
       );
   }

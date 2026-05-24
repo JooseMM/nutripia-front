@@ -37,7 +37,7 @@ export class Home implements OnInit {
 
   private overlayRef!: OverlayRef;
 
-  protected readonly firstname = computed(() => this.authService.authenticationInfo()?.firstname);
+  protected readonly firstname = computed(() => this.authService.authenticationInfo()?.userFirstname);
   protected readonly taskList: WritableSignal<TaskItem[]> = signal([]);
   protected date = new Date();
   protected performanceResume: PossibleValue<NutritionistPerformanceResume>;

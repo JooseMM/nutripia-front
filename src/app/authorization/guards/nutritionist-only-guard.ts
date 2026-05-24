@@ -6,7 +6,7 @@ import { map } from 'rxjs';
 export const nutritionistOnlyGuard: CanActivateFn = (_route, _state) => {
   const authenticationService = inject(AuthenticationService);
   const router = inject(Router);
-  const currentRole = authenticationService.authenticationInfo()?.role;
+  const currentRole = authenticationService.authenticationInfo()?.userRole;
 
   if (authenticationService.isAuthenticated()) {
     if (currentRole === UserRoles.Nutritionist) {
