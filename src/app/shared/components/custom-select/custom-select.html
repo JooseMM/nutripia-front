@@ -1,19 +1,19 @@
 <div>
   <label [for]="id()">{{ label() }}</label>
-  <input
+  <select
     [id]="id()"
-    [type]="type()"
-    [ngStyle]="customStyles()"
-    (keydown.enter)="submit()"
     class="field__input"
     [class.invalid]="isInvalid()"
-    [placeholder]="placeholder()"
     [value]="value"
-    (input)="onInput($event)"
+    (change)="onSelect($event)"
     (blur)="onBlur()"
     (focus)="onFocus()"
     [value]="value"
-  />
+  >
+    @for (opt of options(); track opt.id) {
+      <option [id]="opt.id">{{ opt.value }}</option>
+    }
+  </select>
   @if (isInvalid() && !focus()) {
     <small>{{ errorMessage() }}</small>
   }

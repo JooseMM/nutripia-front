@@ -6,7 +6,7 @@
     <lucide-angular [img]="SEARCH_ICON" size="15"></lucide-angular>
     <input placeholder="Busqueda de cliente..." />
   </div>
-  <button app-button>AGREGAR</button>
+  <button app-button (click)="createClientPopup()">AGREGAR</button>
 </header>
 <div class="content">
   <div

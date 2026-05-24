@@ -1,81 +1,107 @@
 import { OverlayRef } from '@angular/cdk/overlay';
-import { Component, inject, signal } from '@angular/core';
-import { LucideAngularModule, Mail, MailCheck, X } from 'lucide-angular';
+import { Component, computed, inject, signal } from '@angular/core';
+import { Flag, LucideAngularModule, ScrollText, UserRound, X } from 'lucide-angular';
 import { Button } from '../../components/button/button';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthenticationService, EmailAddress } from '../../../nutritionist';
-import { VerificationCodeUsage, VerificationCodeUsageType } from '../overlay.utils';
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { softGray, softPurple, softRed, softYellow } from '../../constants/useful-colors';
+import { CustomInput } from '../../components/custom-input/custom-input';
+import { CustomSelect } from '../../components/custom-select/custom-select';
 
 @Component({
   selector: 'app-create-client-modal',
-  imports: [LucideAngularModule, Button, ReactiveFormsModule],
+  imports: [LucideAngularModule, Button, ReactiveFormsModule, CustomInput, CustomSelect],
   templateUrl: './create-client-modal.html',
   styleUrl: './create-client-modal.css',
 })
 export class CreateClientModal {
-  private readonly authenticationService = inject(AuthenticationService);
-  protected readonly isFocus = signal(false);
-
-  protected readonly EMAIL_ICON = Mail;
+  protected readonly BASIC_ICON = UserRound;
+  protected readonly GOAL_ICON = Flag;
+  protected readonly HISTORY_ICON = ScrollText;
   protected readonly CLOSE_ICON = X;
-  protected readonly OKAY_ICON = MailCheck;
-  protected readonly USAGE_TYPE = VerificationCodeUsage;
 
-  usage: VerificationCodeUsageType = this.USAGE_TYPE.VerifyEmail;
-  overlayRef?: OverlayRef;
+  protected readonly BASIC_COLOR = softPurple;
+  protected readonly GOAL_COLOR = softRed;
+  protected readonly HISTORY_COLOR = softYellow;
+  protected readonly SOFT_GRAY = softGray;
 
-  protected readonly isSended = signal(false);
+  protected readonly SEX_OPTIONS: { id: number; value: string }[] = [
+    { id: 1, value: 'Masculino' },
+    { id: 2, value: 'Femenino' },
+  ];
 
-  protected readonly emailControl = new FormControl('', {
-    validators: [Validators.required, Validators.email],
-    nonNullable: true,
+  protected readonly currentStep = signal<'BASIC' | 'GOAL' | 'HISTORY'>('BASIC');
+  protected readonly fb = inject(NonNullableFormBuilder);
+  protected readonly currentColor = computed(() => {
+    switch (this.currentStep()) {
+      case 'BASIC':
+        return this.BASIC_COLOR;
+      case 'GOAL':
+        return this.GOAL_COLOR;
+      case 'HISTORY':
+        return this.HISTORY_COLOR;
+    }
   });
 
-  protected get hasErrors(): boolean {
-    return (
-      this.emailControl.invalid &&
-      (this.emailControl.dirty || this.emailControl.touched) &&
-      !this.isFocus()
-    );
-  }
+  protected readonly curretStepIcon = computed(() => {
+    switch (this.currentStep()) {
+      case 'BASIC':
+        return this.BASIC_ICON;
+      case 'GOAL':
+        return this.GOAL_ICON;
+      case 'HISTORY':
+        return this.HISTORY_ICON;
+    }
+  });
 
-  protected error(): string | undefined {
-    const errors = this.emailControl.errors;
-    if (!errors) return '';
+  protected readonly curretStepTitle = computed(() => {
+    switch (this.currentStep()) {
+      case 'BASIC':
+        return 'Información Basica';
+      case 'GOAL':
+        return 'Objetivos Principales';
+      case 'HISTORY':
+        return 'Antecedentes Importantes';
+    }
+  });
 
-    if (errors['required']) return 'El correo electrónico es obligatorio';
-    if (errors['email']) return 'Ingresa un formato de correo válido';
+  protected readonly basicForm = this.fb.group({
+    firstname: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
+    lastname: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
+    sex: [this.SEX_OPTIONS[0], Validators.required],
+    emailAddress: ['', [Validators.required, Validators.email]],
+    birthDate: ['', [Validators.required]],
+    phone: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(12)]],
+  });
 
-    return '';
-  }
+  overlayRef?: OverlayRef;
 
-  close(): void {
+  protected close(): void {
     this.overlayRef?.dispose();
   }
 
-  protected setFocus(isFocus: boolean): void {
-    this.isFocus.set(isFocus);
+  protected back(): void {
+    switch (this.currentStep()) {
+      case 'GOAL':
+        this.currentStep.set('BASIC');
+        break;
+      case 'HISTORY':
+        this.currentStep.set('GOAL');
+        break;
+    }
   }
 
   protected submit(): void {
-    if (this.emailControl.invalid) return;
-    console.log(this.usage);
-
-    const payload: EmailAddress = {
-      emailAddress: this.emailControl.value,
-    };
-
-    switch (this.usage) {
-      case this.USAGE_TYPE.ResetPassword:
-        this.authenticationService.startPasswordReset(payload).subscribe();
+    switch (this.currentStep()) {
+      case 'BASIC':
+        if (this.basicForm.invalid) {
+          return;
+        }
+        console.log(this.basicForm.getRawValue());
         break;
-      case this.USAGE_TYPE.VerifyEmail:
-        this.authenticationService.resendEmailVerification(payload).subscribe();
-        break;
-      default:
-        throw new Error('Unhandle usage: ', this.usage);
     }
+  }
 
-    this.isSended.set(true);
+  protected areFormsInvalid(): boolean {
+    return this.basicForm.invalid;
   }
 }

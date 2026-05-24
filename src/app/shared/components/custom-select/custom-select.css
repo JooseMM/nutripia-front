@@ -1,0 +1,35 @@
+div {
+  display: flex;
+  flex-direction: column;
+  color: var(--primary-ft-color);
+  position: relative;
+}
+
+label {
+  padding-left: 0.5rem;
+}
+
+select {
+  border-radius: 0.5rem;
+  padding: 1rem;
+  font-size: 1rem;
+  margin-block: 0.5rem;
+  border: 0.1rem solid #e2e8f0;
+  background-color: transparent;
+}
+
+select:focus {
+  outline-color: var(--primary-color);
+  outline-width: 0.1rem;
+}
+
+.invalid {
+  border-color: #cd5c5c;
+}
+
+small {
+  position: absolute;
+  bottom: -0.8rem;
+  padding-left: 1rem;
+  color: #cd5c5c;
+}
