@@ -28,12 +28,12 @@
 }
 
 @media (min-width: 1000px) {
-  :host(.secondary):hover {
+  :host(.secondary):not(:disabled):hover {
     color: var(--primary-color);
     border-color: rgb(103, 87, 132);
   }
 
-  :host:hover {
+  :host:not(:disabled):hover {
     background-color: white;
     border-color: var(--primary-color);
     color: var(--primary-color);

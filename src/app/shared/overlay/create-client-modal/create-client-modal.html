@@ -7,35 +7,57 @@
     </button>
   </div>
   @if (isLoading()) {
-    <app-loading-spinner
-      [customStyles]="{ position: 'static', transform: 'none', marginTop: '2.5rem' }"
-      [showLabel]="false"
-      [key]="LOADING_KEY"
-    ></app-loading-spinner>
+    <div class="loading">
+      <app-loading-spinner
+        [showLabel]="false"
+        [key]="LOADING_KEY"
+        [size]="80"
+      ></app-loading-spinner>
+    </div>
   } @else {
     <div class="progress">
       <div [class.current]="currentStep() === 'BASIC'">
         <lucide-angular [img]="BASIC_ICON" size="20"></lucide-angular>
       </div>
-      <!-- <div [class.current]="currentStep() === 'GOAL'"> -->
-      <!--   <lucide-angular [img]="GOAL_ICON" size="20"></lucide-angular> -->
-      <!-- </div> -->
-      <!-- <div [class.current]="currentStep() === 'HISTORY'"> -->
-      <!--   <lucide-angular [img]="HISTORY_ICON" size="20"></lucide-angular> -->
-      <!-- </div> -->
     </div>
-    <div class="content">
-      <div class="content__header">
-        <div
-          class="content__header__icon"
-          [style]="{ backgroundColor: currentColor().background, color: currentColor().color }"
-        >
-          <lucide-angular [img]="curretStepIcon()" size="18"></lucide-angular>
+    @switch (currentStep()) {
+      @case ('SUCCESS') {
+        <div class="content_completed">
+          <div class="content_completed__icon">
+            <lucide-angular [img]="COMPLETED_ICON" size="40"></lucide-angular>
+          </div>
+          <h3>¡Cliente creado exitosamente!</h3>
+          <p>
+            El perfil de <b>{{ 'Juan' }}</b> ha sido registrado. Ya puedes comenzar con su
+            seguimiento nutricional.
+          </p>
+          <button app-button>Cerrar</button>
         </div>
-        <h3>{{ curretStepTitle() }}</h3>
-      </div>
-      @switch (currentStep()) {
-        @case ('BASIC') {
+      }
+      @case ('SERVER_ERROR') {
+        <div class="content_completed">
+          <div class="content_completed__icon content_completed__icon--error">
+            <lucide-angular [img]="ERROR_ICON" size="40"></lucide-angular>
+          </div>
+          <h3>Hubo un problema al crear el cliente</h3>
+          <p>
+            No se pudo registrar el perfil en este momento. Por favor, verifica los datos e intenta
+            nuevamente.
+          </p>
+          <button app-button (click)="startAgain()">Intentar de nuevo</button>
+        </div>
+      }
+      @case ('BASIC') {
+        <div class="content_basic">
+          <div class="content_basic__header">
+            <div
+              class="content_basic__header__icon"
+              [style]="{ backgroundColor: BASIC_COLOR.background, color: BASIC_COLOR.color }"
+            >
+              <lucide-angular [img]="BASIC_ICON" size="18"></lucide-angular>
+            </div>
+            <h3>Información Basica</h3>
+          </div>
           <form [formGroup]="basicForm" (ngSubmit)="submit()">
             <div class="two-columns">
               <app-custom-input
@@ -78,21 +100,15 @@
                 placeholder="ejem: example@example.cl"
               ></app-custom-input>
             </div>
+            <div class="actions">
+              <button (click)="basicForm.reset()">Limpiar</button>
+              <button type="submit" class="next" [disabled]="basicForm.invalid" app-button>
+                Guardar
+              </button>
+            </div>
           </form>
-        }
-        @case ('GOAL') {}
-        @case ('COMPLETED') {}
+        </div>
       }
-    </div>
+    }
   }
-  <div class="actions">
-    <button (click)="back()" [disabled]="currentStep() === 'BASIC'">Anterior</button>
-    <button (click)="submit()" class="next" [disabled]="areFormsInvalid()" app-button>
-      @if (currentStep() === 'BASIC') {
-        Guardar
-      } @else {
-        Siguiente
-      }
-    </button>
-  </div>
 </div>

@@ -1,6 +1,14 @@
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { Flag, LucideAngularModule, ScrollText, UserRound, X } from 'lucide-angular';
+import {
+  CircleCheckBig,
+  Flag,
+  Info,
+  LucideAngularModule,
+  ScrollText,
+  UserRound,
+  X,
+} from 'lucide-angular';
 import { Button } from '../../components/button/button';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { softGray, softPurple, softRed, softYellow } from '../../constants/useful-colors';
@@ -8,6 +16,7 @@ import { CustomInput } from '../../components/custom-input/custom-input';
 import { CustomSelect } from '../../components/custom-select/custom-select';
 import { LoadingManager } from '../loader/services/loading-manager';
 import { LoadingSpinner } from '../loader/components/loading-spinner/loading-spinner';
+import { delay, finalize, of } from 'rxjs';
 
 @Component({
   selector: 'app-create-client-modal',
@@ -26,6 +35,8 @@ export class CreateClientModal {
   private readonly loadingManager = inject(LoadingManager);
   protected readonly LOADING_KEY = 'CCM';
 
+  protected readonly COMPLETED_ICON = CircleCheckBig;
+  protected readonly ERROR_ICON = Info;
   protected readonly BASIC_ICON = UserRound;
   protected readonly GOAL_ICON = Flag;
   protected readonly HISTORY_ICON = ScrollText;
@@ -41,41 +52,9 @@ export class CreateClientModal {
     { id: 2, value: 'Femenino' },
   ];
 
-  protected readonly currentStep = signal<'BASIC' | 'GOAL' | 'HISTORY' | 'COMPLETED'>('COMPLETED');
+  protected readonly currentStep = signal<'BASIC' | 'SUCCESS' | 'SERVER_ERROR'>('BASIC');
   protected readonly isLoading = computed(() => this.loadingManager.isLoading(this.LOADING_KEY));
   protected readonly fb = inject(NonNullableFormBuilder);
-  protected readonly currentColor = computed(() => {
-    switch (this.currentStep()) {
-      case 'BASIC':
-        return this.BASIC_COLOR;
-      case 'GOAL':
-        return this.GOAL_COLOR;
-      default:
-        return this.HISTORY_COLOR;
-    }
-  });
-
-  protected readonly curretStepIcon = computed(() => {
-    switch (this.currentStep()) {
-      case 'BASIC':
-        return this.BASIC_ICON;
-      case 'GOAL':
-        return this.GOAL_ICON;
-      default:
-        return this.HISTORY_ICON;
-    }
-  });
-
-  protected readonly curretStepTitle = computed(() => {
-    switch (this.currentStep()) {
-      case 'BASIC':
-        return 'Información Basica';
-      case 'GOAL':
-        return 'Objetivos Principales';
-      default:
-        return 'Antecedentes Importantes';
-    }
-  });
 
   protected readonly basicForm = this.fb.group({
     firstname: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
@@ -92,30 +71,24 @@ export class CreateClientModal {
     this.overlayRef?.dispose();
   }
 
-  protected back(): void {
-    switch (this.currentStep()) {
-      case 'GOAL':
-        this.currentStep.set('BASIC');
-        break;
-      case 'HISTORY':
-        this.currentStep.set('GOAL');
-        break;
-    }
-  }
-
   protected submit(): void {
-    switch (this.currentStep()) {
-      case 'BASIC':
-        if (this.basicForm.invalid) {
-          return;
-        }
-        this.currentStep.set('COMPLETED');
-        this.loadingManager.showSpinner(this.LOADING_KEY);
-        break;
+    console.log(this.basicForm.invalid);
+    if (this.basicForm.invalid) {
+      return;
     }
+    this.loadingManager.showSpinner(this.LOADING_KEY);
+    of(undefined)
+      .pipe(
+        delay(3000),
+        finalize(() => this.loadingManager.hideSpinner(this.LOADING_KEY)),
+      )
+      .subscribe(() => {
+        this.currentStep.set('SERVER_ERROR');
+      });
   }
 
-  protected areFormsInvalid(): boolean {
-    return this.basicForm.invalid;
+  protected startAgain(): void {
+    this.currentStep.set('BASIC');
+    this.basicForm.reset();
   }
 }
