@@ -19,6 +19,9 @@
       <div [class.current]="currentStep() === 'BASIC'">
         <lucide-angular [img]="BASIC_ICON" size="20"></lucide-angular>
       </div>
+      <div [class.current]="currentStep() === 'SUCCESS' || currentStep() === 'UNEXPECTED_ERROR'">
+        <lucide-angular [img]="COMPLETED_ICON" size="20"></lucide-angular>
+      </div>
     </div>
     @switch (currentStep()) {
       @case ('SUCCESS') {
@@ -34,7 +37,7 @@
           <button app-button>Cerrar</button>
         </div>
       }
-      @case ('SERVER_ERROR') {
+      @case ('UNEXPECTED_ERROR') {
         <div class="content_completed">
           <div class="content_completed__icon content_completed__icon--error">
             <lucide-angular [img]="ERROR_ICON" size="40"></lucide-angular>
@@ -94,14 +97,13 @@
                 placeholder="ejem: 9 2312 4354"
               ></app-custom-input>
               <app-custom-input
-                (onSubmit)="submit()"
                 formControlName="emailAddress"
                 label="Correo Electronico"
                 placeholder="ejem: example@example.cl"
               ></app-custom-input>
             </div>
             <div class="actions">
-              <button (click)="basicForm.reset()">Limpiar</button>
+              <button type="button" (click)="basicForm.reset()">Limpiar</button>
               <button type="submit" class="next" [disabled]="basicForm.invalid" app-button>
                 Guardar
               </button>

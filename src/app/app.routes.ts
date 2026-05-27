@@ -1,5 +1,12 @@
 import { Routes } from '@angular/router';
-import { Login, Register, VerifyEmail, AuthenticationLayout, ResetPassword } from './nutritionist';
+import {
+  Login,
+  Register,
+  VerifyEmail,
+  AuthenticationLayout,
+  ResetPassword,
+  NutritionistClientService,
+} from './nutritionist';
 import {
   Appointments,
   Clients,
@@ -37,7 +44,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardLayout,
-    providers: [NutritionistPerformanceResumeService],
+    providers: [NutritionistPerformanceResumeService, NutritionistClientService],
     canActivate: [nutritionistOnlyGuard],
     children: [
       {

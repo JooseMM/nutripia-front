@@ -42,6 +42,8 @@ export { LoginResponseState } from './models/login-response-state.enum';
 export { RegistrationResponseState } from './models/registration-response-state.enum';
 export { UserRoles } from './models/role.models';
 export type { EmailAddress } from './models/resend-email-verification.dto';
+export { CreateClientResult, type CreateClientResultType } from './models/create-client.enum';
+export { type CreateClientPayload } from './models/create-client.model';
 
 /* Services */
 export { AuthenticationService } from './services/authentication-service';
@@ -62,4 +64,4 @@ export { Register } from './pages/register/register';
 export { VerifyEmail } from './pages/verify-email/verify-email';
 export { ResetPassword } from './pages/reset-password/reset-password';
 
-export { credentialsInterceptor } from './interceptors/auth.interceptor'
+export { credentialsInterceptor } from './interceptors/auth.interceptor';

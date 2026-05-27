@@ -14,7 +14,6 @@ import { ComponentPortal } from '@angular/cdk/portal';
   imports: [LucideAngularModule, ResumeClientCard, DetailedClientCard, Pagination, Button],
   templateUrl: './clients.html',
   styleUrl: './clients.css',
-  providers: [NutritionistClientService],
 })
 export class Clients implements OnInit {
   private readonly service = inject(NutritionistClientService);
@@ -63,7 +62,7 @@ export class Clients implements OnInit {
   }
 
   protected fetchList(page = 1): void {
-    this.service.fetchClientList(this.LOADING_KEY, this.paginationStatus().currentPage + page);
+    this.service.fetchClientList(this.paginationStatus().currentPage + page);
   }
 
   removeSelection(): void {
@@ -82,5 +81,6 @@ export class Clients implements OnInit {
     this.overlayRef.backdropClick().subscribe(() => this.overlayRef.detach());
 
     componentRef.instance.overlayRef = this.overlayRef;
+    componentRef.instance.clientManager = this.service;
   }
 }
