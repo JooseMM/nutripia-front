@@ -6,7 +6,7 @@
     [ngStyle]="customStyles()"
     (keydown.enter)="submit()"
     class="field__input"
-    [class.invalid]="isInvalid()"
+    [class.invalid]="invalid() && !focus()"
     [placeholder]="placeholder()"
     [value]="value"
     (input)="onInput($event)"
@@ -14,7 +14,8 @@
     (focus)="onFocus()"
     [value]="value"
   />
-  @if (isInvalid() && !focus()) {
+  @if (invalid() && !focus()) {
     <small>{{ errorMessage() }}</small>
   }
+  <small>{{ errorMessage() }}</small>
 </div>

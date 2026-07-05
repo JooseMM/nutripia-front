@@ -57,7 +57,6 @@ export class SendEmailCodeModal {
 
   protected submit(): void {
     if (this.emailControl.invalid) return;
-    console.log(this.usage);
 
     const payload: EmailAddress = {
       emailAddress: this.emailControl.value,

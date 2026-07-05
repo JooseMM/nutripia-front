@@ -33,6 +33,13 @@ input::placeholder {
 small {
   position: absolute;
   bottom: -0.8rem;
+  transform: translateY(40%);
   padding-left: 1rem;
   color: #cd5c5c;
+}
+
+@media (min-width: 420px) {
+  small {
+    transform: none;
+  }
 }

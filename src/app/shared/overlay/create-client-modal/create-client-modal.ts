@@ -1,9 +1,7 @@
 import { OverlayRef } from '@angular/cdk/overlay';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import {
-  CircleCheckBig,
   ClipboardCheck,
-  FileCheck,
   Flag,
   Info,
   LucideAngularModule,

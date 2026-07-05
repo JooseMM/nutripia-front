@@ -1,116 +1,110 @@
-<div class="container">
-  <div class="header">
-    <h3>Añadir cliente</h3>
-    <p>Complete el perfil para iniciar el seguimiento nutricional</p>
-    <button app-button [isSecondary]="true" (click)="close()">
-      <lucide-angular [img]="CLOSE_ICON" size="30"></lucide-angular>
-    </button>
+<div class="header">
+  <h3>Añadir cliente</h3>
+  <p>Complete el perfil para iniciar el seguimiento nutricional</p>
+  <button app-button [isSecondary]="true" (click)="close()">
+    <lucide-angular [img]="CLOSE_ICON" size="30"></lucide-angular>
+  </button>
+</div>
+@if (isLoading()) {
+  <div class="loading">
+    <app-loading-spinner [showLabel]="false" [key]="LOADING_KEY" [size]="80"></app-loading-spinner>
   </div>
-  @if (isLoading()) {
-    <div class="loading">
-      <app-loading-spinner
-        [showLabel]="false"
-        [key]="LOADING_KEY"
-        [size]="80"
-      ></app-loading-spinner>
+} @else {
+  <div class="progress">
+    <div [class.current]="currentStep() === 'BASIC'">
+      <lucide-angular [img]="BASIC_ICON" size="20"></lucide-angular>
     </div>
-  } @else {
-    <div class="progress">
-      <div [class.current]="currentStep() === 'BASIC'">
-        <lucide-angular [img]="BASIC_ICON" size="20"></lucide-angular>
-      </div>
-      <div [class.current]="currentStep() === 'SUCCESS' || currentStep() === 'UNEXPECTED_ERROR'">
-        <lucide-angular [img]="COMPLETED_ICON" size="20"></lucide-angular>
-      </div>
+    <div [class.current]="currentStep() === 'SUCCESS' || currentStep() === 'UNEXPECTED_ERROR'">
+      <lucide-angular [img]="COMPLETED_ICON" size="20"></lucide-angular>
     </div>
-    @switch (currentStep()) {
-      @case ('SUCCESS') {
-        <div class="content_completed">
-          <div class="content_completed__icon">
-            <lucide-angular [img]="COMPLETED_ICON" size="40"></lucide-angular>
-          </div>
-          <h3>¡Cliente creado exitosamente!</h3>
-          <p>
-            El perfil de <b>{{ 'Juan' }}</b> ha sido registrado. Ya puedes comenzar con su
-            seguimiento nutricional.
-          </p>
-          <button app-button>Cerrar</button>
+  </div>
+  @switch (currentStep()) {
+    @case ('SUCCESS') {
+      <div class="content_completed">
+        <div class="content_completed__icon">
+          <lucide-angular [img]="COMPLETED_ICON" size="40"></lucide-angular>
         </div>
-      }
-      @case ('UNEXPECTED_ERROR') {
-        <div class="content_completed">
-          <div class="content_completed__icon content_completed__icon--error">
-            <lucide-angular [img]="ERROR_ICON" size="40"></lucide-angular>
-          </div>
-          <h3>Hubo un problema al crear el cliente</h3>
-          <p>
-            No se pudo registrar el perfil en este momento. Por favor, verifica los datos e intenta
-            nuevamente.
-          </p>
-          <button app-button (click)="startAgain()">Intentar de nuevo</button>
+        <h3>¡Cliente creado exitosamente!</h3>
+        <p>
+          El perfil de <b>{{ 'Juan' }}</b> ha sido registrado. Ya puedes comenzar con su seguimiento
+          nutricional.
+        </p>
+        <button app-button>Cerrar</button>
+      </div>
+    }
+    @case ('UNEXPECTED_ERROR') {
+      <div class="content_completed">
+        <div class="content_completed__icon content_completed__icon--error">
+          <lucide-angular [img]="ERROR_ICON" size="40"></lucide-angular>
         </div>
-      }
-      @case ('BASIC') {
-        <div class="content_basic">
-          <div class="content_basic__header">
-            <div
-              class="content_basic__header__icon"
-              [style]="{ backgroundColor: BASIC_COLOR.background, color: BASIC_COLOR.color }"
-            >
-              <lucide-angular [img]="BASIC_ICON" size="18"></lucide-angular>
-            </div>
-            <h3>Información Basica</h3>
+        <h3>Hubo un problema al crear el cliente</h3>
+        <p>
+          No se pudo registrar el perfil en este momento. Por favor, verifica los datos e intenta
+          nuevamente.
+        </p>
+        <button app-button (click)="startAgain()">Intentar de nuevo</button>
+      </div>
+    }
+    @case ('BASIC') {
+      <div class="content_basic">
+        <div class="content_basic__header">
+          <div
+            class="content_basic__header__icon"
+            [style]="{ backgroundColor: BASIC_COLOR.background, color: BASIC_COLOR.color }"
+          >
+            <lucide-angular [img]="BASIC_ICON" size="18"></lucide-angular>
           </div>
-          <form [formGroup]="basicForm" (ngSubmit)="submit()">
-            <div class="two-columns">
-              <app-custom-input
-                (onSubmit)="submit()"
-                formControlName="firstname"
-                label="Nombre"
-                placeholder="Ingresar nombre"
-              ></app-custom-input>
-              <app-custom-input
-                (onSubmit)="submit()"
-                formControlName="lastname"
-                label="Apellido"
-                placeholder="Ingresar apellido"
-              ></app-custom-input>
-            </div>
-            <div class="two-columns">
-              <app-custom-select
-                formControlName="sex"
-                [options]="SEX_OPTIONS"
-                label="Sexo"
-              ></app-custom-select>
-              <app-custom-input
-                formControlName="birthDate"
-                label="Fecha de nacimiento"
-                type="date"
-                placeholder="ejem: 2000-01-01"
-              ></app-custom-input>
-            </div>
-            <div class="two-columns">
-              <app-custom-input
-                (onSubmit)="submit()"
-                formControlName="phone"
-                label="Teléfono"
-                placeholder="ejem: 9 2312 4354"
-              ></app-custom-input>
-              <app-custom-input
-                formControlName="emailAddress"
-                label="Correo Electronico"
-                placeholder="ejem: example@example.cl"
-              ></app-custom-input>
-            </div>
-            <div class="actions">
-              <button type="button" (click)="basicForm.reset()">Limpiar</button>
-              <button type="submit" class="next" [disabled]="basicForm.invalid" app-button>
-                Guardar
-              </button>
-            </div>
-          </form>
+          <h3>Información Basica</h3>
         </div>
-      }
+        <form [formGroup]="basicForm" (ngSubmit)="submit()">
+          <div class="column">
+            <app-custom-input
+              (onSubmit)="submit()"
+              formControlName="firstname"
+              label="Nombre"
+              placeholder="Ingresar nombre"
+            ></app-custom-input>
+            <app-custom-input
+              (onSubmit)="submit()"
+              formControlName="lastname"
+              label="Apellido"
+              placeholder="Ingresar apellido"
+            ></app-custom-input>
+          </div>
+          <div class="column">
+            <app-custom-select
+              formControlName="sex"
+              [options]="SEX_OPTIONS"
+              label="Sexo"
+            ></app-custom-select>
+            <app-custom-input
+              formControlName="birthDate"
+              label="Fecha de nacimiento"
+              type="date"
+              placeholder="ejem: 2000-01-01"
+            ></app-custom-input>
+          </div>
+          <div class="column">
+            <app-custom-input
+              (onSubmit)="submit()"
+              formControlName="phone"
+              label="Teléfono"
+              placeholder="ejem: 9 2312 4354"
+            ></app-custom-input>
+            <app-custom-input
+              formControlName="emailAddress"
+              label="Correo Electronico"
+              placeholder="ejem: example@example.cl"
+            ></app-custom-input>
+          </div>
+          <div class="actions">
+            <button type="button" (click)="basicForm.reset()">Limpiar</button>
+            <button type="submit" class="next" [disabled]="basicForm.invalid" app-button>
+              Guardar
+            </button>
+          </div>
+        </form>
+      </div>
     }
   }
-</div>
+}
